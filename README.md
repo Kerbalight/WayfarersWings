@@ -1,5 +1,7 @@
 # Wayfarer's Wings
 
+Give each Kerbal the fame it deserves and know who was the first to plant a flag on Mun or whatever else
+
 ## Description
 
 Have you ever wanted to know who is the first Kerbal to plant a flag on Mun?

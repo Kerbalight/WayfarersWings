@@ -1,5 +1,28 @@
 {
   "dependencies": {
+    "com.passivepicasso.thunderkit": {
+      "version": "https://github.com/PassivePicasso/ThunderKit.git#8.0.5",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.scriptablebuildpipeline": "1.16.1"
+      },
+      "hash": "f6043e135600469ab03d0920966152d2202e55ea"
+    },
+    "com.unity.addressables": {
+      "version": "1.21.18",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.scriptablebuildpipeline": "1.21.20",
+        "com.unity.modules.assetbundle": "1.0.0",
+        "com.unity.modules.imageconversion": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.modules.unitywebrequestassetbundle": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.editorcoroutines": {
       "version": "1.0.0",
       "depth": 1,
@@ -60,6 +83,13 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.scriptablebuildpipeline": {
+      "version": "1.21.20",
+      "depth": 2,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.settings-manager": {
       "version": "2.0.1",
       "depth": 2,
@@ -87,6 +117,21 @@
         "com.unity.settings-manager": "1.0.1"
       },
       "url": "https://packages.unity.com"
+    },
+    "ksp2_x64": {
+      "version": "file:KSP2_x64",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "ksp2community.ksp2unitytools": {
+      "version": "https://github.com/KSP2Community/KSP2UnityTools.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.addressables": "1.21.18"
+      },
+      "hash": "bc61e6a86a7003bbedb8ca4872a5376a7d2534b0"
     },
     "uitkforksp2.controls": {
       "version": "https://github.com/UitkForKsp2/UitkForKsp2.Controls.git",
@@ -340,4 +385,3 @@
     }
   }
 }
-

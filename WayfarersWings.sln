@@ -2,9 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WayfarersWings", "WayfarersWings\src\WayfarersWings\WayfarersWings.csproj", "{2E870A39-C053-414A-A3AC-97BE192E43DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WayfarersWings", "src\WayfarersWings\WayfarersWings.csproj", "{2E870A39-C053-414A-A3AC-97BE192E43DE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WayfarersWings.Unity", "WayfarersWings\src\WayfarersWings.Unity\WayfarersWings.Unity.csproj", "{738A8A38-49C0-410A-8E04-2C3AC253DAB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WayfarersWings.Unity", "src\WayfarersWings.Unity\WayfarersWings.Unity.csproj", "{738A8A38-49C0-410A-8E04-2C3AC253DAB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

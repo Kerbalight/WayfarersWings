@@ -638,7 +638,20 @@ PlayerSettings:
   webGLMemoryGeometricGrowthStep: 0.2
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    Android: TK_ADDRESSABLE
+    EmbeddedLinux: TK_ADDRESSABLE
+    GameCoreXboxOne: TK_ADDRESSABLE
+    Nintendo Switch: TK_ADDRESSABLE
+    PS4: TK_ADDRESSABLE
+    PS5: TK_ADDRESSABLE
+    QNX: TK_ADDRESSABLE
+    Stadia: TK_ADDRESSABLE
+    Standalone: TK_ADDRESSABLE
+    VisionOS: TK_ADDRESSABLE
+    WebGL: TK_ADDRESSABLE
+    XboxOne: TK_ADDRESSABLE
+    tvOS: TK_ADDRESSABLE
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}
@@ -757,4 +770,3 @@ PlayerSettings:
   platformRequiresReadableAssets: 0
   virtualTexturingSupportEnabled: 0
   insecureHttpOption: 0
-
