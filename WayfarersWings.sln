@@ -1,0 +1,40 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WayfarersWings", "WayfarersWings\src\WayfarersWings\WayfarersWings.csproj", "{2E870A39-C053-414A-A3AC-97BE192E43DE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WayfarersWings.Unity", "WayfarersWings\src\WayfarersWings.Unity\WayfarersWings.Unity.csproj", "{738A8A38-49C0-410A-8E04-2C3AC253DAB3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Deploy|Any CPU = Deploy|Any CPU
+		DeployAndRun|Any CPU = DeployAndRun|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E870A39-C053-414A-A3AC-97BE192E43DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E870A39-C053-414A-A3AC-97BE192E43DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E870A39-C053-414A-A3AC-97BE192E43DE}.Deploy|Any CPU.ActiveCfg = Deploy|Any CPU
+		{2E870A39-C053-414A-A3AC-97BE192E43DE}.Deploy|Any CPU.Build.0 = Deploy|Any CPU
+		{2E870A39-C053-414A-A3AC-97BE192E43DE}.DeployAndRun|Any CPU.ActiveCfg = DeployAndRun|Any CPU
+		{2E870A39-C053-414A-A3AC-97BE192E43DE}.DeployAndRun|Any CPU.Build.0 = DeployAndRun|Any CPU
+		{2E870A39-C053-414A-A3AC-97BE192E43DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E870A39-C053-414A-A3AC-97BE192E43DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{738A8A38-49C0-410A-8E04-2C3AC253DAB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{738A8A38-49C0-410A-8E04-2C3AC253DAB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{738A8A38-49C0-410A-8E04-2C3AC253DAB3}.Deploy|Any CPU.ActiveCfg = Deploy|Any CPU
+		{738A8A38-49C0-410A-8E04-2C3AC253DAB3}.Deploy|Any CPU.Build.0 = Deploy|Any CPU
+		{738A8A38-49C0-410A-8E04-2C3AC253DAB3}.DeployAndRun|Any CPU.ActiveCfg = DeployAndRun|Any CPU
+		{738A8A38-49C0-410A-8E04-2C3AC253DAB3}.DeployAndRun|Any CPU.Build.0 = DeployAndRun|Any CPU
+		{738A8A38-49C0-410A-8E04-2C3AC253DAB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{738A8A38-49C0-410A-8E04-2C3AC253DAB3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2ACC18CC-404D-437B-AE58-45C2BC299B4A}
+	EndGlobalSection
+EndGlobal
