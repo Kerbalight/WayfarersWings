@@ -1,0 +1,16 @@
+[
+  {
+    "name": "duna_soi",
+    "points": 1,
+    "image": "Assets/Wings/Duna/duna_soi.png",
+    "label": "Entered Duna Sphere of Influence",
+    "conditions": [
+      {
+        "type": "SphereOfInfluence",
+        "parameters": {
+          "celestialBody": "Duna"
+        }
+      }
+    ]
+  }
+]
