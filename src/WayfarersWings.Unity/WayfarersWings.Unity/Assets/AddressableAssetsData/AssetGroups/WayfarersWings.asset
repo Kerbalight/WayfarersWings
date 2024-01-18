@@ -18,40 +18,70 @@ MonoBehaviour:
   m_GUID: cb1a8e8d1a3a3c24ba346c5f775a03d0
   m_SerializeEntries:
   - m_GUID: bd020bdaa98624443934da303aeab56d
-    m_Address: Assets/Wings/Duna/duna_wings.json
+    m_Address: Assets/Wings/Duna/planet_wings.json
     m_ReadOnly: 0
     m_SerializedLabels:
     - wayfarer_wings_data
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e3bd3fb6075538141b0a49dce42c6d6e
-    m_Address: Assets/Wings/Duna/duna_first_orbit_capsule.png
+  - m_GUID: a8df5be22d0b9a043a1dfdbebc51c391
+    m_Address: Assets/UI/WingRibbon.uxml
     m_ReadOnly: 0
     m_SerializedLabels:
-    - wayfarer_wings_data
+    - wayfarer_wings_ui
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b308869089f5eee4899920baaff4ed28
-    m_Address: Assets/Wings/Duna/duna_first_flag.png
+  - m_GUID: 17b3a195ec6497541a7c24e3a09353d5
+    m_Address: Assets/UI/AchievementsWindow.uxml
     m_ReadOnly: 0
     m_SerializedLabels:
-    - wayfarer_wings_data
+    - wayfarer_wings_ui
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 36922fbd06e35ba449db839a375cc287
-    m_Address: Assets/Wings/Duna/duna_soi.png
+  - m_GUID: 8f86a98a35fea6949a9ac5af3fd14436
+    m_Address: Assets/UI/MyFirstWindow/MyFirstWindow.uxml
     m_ReadOnly: 0
     m_SerializedLabels:
-    - wayfarer_wings_data
+    - wayfarer_wings_ui
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bd0d1ef33c0eda546a0aa6a37c784e8e
-    m_Address: Assets/Wings/Duna/duna_first_orbit.png
+  - m_GUID: daa954bbe457ff546a5a1d12510407b3
+    m_Address: Assets/Wings/Planets/stock_planets.json
     m_ReadOnly: 0
     m_SerializedLabels:
-    - wayfarer_wings_data
+    - wayfarer_wings_planets
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: af8fe498f53fe24479986e97321d9a6b
-    m_Address: Assets/Wings/Duna/duna_first_eva_ground.png
+  - m_GUID: 4d64a5144acab604bb3a0abe453bcdc3
+    m_Address: Assets/Wings/Layers/eva.png
     m_ReadOnly: 0
     m_SerializedLabels:
-    - wayfarer_wings_data
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2a38daab5cd10d6418f9d27e834ae738
+    m_Address: Assets/Wings/Layers/first.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1cd2815dd29d3df498c0e0d0518c2495
+    m_Address: Assets/Wings/Layers/orbit.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1b9cd408cf7197f4ca627a21f5b8a621
+    m_Address: Assets/Wings/Layers/vessel.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e1913d5a01d8e164c9064f0d3ebd8a89
+    m_Address: Assets/Wings/Layers/duna.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 684f222eabe1b0f438387a07e4e99422
+    m_Address: Assets/Wings/Layers/kerbin.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 7acedfa7dee9c3b488422ff7becd6a57, type: 2}

@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: cb1a8e8d1a3a3c24ba346c5f775a03d0
   m_currentHash:
     serializedVersion: 2
-    Hash: 4e8f9d183eabae9c075cbc7d1e25e8dd
+    Hash: 4459087007a005e48e6b3ed9e5185498
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -91,6 +91,9 @@ MonoBehaviour:
     - default
     - parts_data
     - wayfarer_wings_data
+    - wayfarer_wings_ui
+    - wayfarer_wings_planets
+    - wayfarer_wings_images
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 0cc4fd6c95bebe241ab3134ef881cd6e, type: 2}
