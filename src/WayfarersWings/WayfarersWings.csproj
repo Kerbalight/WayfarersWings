@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
     <!-- References -->
+    <PropertyGroup>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
     <ItemGroup Label="NuGet package references">
         <!-- Add references to any NuGet packages you want to use in your mod here -->
         <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all"/>
@@ -8,6 +11,7 @@
         <PackageReference Include="BepInEx.Core" Version="5.*"/>
         <PackageReference Include="HarmonyX" Version="2.10.1"/>
         <PackageReference Include="KerbalSpaceProgram2.GameLibs" Version="0.2.0" PrivateAssets="all" Publicize="true"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
         <PackageReference Include="SpaceWarp" Version="1.8.0"/>
         <PackageReference Include="SpaceWarp.PluginInfoProps" Version="1.*"/>
         <PackageReference Include="UitkForKsp2" Version="2.4.0"/>

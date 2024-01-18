@@ -1,0 +1,88 @@
+{
+  "celestialBodies": [
+    {
+      "name": "Kerbin",
+      "code": "kerbin",
+      "imageLayer": "Assets/Wings/Planets/kerbin.png",
+      "points": 1
+    },
+    {
+      "name": "Mun",
+      "code": "mun",
+      "imageLayer": "Assets/Wings/Planets/mun.png",
+      "points": 1
+    },
+    {
+      "name": "Minmus",
+      "code": "minmus",
+      "imageLayer": "Assets/Wings/Planets/minmus.png",
+      "points": 1
+    },
+    {
+      "name": "Moho",
+      "code": "moho",
+      "imageLayer": "Assets/Wings/Planets/moho.png",
+      "points": 2
+    },
+    {
+      "name": "Eve",
+      "code": "eve",
+      "imageLayer": "Assets/Wings/Planets/eve.png",
+      "points": 2
+    },
+    {
+      "name": "Gilly",
+      "code": "gilly",
+      "imageLayer": "Assets/Wings/Planets/gilly.png",
+      "points": 1
+    },
+    {
+      "name": "Dres",
+      "code": "dres",
+      "imageLayer": "Assets/Wings/Planets/dres.png",
+      "points": 2
+    },
+    {
+      "name": "Duna",
+      "code": "duna",
+      "imageLayer": "Assets/Wings/Planets/duna.png",
+      "points": 2
+    },
+    {
+      "name": "Ike",
+      "code": "ike",
+      "imageLayer": "Assets/Wings/Planets/ike.png",
+      "points": 1
+    },
+    {
+      "name": "Jool",
+      "code": "jool",
+      "imageLayer": "Assets/Wings/Planets/jool.png",
+      "points": 3
+    },
+    {
+      "name": "Laythe",
+      "code": "laythe",
+      "imageLayer": "Assets/Wings/Planets/laythe.png",
+      "points": 2
+    },
+    {
+      "name": "Vall",
+      "code": "vall",
+      "imageLayer": "Assets/Wings/Planets/vall.png",
+      "points": 2
+    },
+    {
+      "name": "Tylo",
+      "code": "tylo",
+      "imageLayer": "Assets/Wings/Planets/tylo.png",
+      "points": 2
+    },
+    {
+      "name": "Bop",
+      "code": "bop",
+      "imageLayer": "Assets/Wings/Planets/bop.png",
+      "points": 1
+    }
+  ]
+}

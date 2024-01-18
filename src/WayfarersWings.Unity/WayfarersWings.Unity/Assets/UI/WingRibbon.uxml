@@ -1,0 +1,3 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="base" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 120px; height: 32px; background-image: url(&apos;project://database/Assets/Wings/Layers/duna.png?fileID=21300000&amp;guid=e1913d5a01d8e164c9064f0d3ebd8a89&amp;type=3#duna&apos;); max-height: 32px; min-height: 32px; max-width: 120px; min-width: 120px;" />
+</ui:UXML>

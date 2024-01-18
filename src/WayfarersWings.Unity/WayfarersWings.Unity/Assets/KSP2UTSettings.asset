@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: KSP2UTSettings
   m_EditorClassIdentifier: 
   ignoredFiles: []
-  savedBuildPath: C:/KSP2Modding/repos/WayfarersWings
+  savedBuildPath: C:/KSP2Modding/repos/WayfarersWings/plugin_template
   savedBuildMode: Copy Assets Only
   savedModAddressablesPath: 
   savedKsp2Path: 

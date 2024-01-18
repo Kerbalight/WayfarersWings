@@ -3,12 +3,15 @@ using BepInEx;
 using JetBrains.Annotations;
 using SpaceWarp;
 using SpaceWarp.API.Assets;
+using SpaceWarp.API.Loading;
 using SpaceWarp.API.Mods;
 using SpaceWarp.API.UI.Appbar;
 using WayfarersWings.UI;
 using UitkForKsp2.API;
 using UnityEngine;
 using UnityEngine.UIElements;
+using WayfarersWings.Managers;
+using WayfarersWings.Utility;
 
 namespace WayfarersWings;
 
@@ -22,12 +25,37 @@ public class WayfarersWingsPlugin : BaseSpaceWarpPlugin
     [PublicAPI] public const string ModVer = MyPluginInfo.PLUGIN_VERSION;
 
     /// Singleton instance of the plugin class
-    [PublicAPI] public static WayfarersWingsPlugin Instance { get; set; }
+    [PublicAPI]
+    public static WayfarersWingsPlugin Instance { get; set; }
 
     // AppBar button IDs
     internal const string ToolbarFlightButtonID = "BTN-WayfarersWingsFlight";
     internal const string ToolbarOabButtonID = "BTN-WayfarersWingsOAB";
     internal const string ToolbarKscButtonID = "BTN-WayfarersWingsKSC";
+
+    private void Awake()
+    {
+        Logger.LogDebug($"Registering 'ImportAddressableWingsPlanets' as a loading action.");
+        Loading.AddAddressablesLoadingAction<TextAsset>(
+            "Loading Wings planets configurations",
+            Constants.WingsPlanetsAddressableLabel,
+            Core.Instance.ImportPlanetsConfig
+        );
+
+        Logger.LogDebug($"Registering 'ImportAddressableWingsData' as a loading action.");
+        Loading.AddAddressablesLoadingAction<TextAsset>(
+            "Loading Wings data configurations",
+            Constants.WingsDataAddressableLabel,
+            Core.Instance.ImportWingsConfig
+        );
+
+        // Logger.LogDebug($"Registering 'ImportAddressableWingsImages' as a loading action.");
+        // Loading.AddAddressablesLoadingAction<TextAsset>(
+        //     "Loading Wings data images",
+        //     Constants.WingsDataAddressableLabel,
+        //     ImportAddressablePlumes
+        // );
+    }
 
     /// <summary>
     /// Runs when the mod is first initialized.

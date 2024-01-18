@@ -1,0 +1,50 @@
+{
+  "templates": {
+    "name": "soi",
+    "celestialBody": {
+      "requires": []
+    },
+    "hasFirst": {
+      "description": "First to enter the Sphere of Influence of {0}",
+      "imageLayer": "Assets/Wings/Layers/first.png"
+    },
+    "template": {
+      "name": "soi",
+      "displayName": "{0} SoI",
+      "imageLayers": [
+        "Assets/Wings/Layers/soi.png"
+      ],
+      "description": "Entered the Sphere of Influence of {0}",
+      "triggers": [
+        {"eventName": "SOIEntered"}
+      ],
+      "conditions": [
+        {
+          "type": "SphereOfInfluence",
+          "celestialBody": null
+        }
+      ]
+    }
+  },
+  "wings": [
+    {
+      "name": "duna_soi",
+      "displayName": "Duna SoI",
+      "points": 1,
+      "imageLayers": [
+        "Assets/Wings/Planets/duna.png",
+        "Assets/Wings/Layers/soi.png"
+      ],
+      "description": "You have entered Duna's Sphere of Influence",
+      "triggers": [
+        {"eventName": "SOIEntered"}
+      ],
+      "conditions": [
+        {
+          "type": "SphereOfInfluence",
+          "celestialBody": "Duna"
+        }
+      ]
+    }
+  ]
+}
