@@ -5,7 +5,7 @@
             <ui:Label tabindex="-1" text="Achievements" display-tooltip-when-elided="true" name="title" />
             <ui:Button text="x" display-tooltip-when-elided="true" enable-rich-text="false" name="close-button" />
         </ui:VisualElement>
+        <ui:Button text="Debug" display-tooltip-when-elided="true" name="debug-button" />
         <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="content" />
     </ui:VisualElement>
-    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
 </ui:UXML>

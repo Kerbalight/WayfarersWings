@@ -14,12 +14,27 @@ public class WingsPool
     private static ManualLogSource _logger = BepInEx.Logging.Logger.CreateLogSource("WingsPool");
     public List<Wing> Wings { get; set; } = [];
 
+    private List<WingsConfig> _wingsConfigs = [];
+
     /// <summary>
     /// Maps a trigger type (event) to a list of wings that are triggered by that type.
     /// </summary>
     public Dictionary<Type, List<Wing>> TriggersMap { get; set; } = [];
 
-    public void ImportConfig(WingsConfig wingsConfig)
+    public void RegisterConfig(WingsConfig wingsConfig)
+    {
+        _wingsConfigs.Add(wingsConfig);
+    }
+
+    public void LoadRegisteredConfigs()
+    {
+        foreach (var wingsConfig in _wingsConfigs)
+        {
+            LoadRegisteredConfig(wingsConfig);
+        }
+    }
+
+    private void LoadRegisteredConfig(WingsConfig wingsConfig)
     {
         foreach (var templateConfig in wingsConfig.templates)
         {

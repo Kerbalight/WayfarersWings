@@ -10,6 +10,7 @@ using WayfarersWings.UI;
 using UitkForKsp2.API;
 using UnityEngine;
 using UnityEngine.UIElements;
+using WayfarersWings.Extensions;
 using WayfarersWings.Managers;
 using WayfarersWings.Utility;
 
@@ -49,12 +50,12 @@ public class WayfarersWingsPlugin : BaseSpaceWarpPlugin
             Core.Instance.ImportWingsConfig
         );
 
-        // Logger.LogDebug($"Registering 'ImportAddressableWingsImages' as a loading action.");
-        // Loading.AddAddressablesLoadingAction<TextAsset>(
-        //     "Loading Wings data images",
-        //     Constants.WingsDataAddressableLabel,
-        //     ImportAddressablePlumes
-        // );
+        Logger.LogDebug($"Registering 'ImportVisualTreeAsset' as a loading action.");
+        SpaceWarpExtensions.AddUIAddressablesLoadingAction<VisualTreeAsset>(
+            "Loading Wings UI",
+            Constants.WingsUIAddressableLabel,
+            MainUIManager.Instance.ImportVisualTreeAsset
+        );
     }
 
     /// <summary>
@@ -69,49 +70,15 @@ public class WayfarersWingsPlugin : BaseSpaceWarpPlugin
         // Load all the other assemblies used by this mod
         LoadAssemblies();
 
-        // Load the UI from the asset bundle
-        var myFirstWindowUxml = AssetManager.GetAsset<VisualTreeAsset>(
-            // The case-insensitive path to the asset in the bundle is composed of:
-            // - The mod GUID:
-            $"{ModGuid}/" +
-            // - The name of the asset bundle:
-            "WayfarersWings_ui/" +
-            // - The path to the asset in your Unity project (without the "Assets/" part)
-            "ui/myfirstwindow/myfirstwindow.uxml"
-        );
-
-        // Create the window options object
-        var windowOptions = new WindowOptions
-        {
-            // The ID of the window. It should be unique to your mod.
-            WindowId = "WayfarersWings_MyFirstWindow",
-            // The transform of parent game object of the window.
-            // If null, it will be created under the main canvas.
-            Parent = null,
-            // Whether or not the window can be hidden with F2.
-            IsHidingEnabled = true,
-            // Whether to disable game input when typing into text fields.
-            DisableGameInputForTextFields = true,
-            MoveOptions = new MoveOptions
-            {
-                // Whether or not the window can be moved by dragging.
-                IsMovingEnabled = true,
-                // Whether or not the window can only be moved within the screen bounds.
-                CheckScreenBounds = true
-            }
-        };
-
-        // Create the window
-        var myFirstWindow = Window.Create(windowOptions, myFirstWindowUxml);
-        // Add a controller for the UI to the window's game object
-        var myFirstWindowController = myFirstWindow.gameObject.AddComponent<MyFirstWindowController>();
+        // Load UI
+        MainUIManager.Instance.Initialize();
 
         // Register Flight AppBar button
         Appbar.RegisterAppButton(
             ModName,
             ToolbarFlightButtonID,
             AssetManager.GetAsset<Texture2D>($"{ModGuid}/images/icon.png"),
-            isOpen => myFirstWindowController.IsWindowOpen = isOpen
+            isOpen => MainUIManager.Instance.AppWindow.IsWindowOpen = isOpen
         );
 
         // Register OAB AppBar Button
@@ -119,7 +86,7 @@ public class WayfarersWingsPlugin : BaseSpaceWarpPlugin
             ModName,
             ToolbarOabButtonID,
             AssetManager.GetAsset<Texture2D>($"{ModGuid}/images/icon.png"),
-            isOpen => myFirstWindowController.IsWindowOpen = isOpen
+            isOpen => MainUIManager.Instance.AppWindow.IsWindowOpen = isOpen
         );
 
         // Register KSC AppBar Button
@@ -127,8 +94,11 @@ public class WayfarersWingsPlugin : BaseSpaceWarpPlugin
             ModName,
             ToolbarKscButtonID,
             AssetManager.GetAsset<Texture2D>($"{ModGuid}/images/icon.png"),
-            () => myFirstWindowController.IsWindowOpen = !myFirstWindowController.IsWindowOpen
+            () => MainUIManager.Instance.AppWindow.IsWindowOpen = !MainUIManager.Instance.AppWindow.IsWindowOpen
         );
+
+        // Messages subscribe
+        MessageListener.Instance.SubscribeToMessages();
     }
 
     /// <summary>

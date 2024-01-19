@@ -13,6 +13,12 @@ public class SphereOfInfluenceCondition : CelestialBodyCondition
             return transaction.Vessel?.mainBody?.Equals(CelestialBody) ?? false;
         }
 
+        if (message.bodyEntered.isHomeWorld && message.bodyExited.isHomeWorld)
+        {
+            //TODO DOuble check bodyExited, is it null?
+            return false;
+        }
+
         return message.bodyEntered.Equals(CelestialBody) && !message.bodyExited.Equals(CelestialBody);
     }
 }

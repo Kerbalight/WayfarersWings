@@ -5,3 +5,32 @@ VisualElement {
     width: 800px;
     height: 400px;
 }
+
+.ribbon-layer {
+    position: absolute;
+    width: 120px;
+    height: 32px;
+    max-width: 120px;
+    max-height: 32px;
+    min-width: 120px;
+    min-height: 32px;
+}
+
+#content .unity-scroll-view__content-container {
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+#ribbon-container {
+    width: 120px;
+    height: 32px;
+    max-width: 120px;
+    max-height: 32px;
+    min-width: 120px;
+    min-height: 32px;
+    flex-shrink: 0;
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}

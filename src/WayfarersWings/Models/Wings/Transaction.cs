@@ -1,5 +1,7 @@
-﻿using KSP.Messages;
+﻿using KSP.Game;
+using KSP.Messages;
 using KSP.Sim.impl;
+using UnityEngine;
 
 namespace WayfarersWings.Models.Wings;
 
@@ -16,5 +18,17 @@ public class Transaction
         SimulationObject = vessel?.SimulationObject;
         Message = message;
         Vessel = vessel;
+    }
+
+    public List<KerbalInfo> GetKerbals()
+    {
+        var vesselID = VesselID;
+        if (vesselID == null)
+        {
+            Debug.LogError("VesselID is null");
+            return [];
+        }
+
+        return GameManager.Instance.Game.SessionManager.KerbalRosterManager.GetAllKerbalsInVessel(vesselID.Value);
     }
 }

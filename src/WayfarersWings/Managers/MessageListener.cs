@@ -27,10 +27,13 @@ public class MessageListener
         // MessageCenter.PersistentSubscribe<VesselScienceSituationChangedMessage>(OnVesselScienceSituationChangedMessage);
         // MessageCenter.PersistentSubscribe<GameStateChangedMessage>(HideWindowOnInvalidState);
         // MessageCenter.PersistentSubscribe<TechTierUnlockedMessage>(OnTechTierUnlockedMessage);
+
+        Core.Instance.EventsRegistry.SetupListeners();
     }
 
     private void OnGameLoadFinishedMessage(MessageCenterMessage message)
     {
+        Core.Instance.WingsPool.LoadRegisteredConfigs();
     }
 
     private void OnSOIEnteredMessage(MessageCenterMessage message)

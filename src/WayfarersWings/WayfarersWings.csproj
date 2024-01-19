@@ -21,5 +21,8 @@
         <!-- Add references to any other projects in your solution that you want to use in your mod here -->
         <ProjectReference Include="..\WayfarersWings.Unity\WayfarersWings.Unity.csproj" Private="false"/>
     </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Patches\Simulation\"/>
+    </ItemGroup>
 </Project>
 

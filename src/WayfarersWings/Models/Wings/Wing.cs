@@ -14,7 +14,7 @@ public class Wing
         Config = config;
         foreach (var conditionConfig in Config.conditions)
         {
-            var conditionType = Type.GetType($"WayfarersWings.Models.Conditions.{conditionConfig.type}");
+            var conditionType = Type.GetType($"WayfarersWings.Models.Conditions.{conditionConfig.type}Condition");
             if (conditionType == null)
             {
                 throw new InvalidOperationException($"Could not find condition type '{conditionConfig.type}'");
@@ -26,12 +26,14 @@ public class Wing
         }
     }
 
-    public void Check(Transaction transaction)
+    public bool Check(Transaction transaction)
     {
         foreach (var condition in _conditions)
         {
-            if (!condition.IsValid(transaction)) return;
+            if (!condition.IsValid(transaction)) return false;
         }
+
+        return true;
         // TODO: Add wing to vessel
     }
 }

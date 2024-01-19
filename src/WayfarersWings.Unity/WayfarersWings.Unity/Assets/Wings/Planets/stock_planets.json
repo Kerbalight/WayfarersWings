@@ -3,85 +3,85 @@
     {
       "name": "Kerbin",
       "code": "kerbin",
-      "imageLayer": "Assets/Wings/Planets/kerbin.png",
+      "imageLayer": "Assets/Wings/Layers/kerbin.png",
       "points": 1
     },
     {
       "name": "Mun",
       "code": "mun",
-      "imageLayer": "Assets/Wings/Planets/mun.png",
+      "imageLayer": "Assets/Wings/Layers/mun.png",
       "points": 1
     },
     {
       "name": "Minmus",
       "code": "minmus",
-      "imageLayer": "Assets/Wings/Planets/minmus.png",
+      "imageLayer": "Assets/Wings/Layers/minmus.png",
       "points": 1
     },
     {
       "name": "Moho",
       "code": "moho",
-      "imageLayer": "Assets/Wings/Planets/moho.png",
+      "imageLayer": "Assets/Wings/Layers/moho.png",
       "points": 2
     },
     {
       "name": "Eve",
       "code": "eve",
-      "imageLayer": "Assets/Wings/Planets/eve.png",
+      "imageLayer": "Assets/Wings/Layers/eve.png",
       "points": 2
     },
     {
       "name": "Gilly",
       "code": "gilly",
-      "imageLayer": "Assets/Wings/Planets/gilly.png",
+      "imageLayer": "Assets/Wings/Layers/gilly.png",
       "points": 1
     },
     {
       "name": "Dres",
       "code": "dres",
-      "imageLayer": "Assets/Wings/Planets/dres.png",
+      "imageLayer": "Assets/Wings/Layers/dres.png",
       "points": 2
     },
     {
       "name": "Duna",
       "code": "duna",
-      "imageLayer": "Assets/Wings/Planets/duna.png",
+      "imageLayer": "Assets/Wings/Layers/duna.png",
       "points": 2
     },
     {
       "name": "Ike",
       "code": "ike",
-      "imageLayer": "Assets/Wings/Planets/ike.png",
+      "imageLayer": "Assets/Wings/Layers/ike.png",
       "points": 1
     },
     {
       "name": "Jool",
       "code": "jool",
-      "imageLayer": "Assets/Wings/Planets/jool.png",
+      "imageLayer": "Assets/Wings/Layers/jool.png",
       "points": 3
     },
     {
       "name": "Laythe",
       "code": "laythe",
-      "imageLayer": "Assets/Wings/Planets/laythe.png",
+      "imageLayer": "Assets/Wings/Layers/laythe.png",
       "points": 2
     },
     {
       "name": "Vall",
       "code": "vall",
-      "imageLayer": "Assets/Wings/Planets/vall.png",
+      "imageLayer": "Assets/Wings/Layers/vall.png",
       "points": 2
     },
     {
       "name": "Tylo",
       "code": "tylo",
-      "imageLayer": "Assets/Wings/Planets/tylo.png",
+      "imageLayer": "Assets/Wings/Layers/tylo.png",
       "points": 2
     },
     {
       "name": "Bop",
       "code": "bop",
-      "imageLayer": "Assets/Wings/Planets/bop.png",
+      "imageLayer": "Assets/Wings/Layers/bop.png",
       "points": 1
     }
   ]

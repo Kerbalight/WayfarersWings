@@ -19,11 +19,11 @@ public class CelestialBodyCondition : BaseCondition
     {
         if (config.Data.TryGetValue("celestialBody", out var bodyNameToken))
         {
-            if (!bodyNameToken.TryDeserializeStringOrNull(out var bodyName))
+            var bodyName = bodyNameToken.ToObject<string>();
+            if (string.IsNullOrEmpty(bodyName))
                 throw new InvalidCastException("celestialBody must be a string");
 
-            if (!string.IsNullOrEmpty(bodyName))
-                CelestialBody = GameManager.Instance.Game.UniverseModel.FindCelestialBodyByName(bodyName);
+            CelestialBody = GameManager.Instance.Game.UniverseModel.FindCelestialBodyByName(bodyName);
         }
     }
 }

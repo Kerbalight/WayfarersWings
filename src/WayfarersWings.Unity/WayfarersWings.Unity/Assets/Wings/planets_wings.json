@@ -1,34 +1,96 @@
 {
-  "templates": {
-    "name": "soi",
-    "celestialBody": {
-      "requires": []
-    },
-    "hasFirst": {
-      "description": "First to enter the Sphere of Influence of {0}",
-      "imageLayer": "Assets/Wings/Layers/first.png"
-    },
-    "template": {
+  "templates": [
+    {
       "name": "soi",
-      "displayName": "{0} SoI",
-      "imageLayers": [
-        "Assets/Wings/Layers/soi.png"
-      ],
-      "description": "Entered the Sphere of Influence of {0}",
-      "triggers": [
-        {"eventName": "SOIEntered"}
-      ],
-      "conditions": [
-        {
-          "type": "SphereOfInfluence",
-          "celestialBody": null
-        }
-      ]
+      "celestialBody": {
+        "requires": []
+      },
+      "template": {
+        "name": "soi",
+        "displayName": "{0} SoI",
+        "imageLayers": [],
+        "description": "Entered the Sphere of Influence of {0}",
+        "triggers": [
+          {"eventName": "SOIEnteredMessage"}
+        ],
+        "conditions": [
+          {
+            "type": "SphereOfInfluence",
+            "celestialBody": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "orbit",
+      "celestialBody": {
+        "requires": []
+      },
+      "hasFirst": {
+        "description": "First to enter in a stable orbit around {0}",
+        "imageLayer": "Assets/Wings/Layers/first.png"
+      },
+      "template": {
+        "name": "orbit",
+        "displayName": "{0} Stable Orbit",
+        "imageLayers": [
+          "Assets/Wings/Layers/orbit.png"
+        ],
+        "description": "Entered in a stable orbit around {0}",
+        "triggers": [
+          {"eventName": "StableOrbitCreatedMessage"}
+        ],
+        "conditions": [
+          {
+            "type": "SphereOfInfluence",
+            "celestialBody": null
+          },
+          {
+            "type": "Orbit",
+            "isStable": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "eva_orbit",
+      "celestialBody": {
+        "requires": []
+      },
+      "hasFirst": {
+        "description": "First to execute EVA in orbit around {0}",
+        "imageLayer": "Assets/Wings/Layers/first.png"
+      },
+      "template": {
+        "name": "eva_orbit",
+        "displayName": "{0} EVA in stable Orbit",
+        "imageLayers": [
+          "Assets/Wings/Layers/vessel.png",
+          "Assets/Wings/Layers/eva.png"
+        ],
+        "description": "Execute EVA in orbit around {0}",
+        "triggers": [
+          {"eventName": "EVAEnteredMessage"}
+        ],
+        "conditions": [
+          {
+            "type": "SphereOfInfluence",
+            "celestialBody": null
+          },
+          {
+            "type": "Orbit",
+            "isStable": true
+          },
+          {
+            "type": "Eva"
+          }
+        ]
+      }
     }
-  },
+  ],
   "wings": [
     {
-      "name": "duna_soi",
+      "name": "duna_soi_bis",
       "displayName": "Duna SoI",
       "points": 1,
       "imageLayers": [
@@ -37,7 +99,7 @@
       ],
       "description": "You have entered Duna's Sphere of Influence",
       "triggers": [
-        {"eventName": "SOIEntered"}
+        {"eventName": "SOIEnteredMessage"}
       ],
       "conditions": [
         {

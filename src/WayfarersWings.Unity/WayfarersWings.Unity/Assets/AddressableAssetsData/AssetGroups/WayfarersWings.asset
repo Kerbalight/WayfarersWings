@@ -30,7 +30,7 @@ MonoBehaviour:
     - wayfarer_wings_ui
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 17b3a195ec6497541a7c24e3a09353d5
-    m_Address: Assets/UI/AchievementsWindow.uxml
+    m_Address: Assets/UI/WingsAppWindow.uxml
     m_ReadOnly: 0
     m_SerializedLabels:
     - wayfarer_wings_ui
@@ -79,6 +79,72 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 684f222eabe1b0f438387a07e4e99422
     m_Address: Assets/Wings/Layers/kerbin.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8f4c6dd62dacf9049b0e34ae577f6305
+    m_Address: Assets/Wings/Layers/eve.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d7980df8298184645bc567b22ee85553
+    m_Address: Assets/Wings/Layers/mun.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f1c391ca227e23944bb195722f731eca
+    m_Address: Assets/Wings/Layers/gilly.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 78aebcd75f6f2894fba3ae4af44060b1
+    m_Address: Assets/Wings/Layers/ike.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bac6fc2e6c94c334aab335e0018ed386
+    m_Address: Assets/Wings/Layers/minmus.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8d1a02881f0a7564fa7df922aa78f4c6
+    m_Address: Assets/Wings/Layers/jool.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f65beef600dde5043b6c5e609f2a59b1
+    m_Address: Assets/Wings/Layers/eeloo.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0d4039d4cbae7ea4bb0b08929fb69e45
+    m_Address: Assets/Wings/Layers/dres.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ff1591f457d970243b2b5fc517160ab5
+    m_Address: Assets/Wings/Layers/atmosphere.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b78652243b492324ea39af6d7a270ffc
+    m_Address: Assets/Wings/Layers/landed.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 25b42cc1539704a46b15c128d6570393
+    m_Address: Assets/Wings/Layers/flag.png
     m_ReadOnly: 0
     m_SerializedLabels:
     - wayfarer_wings_images
