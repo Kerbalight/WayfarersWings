@@ -1,10 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using WayfarersWings.Models.Conditions;
-using WayfarersWings.Models.Configs.Conditions;
-using WayfarersWings.Models.Configs.Conditions.Attributes;
 
-namespace WayfarersWings.Models.Conditions;
+namespace WayfarersWings.Models.Conditions.Json;
 
 public class BaseConditionJsonConverter : JsonConverter
 {

@@ -1,4 +1,4 @@
-﻿namespace WayfarersWings.Models.Configs.Conditions.Attributes;
+﻿namespace WayfarersWings.Models.Conditions.Json;
 
 /// <summary>
 /// An attribute that can be used to associate a condition type with a discriminator.

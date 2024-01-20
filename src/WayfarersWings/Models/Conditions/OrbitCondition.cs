@@ -1,7 +1,6 @@
 ﻿using JetBrains.Annotations;
 using KSP.Messages;
-using WayfarersWings.Models.Configs;
-using WayfarersWings.Models.Configs.Conditions;
+using WayfarersWings.Models.Conditions.Events;
 using WayfarersWings.Models.Wings;
 
 namespace WayfarersWings.Models.Conditions;
@@ -10,7 +9,7 @@ namespace WayfarersWings.Models.Conditions;
 /// Check the vessel's orbit parameters
 /// </summary>
 [Serializable]
-[UsedImplicitly]
+[ConditionTriggerEvent(typeof(StableOrbitCreatedMessage))]
 public class OrbitCondition : BaseCondition
 {
     /// Check if the vessel is in a stable orbit
@@ -25,11 +24,16 @@ public class OrbitCondition : BaseCondition
     public override bool IsValid(Transaction transaction)
     {
         // if (transaction.Message is not StableOrbitCreatedMessage message) ;
-        if (isStable == true && !(transaction.Vessel?.Orbiter?.isStable ?? false))
+        if (isStable == true && !(transaction.Vessel?.IsStableOrbit ?? false))
             return false;
         if (maxEccentricity != null && transaction.Vessel?.Orbit.eccentricity > maxEccentricity)
             return false;
         if (minEccentricity != null && transaction.Vessel?.Orbit.eccentricity < minEccentricity)
+            return false;
+
+        // Avoid triggering on orbits that are too low
+        if (transaction.Vessel?.AltitudeFromTerrain < 100 || transaction.Vessel?.Splashed == true ||
+            transaction.Vessel?.Landed == true)
             return false;
 
         return true;

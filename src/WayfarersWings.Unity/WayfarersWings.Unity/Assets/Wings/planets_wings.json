@@ -71,7 +71,8 @@
         ],
         "description": "Execute EVA in orbit around {0}",
         "triggers": [
-          {"eventName": "EVAEnteredMessage"}
+          {"eventName": "EVAEnteredMessage"},
+          {"eventName": "StableOrbitCreatedMessage"}
         ],
         "conditions": [
           {
@@ -83,7 +84,8 @@
             "isStable": true
           },
           {
-            "type": "Eva"
+            "type": "Kerbal",
+            "isEva": true
           }
         ]
       }
@@ -113,7 +115,8 @@
             "celestialBody": null
           },
           {
-            "type": "Eva"
+            "type": "Kerbal",
+            "isEva": true
           }
         ]
       }
@@ -144,6 +147,44 @@
           },
           {
             "type": "Vessel",
+            "situation": "Landed"
+          }
+        ]
+      }
+    },
+    {
+      "name": "eva_ground",
+      "celestialBody": {
+        "requires": []
+      },
+      "hasFirst": {
+        "description": "First to walk on {0} ground",
+        "imageLayer": "Assets/Wings/Layers/first.png"
+      },
+      "template": {
+        "name": "eva_space",
+        "displayName": "{0} EVA in space",
+        "imageLayers": [
+          "Assets/Wings/Layers/eva.png",
+          "Assets/Wings/Layers/landed.png"
+        ],
+        "description": "Walk on {0} ground",
+        "triggers": [
+          {"eventName": "EVAEnteredMessage"},
+          {"eventName": "VesselSituationChangedMessage"}
+        ],
+        "conditions": [
+          {
+            "type": "SphereOfInfluence",
+            "celestialBody": null
+          },
+          {
+            "type": "Kerbal",
+            "isEva": true
+          },
+          {
+            "type": "Vessel",
+            "isEva": true,
             "situation": "Landed"
           }
         ]

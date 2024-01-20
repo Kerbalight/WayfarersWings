@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using WayfarersWings.Models.Conditions;
+using WayfarersWings.Models.Conditions.Json;
 using WayfarersWings.Models.Configs.Template;
 using ErrorEventArgs = Newtonsoft.Json.Serialization.ErrorEventArgs;
 

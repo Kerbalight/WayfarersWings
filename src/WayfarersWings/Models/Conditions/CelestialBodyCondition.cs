@@ -1,9 +1,7 @@
 ﻿using KSP.Game;
+using KSP.Messages;
 using KSP.Sim.impl;
 using Newtonsoft.Json;
-using WayfarersWings.Extensions;
-using WayfarersWings.Models.Configs;
-using WayfarersWings.Models.Configs.Conditions;
 using WayfarersWings.Models.Wings;
 
 namespace WayfarersWings.Models.Conditions;

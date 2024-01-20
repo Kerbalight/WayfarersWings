@@ -1,11 +1,13 @@
 ﻿using JetBrains.Annotations;
 using KSP.Messages;
 using KSP.Sim.impl;
+using WayfarersWings.Models.Conditions.Events;
 using WayfarersWings.Models.Wings;
 
 namespace WayfarersWings.Models.Conditions;
 
-[UsedImplicitly]
+[Serializable]
+[ConditionTriggerEvent(typeof(SOIEnteredMessage))]
 public class SphereOfInfluenceCondition : CelestialBodyCondition
 {
     public override bool IsValid(Transaction transaction)

@@ -1,8 +1,4 @@
-﻿using KSP.Sim.impl;
-using Newtonsoft.Json;
-using WayfarersWings.Models.Configs;
-using WayfarersWings.Models.Configs.Conditions;
-using WayfarersWings.Models.Configs.Conditions.Attributes;
+﻿using WayfarersWings.Models.Conditions.Json;
 using WayfarersWings.Models.Wings;
 
 namespace WayfarersWings.Models.Conditions;
@@ -10,7 +6,7 @@ namespace WayfarersWings.Models.Conditions;
 [Serializable]
 [ConditionType("Vessel", typeof(VesselCondition))]
 [ConditionType("Orbit", typeof(OrbitCondition))]
-[ConditionType("Eva", typeof(EvaCondition))]
+[ConditionType("Kerbal", typeof(KerbalCondition))]
 [ConditionType("SphereOfInfluence", typeof(SphereOfInfluenceCondition))]
 public abstract class BaseCondition
 {

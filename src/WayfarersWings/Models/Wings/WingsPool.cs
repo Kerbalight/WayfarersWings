@@ -112,6 +112,16 @@ public class WingsPool
 
             TriggersMap[trigger.eventType].Add(wing);
         }
+
+        foreach (var trigger in wingConfig.GetConditionsTriggerTypes())
+        {
+            if (!TriggersMap.ContainsKey(trigger))
+            {
+                TriggersMap[trigger] = [];
+            }
+
+            TriggersMap[trigger].Add(wing);
+        }
     }
 
     public static string GetNotFirstWingName(Wing wing)

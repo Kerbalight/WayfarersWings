@@ -37,4 +37,19 @@ public class WingConfig
     public List<TriggerEvent> triggers = [];
 
     public List<BaseCondition> conditions = [];
+
+    public IEnumerable<Type> GetConditionsTriggerTypes()
+    {
+        var types = new List<Type>();
+        foreach (var condition in conditions)
+        {
+            var attributes = condition.GetType().GetCustomAttributes(typeof(ConditionTriggerEventAttribute), true);
+            foreach (var attribute in attributes)
+            {
+                types.Add(((ConditionTriggerEventAttribute)attribute).TriggerEventType);
+            }
+        }
+
+        return types;
+    }
 }
