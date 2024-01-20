@@ -5,7 +5,7 @@ using System;
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
 public class ConditionTriggerEventAttribute : Attribute
 {
-    public Type TriggerEventType;
+    public readonly Type TriggerEventType;
 
     public ConditionTriggerEventAttribute(Type triggerEventType)
     {

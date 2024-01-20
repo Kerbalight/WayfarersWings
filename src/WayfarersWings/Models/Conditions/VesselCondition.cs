@@ -31,10 +31,19 @@ public class VesselCondition : BaseCondition
 
         if (situation != null && transaction.Vessel?.Situation != situation)
             return false;
-        if (situation == VesselSituations.Landed && transaction.Vessel.AltitudeFromTerrain > 100)
+        if (RequiresLandedOrSplashed() && (transaction.Vessel.AltitudeFromTerrain > 100))
+            return false;
+        if (situation == VesselSituations.Landed && !transaction.Vessel._hasLandedAtRestFired)
+            return false;
+        if (situation == VesselSituations.Splashed && !transaction.Vessel._hasSplashedAtRestFired)
             return false;
 
         return true;
+    }
+
+    public bool RequiresLandedOrSplashed()
+    {
+        return situation is VesselSituations.Landed or VesselSituations.Splashed;
     }
 
     public override void Configure()

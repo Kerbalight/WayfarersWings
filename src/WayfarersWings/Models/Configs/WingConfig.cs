@@ -16,15 +16,15 @@ public enum WingConfigVariant
 public class WingConfig
 {
     /// A unique identifier for the wing.
-    public string name;
+    public string name = null!;
 
     public bool isFirst = false;
 
     /// The name of the wing as it will be displayed in the UI. This will be translated.
-    public string displayName;
+    public string displayName = "";
 
     /// A description of the wing as it will be displayed in the UI. This will be translated.
-    public string description;
+    public string? description;
 
     /// The name of the wing's textures in the addressable bundle.
     /// Each layer is a separate texture which will be overlaid on top of each other.

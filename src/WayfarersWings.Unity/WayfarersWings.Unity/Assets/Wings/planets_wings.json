@@ -10,9 +10,7 @@
         "displayName": "{0} SoI",
         "imageLayers": [],
         "description": "Entered the Sphere of Influence of {0}",
-        "triggers": [
-          {"eventName": "SOIEnteredMessage"}
-        ],
+        "triggers": [],
         "conditions": [
           {
             "type": "SphereOfInfluence",
@@ -38,9 +36,7 @@
           "Assets/Wings/Layers/orbit.png"
         ],
         "description": "Entered in a stable orbit around {0}",
-        "triggers": [
-          {"eventName": "StableOrbitCreatedMessage"}
-        ],
+        "triggers": [],
         "conditions": [
           {
             "type": "SphereOfInfluence",
@@ -70,10 +66,7 @@
           "Assets/Wings/Layers/eva.png"
         ],
         "description": "Execute EVA in orbit around {0}",
-        "triggers": [
-          {"eventName": "EVAEnteredMessage"},
-          {"eventName": "StableOrbitCreatedMessage"}
-        ],
+        "triggers": [],
         "conditions": [
           {
             "type": "SphereOfInfluence",
@@ -106,9 +99,7 @@
           "Assets/Wings/Layers/eva.png"
         ],
         "description": "Execute EVA in space around {0}",
-        "triggers": [
-          {"eventName": "EVAEnteredMessage"}
-        ],
+        "triggers": [],
         "conditions": [
           {
             "type": "SphereOfInfluence",
@@ -137,9 +128,7 @@
           "Assets/Wings/Layers/landed.png"
         ],
         "description": "Landed on {0}",
-        "triggers": [
-          {"eventName": "VesselSituationChangedMessage"}
-        ],
+        "triggers": [],
         "conditions": [
           {
             "type": "SphereOfInfluence",
@@ -162,17 +151,14 @@
         "imageLayer": "Assets/Wings/Layers/first.png"
       },
       "template": {
-        "name": "eva_space",
-        "displayName": "{0} EVA in space",
+        "name": "eva_ground",
+        "displayName": "{0} EVA on ground",
         "imageLayers": [
           "Assets/Wings/Layers/eva.png",
           "Assets/Wings/Layers/landed.png"
         ],
         "description": "Walk on {0} ground",
-        "triggers": [
-          {"eventName": "EVAEnteredMessage"},
-          {"eventName": "VesselSituationChangedMessage"}
-        ],
+        "triggers": [],
         "conditions": [
           {
             "type": "SphereOfInfluence",
