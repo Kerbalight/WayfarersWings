@@ -1,4 +1,5 @@
 ﻿using BepInEx.Logging;
+using WayfarersWings.Models.Session;
 using WayfarersWings.Models.Wings;
 
 namespace WayfarersWings.Managers;
@@ -19,6 +20,8 @@ public class AchievementsOrchestrator
             if (!Core.Instance.WingsPool.TriggersMap.TryGetValue(transaction.Message.GetType(), out triggeredWings))
             {
                 Logger.LogDebug("No wings triggered by " + transaction.Message.GetType().Name);
+                triggeredWings = Core.Instance.WingsPool.Wings;
+                // TODO The dictionary doesn't work
             }
         }
 
@@ -26,12 +29,13 @@ public class AchievementsOrchestrator
         {
             if (!wing.Check(transaction)) continue;
 
-            Logger.LogDebug("Triggered wing " + wing.Config.name);
+            Logger.LogDebug("Triggered wing " + wing.config.name);
             var kerbals = transaction.GetKerbals();
             foreach (var kerbal in kerbals)
             {
-                Logger.LogDebug(" -> Will award " + wing.Config.name + " to kerbal " + kerbal.Attributes.GetFullName());
+                Logger.LogDebug(" -> Will award " + wing.config.name + " to kerbal " + kerbal.Attributes.GetFullName());
                 // wing.Trigger(kerbal);
+                WingsSessionManager.Instance.Award(wing, kerbal);
             }
         }
     }

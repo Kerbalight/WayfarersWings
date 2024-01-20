@@ -1,11 +1,10 @@
 ﻿using BepInEx.Logging;
 using KSP.Game;
-using LibNoise.Modifiers;
 using WayfarersWings.Extensions;
 using WayfarersWings.Managers;
+using WayfarersWings.Models.Conditions;
 using WayfarersWings.Models.Configs;
 using WayfarersWings.Models.Configs.Template;
-using WayfarersWings.Models.Wing;
 
 namespace WayfarersWings.Models.Wings;
 
@@ -15,6 +14,8 @@ public class WingsPool
     public List<Wing> Wings { get; set; } = [];
 
     private List<WingsConfig> _wingsConfigs = [];
+
+    public const string FirstSuffix = "_first";
 
     /// <summary>
     /// Maps a trigger type (event) to a list of wings that are triggered by that type.
@@ -59,7 +60,7 @@ public class WingsPool
         if (templateConfig.hasFirst != null)
         {
             var firstWingConfig = wingConfig.Clone();
-            firstWingConfig.name = $"{wingConfig.name}_first";
+            firstWingConfig.name = $"{wingConfig.name}{FirstSuffix}";
             firstWingConfig.isFirst = true;
             firstWingConfig.description = templateConfig.hasFirst.description;
             firstWingConfig.imageLayers.Insert(1, templateConfig.hasFirst.imageLayer);
@@ -84,9 +85,12 @@ public class WingsPool
             var wingConfig = templateConfig.template.Clone();
             wingConfig.name = $"{bodyConfig.code}_{templateConfig.name}";
             wingConfig.imageLayers.Insert(0, bodyConfig.imageLayer);
-            foreach (var conditionConfig in wingConfig.conditions)
+            foreach (var condition in wingConfig.conditions)
             {
-                conditionConfig.Data["celestialBody"] = bodyConfig.name;
+                if (condition is CelestialBodyCondition { celestialBody: null } celestialBodyCondition)
+                {
+                    celestialBodyCondition.celestialBody = bodyConfig.name;
+                }
             }
 
             AddTemplateWing(templateConfig, wingConfig);
@@ -108,5 +112,12 @@ public class WingsPool
 
             TriggersMap[trigger.eventType].Add(wing);
         }
+    }
+
+    public static string GetNotFirstWingName(Wing wing)
+    {
+        return !wing.config.isFirst
+            ? string.Empty
+            : wing.config.name.Remove(wing.config.name.Length - FirstSuffix.Length);
     }
 }

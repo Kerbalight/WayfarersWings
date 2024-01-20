@@ -48,9 +48,9 @@ public class WingRibbonController
 
         _layers.Clear();
 
-        foreach (var imageLayer in wing.Config.imageLayers)
+        foreach (var imageLayer in wing.config.imageLayers)
         {
-            Logger.LogDebug("Adding layer to ribbon " + imageLayer);
+            // Logger.LogDebug("Adding layer to ribbon " + imageLayer);
             var layer = new VisualElement();
             layer.AddToClassList("ribbon-layer");
 
@@ -63,7 +63,7 @@ public class WingRibbonController
                     return;
                 }
 
-                Logger.LogInfo("OK: Successfully loaded sprite " + imageLayer);
+                // Logger.LogInfo("OK: Successfully loaded sprite " + imageLayer);
                 layer.style.backgroundImage = new StyleBackground(sprite);
             };
 

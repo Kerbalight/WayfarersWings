@@ -1,11 +1,11 @@
-﻿using System.Runtime.Serialization;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using WayfarersWings.Models.Conditions.Events;
+using WayfarersWings.Models.Configs.Conditions.Attributes;
 
-namespace WayfarersWings.Models.Configs;
+namespace WayfarersWings.Models.Configs.Conditions;
 
 [Serializable]
+[ConditionConfigType("Vessel", typeof(VesselConditionConfig))]
 public class ConditionConfig
 {
     public string type;

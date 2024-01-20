@@ -1,13 +1,17 @@
-﻿using KSP.Messages;
+﻿using JetBrains.Annotations;
+using KSP.Messages;
 using KSP.Sim.impl;
 using WayfarersWings.Models.Wings;
 
 namespace WayfarersWings.Models.Conditions;
 
+[UsedImplicitly]
 public class SphereOfInfluenceCondition : CelestialBodyCondition
 {
     public override bool IsValid(Transaction transaction)
     {
+        return transaction.Vessel?.mainBody?.Equals(CelestialBody) ?? false;
+
         if (transaction.Message is not SOIEnteredMessage message)
         {
             return transaction.Vessel?.mainBody?.Equals(CelestialBody) ?? false;

@@ -1,4 +1,5 @@
-﻿using WayfarersWings.Models.Conditions.Events;
+﻿using WayfarersWings.Models.Conditions;
+using WayfarersWings.Models.Conditions.Events;
 
 namespace WayfarersWings.Models.Configs;
 
@@ -35,5 +36,5 @@ public class WingConfig
     /// Trigger names
     public List<TriggerEvent> triggers = [];
 
-    public List<ConditionConfig> conditions = [];
+    public List<BaseCondition> conditions = [];
 }

@@ -1,10 +1,11 @@
 ﻿using System.Reflection;
 using BepInEx.Logging;
+using KSP.Game;
+using KSP.Sim.impl;
 using UnityEngine;
 using WayfarersWings.Models.Conditions.Events;
 using WayfarersWings.Models.Configs;
 using WayfarersWings.Models.Configs.Planets;
-using WayfarersWings.Models.Wing;
 using WayfarersWings.Models.Wings;
 
 namespace WayfarersWings.Managers;
@@ -14,6 +15,10 @@ public class Core
     private static ManualLogSource _logger = BepInEx.Logging.Logger.CreateLogSource("Core");
 
     public static Core Instance { get; } = new();
+
+    public static UniverseModel? UniverseModel => GameManager.Instance?.Game?.UniverseModel;
+
+    public string SessionGuidString { get; set; } = null!;
 
     public ConditionEventsRegistry EventsRegistry { get; } = new();
 
@@ -61,5 +66,10 @@ public class Core
         }
 
         WingsPool.RegisterConfig(wingsConfig);
+    }
+
+    public static double GetUniverseTime()
+    {
+        return UniverseModel!.UniverseTime;
     }
 }

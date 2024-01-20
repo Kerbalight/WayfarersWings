@@ -5,6 +5,7 @@ using UitkForKsp2.API;
 using UnityEngine;
 using UnityEngine.UIElements;
 using WayfarersWings.Managers;
+using WayfarersWings.Models.Session;
 using WayfarersWings.UI.Components;
 using Logger = UnityEngine.Logger;
 
@@ -35,7 +36,9 @@ public class WingsAppWindowController : MonoBehaviour
 
     // The elements of the window that we need to access
     private VisualElement _root;
-    private ScrollView _content;
+
+    // private ScrollView _content;
+    private readonly Dictionary<string, ScrollView> _tabs = new();
 
     // The backing field for the IsWindowOpen property
     private bool _isWindowOpen;
@@ -52,7 +55,7 @@ public class WingsAppWindowController : MonoBehaviour
             _isWindowOpen = value;
 
             // if (value && !_isInitialized) BuildUI();
-            if (value) BuildUI();
+            if (value) BuildUI("ribbons");
 
             // Set the display style of the root element to show or hide the window
             _root.style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
@@ -79,10 +82,13 @@ public class WingsAppWindowController : MonoBehaviour
 
         _root = _window.rootVisualElement[0];
 
-        _content = _root.Q<ScrollView>("content");
+        _tabs["ribbons"] = _root.Q<ScrollView>("ribbons-tab");
+        _tabs["kerbals"] = _root.Q<ScrollView>("kerbals-tab");
 
         var debugButton = _root.Q<Button>("debug-button");
         debugButton.clicked += OnDebug;
+
+        _root.Q<Button>("kerbals-button").clicked += () => OnSelectTab("kerbals");
 
         // Center the window by default
         _root.CenterByDefault();
@@ -96,21 +102,62 @@ public class WingsAppWindowController : MonoBehaviour
 
     private void OnDebug()
     {
-        foreach (var ribbon in _content.Children())
+        OnSelectTab("ribbons");
+        foreach (var ribbon in _tabs["ribbons"].Children())
         {
-            Logger.LogDebug($"Ribbon: {ribbon.name}");
+            // Logger.LogDebug($"Ribbon: {ribbon.name}");
         }
     }
 
-    private void BuildUI()
+    private void OnSelectTab(string tabName)
     {
-        _content.Clear();
+        Logger.LogDebug($"Selected tab: {tabName}");
+        BuildUI(tabName);
+        foreach (var tab in _tabs)
+        {
+            tab.Value.style.display = tab.Key == tabName ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+    }
+
+    private void BuildUI(string tabName)
+    {
+        _tabs[tabName].Clear();
+
+        switch (tabName)
+        {
+            case "ribbons":
+                BuildRibbonsTab();
+                break;
+            case "kerbals":
+                BuildKerbalsTab();
+                break;
+        }
+    }
+
+    private void BuildRibbonsTab()
+    {
         var allWings = Core.Instance.WingsPool.Wings;
         foreach (var wing in allWings)
         {
             var ribbon = WingRibbonController.Create();
-            _content.Add(ribbon.Root);
+            _tabs["ribbons"].Add(ribbon.Root);
             ribbon.Bind(wing);
+        }
+    }
+
+    private void BuildKerbalsTab()
+    {
+        foreach (var kerbalWings in WingsSessionManager.Instance.KerbalsWings)
+        {
+            if (!WingsSessionManager.Roster.TryGetKerbalByID(kerbalWings.KerbalId, out var kerbalInfo))
+            {
+                Logger.LogError("Kerbal not found in roster" + kerbalWings.KerbalId);
+                continue;
+            }
+
+            var row = KerbalWingsRowController.Create();
+            _tabs["kerbals"].Add(row.Root);
+            row.Bind(kerbalWings);
         }
     }
 }

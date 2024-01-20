@@ -1,10 +1,9 @@
 ﻿using Newtonsoft.Json;
-using UnityEngine.Serialization;
-using WayfarersWings.Models.Configs;
+using WayfarersWings.Models.Conditions;
 using WayfarersWings.Models.Configs.Template;
 using ErrorEventArgs = Newtonsoft.Json.Serialization.ErrorEventArgs;
 
-namespace WayfarersWings.Models.Wing;
+namespace WayfarersWings.Models.Configs;
 
 /// <summary>
 /// Allows for the configuration of the wings dynamically, through JSON config
@@ -35,6 +34,10 @@ public class WingsConfig
 
                 foundExceptions.Add(args.ErrorContext.Error);
                 args.ErrorContext.Handled = true;
+            },
+            Converters = new List<JsonConverter>()
+            {
+                new BaseConditionJsonConverter()
             }
         };
 

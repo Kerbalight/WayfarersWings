@@ -5,25 +5,37 @@ namespace WayfarersWings.Models.Wings;
 
 public class Wing
 {
-    public WingConfig Config { get; set; }
+    // ReSharper disable once InconsistentNaming
+    public WingConfig config { get; set; }
 
     private readonly List<BaseCondition> _conditions = [];
 
     public Wing(WingConfig config)
     {
-        Config = config;
-        foreach (var conditionConfig in Config.conditions)
-        {
-            var conditionType = Type.GetType($"WayfarersWings.Models.Conditions.{conditionConfig.type}Condition");
-            if (conditionType == null)
-            {
-                throw new InvalidOperationException($"Could not find condition type '{conditionConfig.type}'");
-            }
+        this.config = config;
+        VerifyConfig(); // Todo find a better place to do this
 
-            var conditionInstance = Activator.CreateInstance(conditionType) as BaseCondition;
-            conditionInstance!.Configure(conditionConfig);
-            _conditions.Add(conditionInstance);
+        foreach (var condition in this.config.conditions)
+        {
+            condition.Configure();
+            _conditions.Add(condition);
         }
+    }
+
+    /// <summary>
+    /// Ensure that the wing config is valid
+    /// </summary>
+    /// <exception cref="InvalidOperationException"></exception>
+    private void VerifyConfig()
+    {
+        if (config.conditions.Count == 0)
+        {
+            WayfarersWingsPlugin.Instance.SWLogger.LogError($"Wing '{config.name}' has no conditions");
+        }
+
+        if (config.isFirst && !config.name.EndsWith("_first"))
+            throw new InvalidOperationException(
+                $"Wing '{config.name}' is marked as first but does not end with '_first'");
     }
 
     public bool Check(Transaction transaction)

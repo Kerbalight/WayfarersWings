@@ -18,6 +18,8 @@ public class ConditionEventsRegistry
         MessageListener.Instance.MessageCenter.PersistentSubscribe<StableOrbitCreatedMessage>(
             OnStableOrbitCreatedMessage);
         MessageListener.Instance.MessageCenter.PersistentSubscribe<EVAEnteredMessage>(OnEVAEnteredMessage);
+        MessageListener.Instance.MessageCenter.PersistentSubscribe<VesselSituationChangedMessage>(
+            OnVesselSituationChangedMessage);
     }
 
     private void OnSOIEnteredMessage(MessageCenterMessage message)
@@ -43,11 +45,24 @@ public class ConditionEventsRegistry
         AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
     }
 
+    public void OnVesselSituationChangedMessage(MessageCenterMessage message)
+    {
+        var situationMessage = (VesselSituationChangedMessage)message;
+        var transaction = new Transaction(situationMessage, situationMessage.Vessel);
+        AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+    }
+
     public void OnEVAEnteredMessage(MessageCenterMessage message)
     {
         var evaMessage = (EVAEnteredMessage)message;
-        var active = GameManager.Instance.Game.ViewController.GetActiveSimVessel();
-        var transaction = new Transaction(evaMessage, active);
-        AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+        var allVessels = GameManager.Instance.Game.UniverseModel.GetAllVessels();
+        var allKerbals =
+            GameManager.Instance.Game.SpaceSimulation.GetAllSimulationObjectsWithComponent<KerbalComponent>();
+        foreach (var kerbalSimObj in allKerbals)
+        {
+            if (!kerbalSimObj.IsKerbal) continue;
+            var transaction = new Transaction(evaMessage, kerbalSimObj.Vessel);
+            AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+        }
     }
 }
