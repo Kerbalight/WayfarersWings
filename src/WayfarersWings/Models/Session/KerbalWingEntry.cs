@@ -1,5 +1,6 @@
 ﻿using KSP.Sim.impl;
 using UnityEngine.Serialization;
+using WayfarersWings.Managers;
 using WayfarersWings.Models.Wings;
 
 namespace WayfarersWings.Models.Session;
@@ -18,4 +19,14 @@ public class KerbalWingEntry
         UnlockedAt = unlockedAt;
         this.UniverseTime = universeTime;
     }
+
+    public KerbalWingEntry(IGGuid kerbalId)
+    {
+        Wing = Core.Instance.WingsPool.FindWingByCode(data.wingCode);
+        KerbalId = kerbalId;
+        UnlockedAt = data.unlockedAt;
+        UniverseTime = data.universeTime;
+    }
+
+    public sta
 }

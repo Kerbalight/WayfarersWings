@@ -9,6 +9,10 @@ public class KerbalWingEntriesData
     public IGGuid kerbalId;
     public List<KerbalWingEntryData> entries = [];
 
+    public KerbalWingEntriesData()
+    {
+    }
+
     public KerbalWingEntriesData(KerbalWingEntries kerbalWingEntries)
     {
         kerbalId = kerbalWingEntries.KerbalId;

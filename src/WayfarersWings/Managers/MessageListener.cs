@@ -1,5 +1,6 @@
 ﻿using KSP.Game;
 using KSP.Messages;
+using WayfarersWings.Models.Session;
 
 
 namespace WayfarersWings.Managers;
@@ -31,9 +32,18 @@ public class MessageListener
         Core.Instance.EventsRegistry.SetupListeners();
     }
 
+    public SubscriptionHandle Subscribe<TMessage>(Action<MessageCenterMessage> callback)
+        where TMessage : MessageCenterMessage
+    {
+        return MessageCenter.PersistentSubscribe<TMessage>(callback);
+    }
+
     private void OnGameLoadFinishedMessage(MessageCenterMessage message)
     {
+        // Load Wings from WingsConfig
         Core.Instance.WingsPool.LoadRegisteredConfigs();
+        // Load GameData
+        SaveManager.Instance.LoadGameDataInSession();
     }
 
     private void OnSOIEnteredMessage(MessageCenterMessage message)

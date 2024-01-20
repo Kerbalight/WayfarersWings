@@ -8,7 +8,7 @@ namespace WayfarersWings.Managers;
 public class SaveManager
 {
     public static SaveManager Instance { get; private set; } = new();
-    private readonly ManualLogSource _Logger = Logger.CreateLogSource("ScienceArkive.SaveManager");
+    private readonly ManualLogSource _Logger = Logger.CreateLogSource("WayfarersWings.SaveManager");
 
     private SaveData? loadedSaveData;
 
@@ -30,5 +30,24 @@ public class SaveManager
     {
         loadedSaveData = dataToLoad;
         _Logger.LogInfo("Loaded game data");
+    }
+
+    public void LoadGameDataInSession()
+    {
+        if (loadedSaveData == null)
+        {
+            _Logger.LogInfo("No save data loaded");
+            return;
+        }
+
+        var kerbalWings = new List<KerbalWingEntries>();
+        foreach (var kerbalWingsData in loadedSaveData.KerbalWings)
+        {
+            kerbalWings.Add(new KerbalWingEntries(kerbalWingsData));
+        }
+
+        WingsSessionManager.Instance.Initialize(kerbalWings);
+        loadedSaveData = null;
+        _Logger.LogInfo("Loaded game data into session");
     }
 }

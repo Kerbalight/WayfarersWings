@@ -99,6 +99,9 @@ public class WayfarersWingsPlugin : BaseSpaceWarpPlugin
 
         // Messages subscribe
         MessageListener.Instance.SubscribeToMessages();
+
+        // Save manager
+        SaveManager.Instance.Register();
     }
 
     /// <summary>

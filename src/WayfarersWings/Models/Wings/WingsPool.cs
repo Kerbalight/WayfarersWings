@@ -13,6 +13,8 @@ public class WingsPool
     private static ManualLogSource _logger = BepInEx.Logging.Logger.CreateLogSource("WingsPool");
     public List<Wing> Wings { get; set; } = [];
 
+    private Dictionary<string, Wing> _wingsMap = [];
+
     private List<WingsConfig> _wingsConfigs = [];
 
     public const string FirstSuffix = "_first";
@@ -102,6 +104,7 @@ public class WingsPool
         _logger.LogDebug($"Adding wing {wingConfig.name}");
         var wing = new Wing(wingConfig);
         Wings.Add(wing);
+        _wingsMap[wingConfig.name] = wing;
 
         foreach (var trigger in wingConfig.triggers)
         {
@@ -129,5 +132,10 @@ public class WingsPool
         return !wing.config.isFirst
             ? string.Empty
             : wing.config.name.Remove(wing.config.name.Length - FirstSuffix.Length);
+    }
+
+    public bool TryGetWingByCode(string code, out Wing wing)
+    {
+        return _wingsMap.TryGetValue(code, out wing);
     }
 }
