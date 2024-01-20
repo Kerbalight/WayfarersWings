@@ -1,6 +1,7 @@
 ﻿using KSP.Game;
 using KSP.Messages;
 using WayfarersWings.Models.Session;
+using WayfarersWings.UI;
 
 
 namespace WayfarersWings.Managers;
@@ -26,7 +27,7 @@ public class MessageListener
         // MessageCenter.PersistentSubscribe<SOIEnteredMessage>()
         // MessageCenter.PersistentSubscribe<ResearchReportScoredMessage>(OnResearchReportScoredMessage);
         // MessageCenter.PersistentSubscribe<VesselScienceSituationChangedMessage>(OnVesselScienceSituationChangedMessage);
-        // MessageCenter.PersistentSubscribe<GameStateChangedMessage>(HideWindowOnInvalidState);
+        MessageCenter.PersistentSubscribe<GameStateChangedMessage>(HideWindowOnInvalidState);
         // MessageCenter.PersistentSubscribe<TechTierUnlockedMessage>(OnTechTierUnlockedMessage);
 
         Core.Instance.EventsRegistry.SetupListeners();
@@ -71,10 +72,10 @@ public class MessageListener
     //     MainUIManager.Instance.ArchiveWindowController.IsDirty = true;
     // }
 
-    // private void HideWindowOnInvalidState(MessageCenterMessage message)
-    // {
-    //     if (GameStateManager.Instance.IsInvalidState())
-    //         // Close the windows if the game is in an invalid state
-    //         MainUIManager.Instance.ToggleUI(false);
-    // }
+    private void HideWindowOnInvalidState(MessageCenterMessage message)
+    {
+        if (GameStateManager.Instance.IsInvalidState())
+            // Close the windows if the game is in an invalid state
+            MainUIManager.Instance.AppWindow.IsWindowOpen = false;
+    }
 }
