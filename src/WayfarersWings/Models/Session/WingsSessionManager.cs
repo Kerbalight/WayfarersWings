@@ -1,5 +1,7 @@
 ﻿using BepInEx.Logging;
 using KSP.Game;
+using WayfarersWings.Managers;
+using WayfarersWings.Managers.Messages;
 using WayfarersWings.Models.Wings;
 
 namespace WayfarersWings.Models.Session;
@@ -33,7 +35,7 @@ public class WingsSessionManager
         }
     }
 
-    private bool IsFirstAlreadyUnlocked(Wing wing)
+    public bool IsFirstAlreadyUnlocked(Wing wing)
     {
         return wing.config.isFirst && _firstWingsAlreadyUnlocked.Contains(wing.config.name);
     }
@@ -56,5 +58,6 @@ public class WingsSessionManager
         if (wing.config.isFirst) _firstWingsAlreadyUnlocked.Add(wing.config.name);
 
         Logger.LogInfo("Awarded " + config.name + " to " + kerbalInfo.Attributes.GetFullName());
+        MessageListener.Instance.MessageCenter.Publish(new WingAwardedMessage(kerbalInfo, wing));
     }
 }

@@ -5,6 +5,7 @@ using UitkForKsp2.API;
 using UnityEngine;
 using UnityEngine.UIElements;
 using WayfarersWings.Managers;
+using WayfarersWings.Managers.Messages;
 using WayfarersWings.Models.Session;
 using WayfarersWings.UI.Components;
 using Logger = UnityEngine.Logger;
@@ -43,6 +44,7 @@ public class WingsAppWindowController : MonoBehaviour
     // The backing field for the IsWindowOpen property
     private bool _isWindowOpen;
     private bool _isInitialized;
+    private bool _isDirty;
 
     /// <summary>
     /// The state of the window. Setting this value will open or close the window.
@@ -56,6 +58,7 @@ public class WingsAppWindowController : MonoBehaviour
 
             // if (value && !_isInitialized) BuildUI();
             if (value) BuildUI("ribbons");
+            if (value && _isDirty) BuildUI("kerbals");
 
             // Set the display style of the root element to show or hide the window
             _root.style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
@@ -98,6 +101,8 @@ public class WingsAppWindowController : MonoBehaviour
         // Get the close button from the window
         var closeButton = _root.Q<Button>("close-button");
         closeButton.clicked += () => IsWindowOpen = false;
+
+        MessageListener.Instance.Subscribe<WingAwardedMessage>(message => BuildUI("kerbals"));
     }
 
     private void OnDebug()
@@ -121,6 +126,13 @@ public class WingsAppWindowController : MonoBehaviour
 
     private void BuildUI(string tabName)
     {
+        if (!_isWindowOpen)
+        {
+            _isDirty = true;
+            return;
+        }
+
+        _isDirty = false;
         _tabs[tabName].Clear();
 
         switch (tabName)
