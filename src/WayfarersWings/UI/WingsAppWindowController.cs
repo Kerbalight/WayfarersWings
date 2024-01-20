@@ -4,6 +4,7 @@ using WayfarersWings.Unity.Runtime;
 using UitkForKsp2.API;
 using UnityEngine;
 using UnityEngine.UIElements;
+using WayfarersWings.Extensions;
 using WayfarersWings.Managers;
 using WayfarersWings.Managers.Messages;
 using WayfarersWings.Models.Session;
@@ -84,6 +85,7 @@ public class WingsAppWindowController : MonoBehaviour
         _window = GetComponent<UIDocument>();
 
         _root = _window.rootVisualElement[0];
+        _root.StopMouseEventsPropagation();
 
         _tabs["ribbons"] = _root.Q<ScrollView>("ribbons-tab");
         _tabs["kerbals"] = _root.Q<ScrollView>("kerbals-tab");
