@@ -34,6 +34,7 @@
         "name": "orbit",
         "displayName": "{0} Stable Orbit",
         "imageLayers": [
+          "Assets/Wings/Layers/vessel.png",
           "Assets/Wings/Layers/orbit.png"
         ],
         "description": "Entered in a stable orbit around {0}",
@@ -80,6 +81,66 @@
           {
             "type": "Orbit",
             "isStable": true
+          },
+          {
+            "type": "Eva"
+          }
+        ]
+      }
+    },
+    {
+      "name": "eva_space",
+      "celestialBody": {
+        "requires": []
+      },
+      "hasFirst": {
+        "description": "First to execute EVA in space around {0}",
+        "imageLayer": "Assets/Wings/Layers/first.png"
+      },
+      "template": {
+        "name": "eva_space",
+        "displayName": "{0} EVA in space",
+        "imageLayers": [
+          "Assets/Wings/Layers/eva.png"
+        ],
+        "description": "Execute EVA in space around {0}",
+        "triggers": [
+          {"eventName": "EVAEnteredMessage"}
+        ],
+        "conditions": [
+          {
+            "type": "SphereOfInfluence",
+            "celestialBody": null
+          },
+          {
+            "type": "Eva"
+          }
+        ]
+      }
+    },
+    {
+      "name": "landed",
+      "celestialBody": {
+        "requires": []
+      },
+      "hasFirst": {
+        "description": "First to land on {0}",
+        "imageLayer": "Assets/Wings/Layers/first.png"
+      },
+      "template": {
+        "name": "landed",
+        "displayName": "{0} Landing",
+        "imageLayers": [
+          "Assets/Wings/Layers/eva.png"
+        ],
+        "description": "Landed on {0}",
+        "triggers": [
+          {"eventName": "VesselSituationChangedMessage"}
+        ],
+        "conditions": [
+          {
+            "type": "SphereOfInfluence",
+            "celestialBody": null
           },
           {
             "type": "Eva"
