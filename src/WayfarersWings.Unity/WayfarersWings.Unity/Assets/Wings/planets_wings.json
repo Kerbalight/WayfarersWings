@@ -131,7 +131,7 @@
         "name": "landed",
         "displayName": "{0} Landing",
         "imageLayers": [
-          "Assets/Wings/Layers/eva.png"
+          "Assets/Wings/Layers/landed.png"
         ],
         "description": "Landed on {0}",
         "triggers": [
@@ -143,7 +143,8 @@
             "celestialBody": null
           },
           {
-            "type": "Eva"
+            "type": "Vessel",
+            "situation": "Landed"
           }
         ]
       }
