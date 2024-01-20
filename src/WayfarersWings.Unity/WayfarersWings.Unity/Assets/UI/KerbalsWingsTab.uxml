@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/WayfarerWingsStyle.uss?fileID=7433441132597879392&amp;guid=da08ea5b9d5173244bc93b4727182b4b&amp;type=3#WayfarerWingsStyle" />
-    <ui:VisualElement name="ribbon-container" class="ribbon-container">
-        <ui:VisualElement name="base" class="ribbon-layer" style="background-image: url(&apos;project://database/Assets/Wings/Layers/eva.png?fileID=21300000&amp;guid=4d64a5144acab604bb3a0abe453bcdc3&amp;type=3#eva&apos;);" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+        <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="content" />
     </ui:VisualElement>
 </ui:UXML>

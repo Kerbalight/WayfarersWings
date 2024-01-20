@@ -1,11 +1,15 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/WayfarerWingsStyle.uss?fileID=7433441132597879392&amp;guid=da08ea5b9d5173244bc93b4727182b4b&amp;type=3#WayfarerWingsStyle" />
-    <ui:VisualElement name="root" class="root" style="flex-grow: 1;">
+    <ui:VisualElement name="root" class="root" style="flex-grow: 1; max-height: 400px;">
         <ui:VisualElement name="title-bar" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-self: stretch; justify-content: space-between;">
             <ui:Label tabindex="-1" text="Achievements" display-tooltip-when-elided="true" name="title" />
             <ui:Button text="x" display-tooltip-when-elided="true" enable-rich-text="false" name="close-button" />
         </ui:VisualElement>
-        <ui:Button text="Debug" display-tooltip-when-elided="true" name="debug-button" />
-        <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="content" />
+        <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+            <ui:Button text="Debug" display-tooltip-when-elided="true" name="debug-button" />
+            <ui:Button text="Kerbals" display-tooltip-when-elided="true" name="kerbals-button" />
+        </ui:VisualElement>
+        <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="ribbons-tab" class="ribbons-space" />
+        <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="kerbals-tab" style="display: none;" />
     </ui:VisualElement>
 </ui:UXML>

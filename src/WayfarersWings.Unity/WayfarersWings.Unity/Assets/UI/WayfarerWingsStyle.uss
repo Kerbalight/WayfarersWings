@@ -16,12 +16,12 @@ VisualElement {
     min-height: 32px;
 }
 
-#content .unity-scroll-view__content-container {
+.ribbons-space .unity-scroll-view__content-container {
     flex-wrap: wrap;
     flex-direction: row;
 }
 
-#ribbon-container {
+.ribbon-container {
     width: 120px;
     height: 32px;
     max-width: 120px;
@@ -33,4 +33,13 @@ VisualElement {
     margin-right: 4px;
     margin-top: 4px;
     margin-bottom: 4px;
+}
+
+.portrait {
+    width: 80px;
+    height: 80px;
+    max-width: 80px;
+    max-height: 80px;
+    min-width: 80px;
+    min-height: 80px;
 }
