@@ -48,6 +48,8 @@ public class WingRibbonController
 
         _layers.Clear();
 
+        _root.AddManipulator(new WingRibbonTooltipManipulator(wing.config.description ?? "N/A"));
+
         foreach (var imageLayer in wing.config.imageLayers)
         {
             // Logger.LogDebug("Adding layer to ribbon " + imageLayer);

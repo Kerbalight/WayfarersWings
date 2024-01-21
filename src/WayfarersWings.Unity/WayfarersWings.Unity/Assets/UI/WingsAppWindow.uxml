@@ -14,5 +14,11 @@
         </ui:VisualElement>
         <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="ribbons-tab" class="ribbons-space" style="visibility: visible; display: none;" />
         <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="kerbals-tab" style="display: flex;" />
+        <ui:VisualElement name="tooltip" class="tooltip" style="top: 59px; left: 32px;">
+            <ui:VisualElement name="tooltip__border" class="tooltip__border" />
+            <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+                <ui:Label tabindex="-1" text="Achievement name example of a very long text, Achievement name example of a very long text" display-tooltip-when-elided="true" name="tooltip__text" class="tooltip__text" />
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

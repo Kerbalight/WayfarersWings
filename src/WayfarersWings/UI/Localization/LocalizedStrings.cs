@@ -2,7 +2,7 @@
 
 namespace WayfarersWings.UI.Localization;
 
-public class LocalizedStrings
+public static class LocalizedStrings
 {
     public static LocalizedString AchievementsTitle = "WayfarersWings/UI/Achievements";
 }
