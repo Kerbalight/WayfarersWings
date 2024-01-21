@@ -10,7 +10,7 @@ namespace WayfarersWings.Models.Wings;
 
 public class WingsPool
 {
-    private static ManualLogSource _logger = BepInEx.Logging.Logger.CreateLogSource("WingsPool");
+    private static ManualLogSource _logger = BepInEx.Logging.Logger.CreateLogSource("WayfarersWings.WingsPool");
     public List<Wing> Wings { get; set; } = [];
 
     private Dictionary<string, Wing> _wingsMap = [];

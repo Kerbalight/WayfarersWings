@@ -44,9 +44,9 @@ public class VesselsStateObserver : MonoBehaviour
 
         foreach (var message in triggeredMessages)
         {
-            Logger.LogDebug($"Found difference (vessel={message.Vessel.Name} triggering message: " +
-                            message.GetType().Name);
-            MessageListener.Instance.MessageCenter.Publish(message);
+            Logger.LogDebug($"[vessel={message.Vessel.Name}] Found difference, triggering message: " +
+                            message.GetType().Name + ", message=" + message);
+            MessageListener.Instance.MessageCenter.Publish(message.GetType(), message);
         }
     }
 

@@ -4,6 +4,7 @@ using KSP.Game;
 using KSP.Messages;
 using KSP.Sim.impl;
 using WayfarersWings.Managers;
+using WayfarersWings.Managers.Messages;
 using WayfarersWings.Models.Wings;
 
 namespace WayfarersWings.Models.Conditions.Events;
@@ -20,6 +21,8 @@ public class ConditionEventsRegistry
         MessageListener.Instance.MessageCenter.PersistentSubscribe<EVAEnteredMessage>(OnEVAEnteredMessage);
         MessageListener.Instance.MessageCenter.PersistentSubscribe<VesselSituationChangedMessage>(
             OnVesselSituationChangedMessage);
+        MessageListener.Instance.MessageCenter.PersistentSubscribe<WingVesselGeeForceUpdatedMessage>(
+            OnVesselGeeForceUpdatedMessage);
     }
 
     private void OnSOIEnteredMessage(MessageCenterMessage message)
@@ -64,5 +67,12 @@ public class ConditionEventsRegistry
             var transaction = new Transaction(evaMessage, kerbalSimObj.Vessel);
             AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
         }
+    }
+
+    public void OnVesselGeeForceUpdatedMessage(MessageCenterMessage message)
+    {
+        var geeForceMessage = (WingVesselGeeForceUpdatedMessage)message;
+        var transaction = new Transaction(geeForceMessage, geeForceMessage.Vessel);
+        AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
     }
 }
