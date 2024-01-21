@@ -48,7 +48,7 @@ public class WingRibbonController
 
         _layers.Clear();
 
-        _root.AddManipulator(new WingRibbonTooltipManipulator(wing.Description ?? "N/A"));
+        _root.AddManipulator(new TooltipManipulator(wing.Description ?? "N/A"));
 
         foreach (var imageLayer in wing.config.imageLayers)
         {

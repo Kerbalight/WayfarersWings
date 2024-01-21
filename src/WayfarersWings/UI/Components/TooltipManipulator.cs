@@ -2,11 +2,11 @@
 
 namespace WayfarersWings.UI.Components;
 
-public class WingRibbonTooltipManipulator : MouseManipulator
+public class TooltipManipulator : MouseManipulator
 {
     private string _tooltipText;
 
-    public WingRibbonTooltipManipulator(string tooltipText)
+    public TooltipManipulator(string tooltipText)
     {
         _tooltipText = tooltipText;
     }
