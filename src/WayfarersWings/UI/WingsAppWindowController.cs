@@ -141,8 +141,8 @@ public class WingsAppWindowController : MonoBehaviour
         {
             _tooltipText.text = text;
             _tooltip.style.opacity = 1;
-            _tooltip.style.left = -_root.worldBound.xMin + target.worldBound.xMax - _tooltip.localBound.width / 2;
-            _tooltip.style.top = -_root.worldBound.yMin + target.worldBound.yMin - 5 - _tooltip.localBound.height;
+            _tooltip.style.left = -_root.worldBound.xMin + target.worldBound.xMin + target.worldBound.width / 2;
+            _tooltip.style.top = -_root.worldBound.yMin + target.worldBound.yMin - 5;
         }
         else
         {

@@ -44,6 +44,11 @@
     max-height: 80px;
     min-width: 80px;
     min-height: 80px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    background-color: rgb(75, 77, 94);
 }
 
 #app-icon {
@@ -90,7 +95,6 @@
 }
 
 #tooltip {
-    position: absolute;
 }
 
 .tooltip {
@@ -109,6 +113,11 @@
     transition-duration: 0s, 0.3s;
     transition-timing-function: ease, ease;
     transition-delay: 0s, 0s;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    transform-origin: left top;
+    translate: -50% -100%;
 }
 
 .tooltip.tooltip__shown {

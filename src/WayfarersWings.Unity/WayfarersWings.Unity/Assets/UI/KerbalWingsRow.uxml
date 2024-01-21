@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/UI/WayfarerWingsStyle.uss?fileID=7433441132597879392&amp;guid=da08ea5b9d5173244bc93b4727182b4b&amp;type=3#WayfarerWingsStyle" />
     <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
         <ui:VisualElement style="background-color: rgba(0, 0, 0, 0); margin-right: 10px; align-self: stretch; justify-content: flex-start; align-items: center;">
-            <ui:VisualElement name="portrait" class="portrait" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
+            <ui:VisualElement name="portrait" class="portrait" style="flex-grow: 1;" />
             <ui:Label tabindex="-1" text="Kerbal Name" display-tooltip-when-elided="true" name="name" style="-unity-text-align: upper-center; margin-top: 6px;" />
         </ui:VisualElement>
         <ui:VisualElement name="ribbons-space" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-wrap: wrap; flex-direction: row;" />
