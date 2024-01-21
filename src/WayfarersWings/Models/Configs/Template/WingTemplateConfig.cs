@@ -6,5 +6,6 @@ public class WingTemplateConfig
     public string name;
     public WingTemplateConfigCelestialBody? celestialBody;
     public WingTemplateConfigHasFirst? hasFirst;
+    public WingTemplateConfigRanked? ranked;
     public WingConfig template;
 }

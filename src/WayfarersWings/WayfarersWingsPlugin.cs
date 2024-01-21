@@ -1,6 +1,7 @@
 using System.Reflection;
 using BepInEx;
 using JetBrains.Annotations;
+using KSP.Sim.State;
 using SpaceWarp;
 using SpaceWarp.API.Assets;
 using SpaceWarp.API.Loading;
@@ -12,6 +13,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using WayfarersWings.Extensions;
 using WayfarersWings.Managers;
+using WayfarersWings.Managers.Observer;
 using WayfarersWings.Utility;
 
 namespace WayfarersWings;
@@ -102,6 +104,11 @@ public class WayfarersWingsPlugin : BaseSpaceWarpPlugin
 
         // Save manager
         SaveManager.Instance.Register();
+
+        // Providers
+        var providers = new GameObject("OrbitalSurvey_Providers");
+        providers.transform.parent = this.transform;
+        providers.AddComponent<VesselsStateObserver>();
     }
 
     /// <summary>

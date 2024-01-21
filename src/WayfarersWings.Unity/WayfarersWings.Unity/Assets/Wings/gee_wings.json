@@ -1,0 +1,39 @@
+{
+  "templates": [
+    {
+      "name": "gee_force",
+      "celestialBody": {
+        "requires": []
+      },
+      "hasFirst": {
+        "description": "First to walk on {0} ground",
+        "imageLayer": "Assets/Wings/Layers/first.png"
+      },
+      "template": {
+        "name": "eva_ground",
+        "displayName": "{0} EVA on ground",
+        "imageLayers": [
+          "Assets/Wings/Layers/eva.png",
+          "Assets/Wings/Layers/landed.png"
+        ],
+        "description": "Walk on {0} ground",
+        "triggers": [],
+        "conditions": [
+          {
+            "type": "SphereOfInfluence",
+            "celestialBody": null
+          },
+          {
+            "type": "Kerbal",
+            "isEva": true
+          },
+          {
+            "type": "Vessel",
+            "isEva": true,
+            "situation": "Landed"
+          }
+        ]
+      }
+    }
+  ]
+}

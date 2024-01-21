@@ -42,13 +42,10 @@ public class MessageListener
     private void OnGameLoadFinishedMessage(MessageCenterMessage message)
     {
         // Load Wings from WingsConfig
+        // TODO Only load them if they're not already loaded
         Core.Instance.WingsPool.LoadRegisteredConfigs();
         // Load GameData
         SaveManager.Instance.LoadGameDataInSession();
-    }
-
-    private void OnSOIEnteredMessage(MessageCenterMessage message)
-    {
     }
 
     // private static void OnResearchReportScoredMessage(MessageCenterMessage message)
