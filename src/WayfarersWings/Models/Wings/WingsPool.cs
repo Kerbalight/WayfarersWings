@@ -1,10 +1,13 @@
 ﻿using BepInEx.Logging;
+using I2.Loc;
 using KSP.Game;
+using MonoMod.Utils;
 using WayfarersWings.Extensions;
 using WayfarersWings.Managers;
 using WayfarersWings.Models.Conditions;
 using WayfarersWings.Models.Configs;
 using WayfarersWings.Models.Configs.Template;
+using WayfarersWings.UI.Localization;
 
 namespace WayfarersWings.Models.Wings;
 
@@ -57,19 +60,20 @@ public class WingsPool
         }
     }
 
-    private void AddTemplateWing(WingTemplateConfig templateConfig, WingConfig wingConfig)
+    private void AddTemplateWing(WingTemplateConfig templateConfig, WingConfig wingConfig,
+        Dictionary<string, string>? localizationParams = null)
     {
         if (templateConfig.hasFirst != null)
         {
             var firstWingConfig = wingConfig.Clone();
             firstWingConfig.name = $"{wingConfig.name}{FirstSuffix}";
             firstWingConfig.isFirst = true;
-            firstWingConfig.description = templateConfig.hasFirst.description;
+            // firstWingConfig.description = templateConfig.hasFirst.description;
             firstWingConfig.imageLayers.Insert(1, templateConfig.hasFirst.imageLayer);
-            AddWing(firstWingConfig);
+            AddWing(firstWingConfig, localizationParams);
         }
 
-        AddWing(wingConfig);
+        AddWing(wingConfig, localizationParams);
     }
 
     private void AddTemplateForBodies(WingTemplateConfig templateConfig)
@@ -84,6 +88,11 @@ public class WingsPool
                 continue;
             }
 
+            var localizationParams = new Dictionary<string, string>
+            {
+                ["body"] = body.DisplayName
+            };
+
             var wingConfig = templateConfig.template.Clone();
             wingConfig.name = $"{bodyConfig.code}_{templateConfig.name}";
             wingConfig.imageLayers.Insert(0, bodyConfig.imageLayer);
@@ -95,14 +104,34 @@ public class WingsPool
                 }
             }
 
-            AddTemplateWing(templateConfig, wingConfig);
+            AddTemplateWing(templateConfig, wingConfig, localizationParams);
         }
     }
 
-    private void AddWing(WingConfig wingConfig)
+    private void AddWing(WingConfig wingConfig, Dictionary<string, string>? localizationParams = null)
     {
         _logger.LogDebug($"Adding wing {wingConfig.name}");
         var wing = new Wing(wingConfig);
+        if (wing.config.description == null)
+        {
+            _logger.LogWarning("Wing " + wing.config.name + " has no description!");
+            wing.config.description = wing.config.name;
+        }
+
+        // Merge localization params
+        if (localizationParams != null)
+        {
+            wing.config.localizationParams.AddRange(localizationParams);
+        }
+
+        wing.Description =
+            LocalizedStrings.GetTranslationWithParams(wing.config.description, wing.config.localizationParams);
+        if (wing.config.isFirst)
+        {
+            // TODO Configurable position?
+            wing.Description += " " + LocalizedStrings.FirstTime;
+        }
+
         Wings.Add(wing);
         _wingsMap[wingConfig.name] = wing;
 

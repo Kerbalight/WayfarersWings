@@ -3,6 +3,6 @@
 [Serializable]
 public class WingTemplateConfigHasFirst
 {
-    public string description;
+    public string? description;
     public string imageLayer;
 }

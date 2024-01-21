@@ -6,7 +6,10 @@
       "imageLayers": [
         "Assets/Wings/Layers/gee_force.png"
       ],
-      "description": "Withstand an acceleration of 3G",
+      "description": "WayfarersWings/Ribbons/GeeForce",
+      "localizationParams": {
+        "geeForce": "3"
+      },
       "conditions": [
         {
           "type": "Travel",
@@ -21,7 +24,10 @@
         "Assets/Wings/Layers/gee_force.png",
         "Assets/Wings/Layers/rank1.png"
       ],
-      "description": "Withstand an acceleration of 4G",
+      "description": "WayfarersWings/Ribbons/GeeForce",
+      "localizationParams": {
+        "geeForce": "4"
+      },
       "conditions": [
         {
           "type": "Travel",

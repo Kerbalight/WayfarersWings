@@ -7,9 +7,9 @@
       },
       "template": {
         "name": "soi",
-        "displayName": "{0} SoI",
+        "displayName": "{body} SoI",
         "imageLayers": [],
-        "description": "Entered the Sphere of Influence of {0}",
+        "description": "WayfarersWings/Ribbons/SphereOfInfluence",
         "triggers": [],
         "conditions": [
           {
@@ -25,7 +25,6 @@
         "requires": []
       },
       "hasFirst": {
-        "description": "First to enter in a stable orbit around {0}",
         "imageLayer": "Assets/Wings/Layers/first.png"
       },
       "template": {
@@ -35,7 +34,7 @@
           "Assets/Wings/Layers/vessel.png",
           "Assets/Wings/Layers/orbit.png"
         ],
-        "description": "Entered in a stable orbit around {0}",
+        "description": "WayfarersWings/Ribbons/Orbit",
         "triggers": [],
         "conditions": [
           {
@@ -55,7 +54,6 @@
         "requires": []
       },
       "hasFirst": {
-        "description": "First to execute EVA in orbit around {0}",
         "imageLayer": "Assets/Wings/Layers/first.png"
       },
       "template": {
@@ -65,7 +63,7 @@
           "Assets/Wings/Layers/vessel.png",
           "Assets/Wings/Layers/eva.png"
         ],
-        "description": "Execute EVA in orbit around {0}",
+        "description": "WayfarersWings/Ribbons/EVAOrbit",
         "triggers": [],
         "conditions": [
           {
@@ -89,7 +87,6 @@
         "requires": []
       },
       "hasFirst": {
-        "description": "First to execute EVA in space around {0}",
         "imageLayer": "Assets/Wings/Layers/first.png"
       },
       "template": {
@@ -98,7 +95,7 @@
         "imageLayers": [
           "Assets/Wings/Layers/eva.png"
         ],
-        "description": "Execute EVA in space around {0}",
+        "description": "WayfarersWings/Ribbons/EVASpace",
         "triggers": [],
         "conditions": [
           {
@@ -118,7 +115,6 @@
         "requires": []
       },
       "hasFirst": {
-        "description": "First to land on {0}",
         "imageLayer": "Assets/Wings/Layers/first.png"
       },
       "template": {
@@ -127,7 +123,7 @@
         "imageLayers": [
           "Assets/Wings/Layers/landed.png"
         ],
-        "description": "Landed on {0}",
+        "description": "WayfarersWings/Ribbons/Landed",
         "triggers": [],
         "conditions": [
           {

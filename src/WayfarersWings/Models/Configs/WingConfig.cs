@@ -26,6 +26,8 @@ public class WingConfig
     /// A description of the wing as it will be displayed in the UI. This will be translated.
     public string? description;
 
+    public Dictionary<string, string> localizationParams = new();
+
     /// The name of the wing's textures in the addressable bundle.
     /// Each layer is a separate texture which will be overlaid on top of each other.
     public List<string> imageLayers = [];

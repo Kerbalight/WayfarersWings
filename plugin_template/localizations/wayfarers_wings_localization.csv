@@ -1,2 +1,10 @@
 Key,Type,Desc,English,Italian,German,French,Spanish,Japanese,Korean,Polish,Russian,Chinese (Simplified),Portuguese (Brazil),Chinese (Traditional)
 WayfarersWings/UI/Achievements,Text,,Achievements,Conquiste,,,,,,,,,,
+WayfarersWings/Ribbons/FirstKerbal,Text,,First Kerbal:,Primo Kerbal:,,,,,,,,,,
+WayfarersWings/Ribbons/FirstTime,Text,,for the first time,per la prima volta,,,,,,,,,,
+WayfarersWings/Ribbons/SphereOfInfluence,Text,,Entered the Sphere of Influence of {body},,,,,,,,,,,
+WayfarersWings/Ribbons/Orbit,Text,,Entered in a stable orbit around {body},,,,,,,,,,,
+WayfarersWings/Ribbons/EVAOrbit,Text,,Executed EVA in orbit around {body},,,,,,,,,,,
+WayfarersWings/Ribbons/EVASpace,Text,,Executed EVA in space around {body},,,,,,,,,,,
+WayfarersWings/Ribbons/Landed,Text,,Landed on {body},,,,,,,,,,,
+WayfarersWings/Ribbons/GeeForce,Text,,Withstanded an acceleration of {geeForce}G,,,,,,,,,,,

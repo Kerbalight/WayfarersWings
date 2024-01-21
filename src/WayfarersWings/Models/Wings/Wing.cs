@@ -8,6 +8,8 @@ public class Wing
     // ReSharper disable once InconsistentNaming
     public WingConfig config { get; set; }
 
+    public string Description { get; set; }
+
     private readonly List<BaseCondition> _conditions = [];
 
     public Wing(WingConfig config)
