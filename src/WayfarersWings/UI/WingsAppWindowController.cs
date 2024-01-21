@@ -39,8 +39,6 @@ public class WingsAppWindowController : MonoBehaviour
 
     // The elements of the window that we need to access
     private VisualElement _root;
-    private VisualElement _tooltip;
-    private Label _tooltipText;
 
     // private ScrollView _content;
     private readonly Dictionary<string, ScrollView> _tabs = new();
@@ -100,10 +98,6 @@ public class WingsAppWindowController : MonoBehaviour
 
         _root.Q<Button>("kerbals-button").clicked += () => OnSelectTab("kerbals");
 
-        // Tooltip management
-        _tooltip = _root.Q<VisualElement>("tooltip");
-        _tooltipText = _tooltip.Q<Label>("tooltip__text");
-
         // Center the window by default
         _root.CenterByDefault();
 
@@ -132,21 +126,6 @@ public class WingsAppWindowController : MonoBehaviour
         foreach (var tab in _tabs)
         {
             tab.Value.style.display = tab.Key == tabName ? DisplayStyle.Flex : DisplayStyle.None;
-        }
-    }
-
-    public void ToggleTooltip(bool isVisible, VisualElement target, string text = "")
-    {
-        if (isVisible)
-        {
-            _tooltipText.text = text;
-            _tooltip.style.opacity = 1;
-            _tooltip.style.left = -_root.worldBound.xMin + target.worldBound.xMin + target.worldBound.width / 2;
-            _tooltip.style.top = -_root.worldBound.yMin + target.worldBound.yMin - 5;
-        }
-        else
-        {
-            _tooltip.style.opacity = 0;
         }
     }
 
