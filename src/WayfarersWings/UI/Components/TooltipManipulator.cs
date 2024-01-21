@@ -25,11 +25,11 @@ public class TooltipManipulator : MouseManipulator
 
     private void OnMouseIn(MouseEnterEvent evt)
     {
-        MainUIManager.Instance.AppWindow.ToggleTooltip(true, target, _tooltipText);
+        MainUIManager.Instance.TooltipWindow.ToggleTooltip(true, target, _tooltipText);
     }
 
     private void OnMouseOut(MouseLeaveEvent evt)
     {
-        MainUIManager.Instance.AppWindow.ToggleTooltip(false, target);
+        MainUIManager.Instance.TooltipWindow.ToggleTooltip(false, target);
     }
 }

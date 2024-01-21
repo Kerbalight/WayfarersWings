@@ -35,6 +35,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - wayfarer_wings_ui
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5297f2af6f8f17341b9c44162203ec36
+    m_Address: Assets/UI/TooltipWindow.uxml
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_ui
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: daa954bbe457ff546a5a1d12510407b3
     m_Address: Assets/Wings/Planets/stock_planets.json
     m_ReadOnly: 0
