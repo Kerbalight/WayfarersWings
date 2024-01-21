@@ -9,6 +9,7 @@ using WayfarersWings.Managers;
 using WayfarersWings.Managers.Messages;
 using WayfarersWings.Models.Session;
 using WayfarersWings.UI.Components;
+using WayfarersWings.UI.Localization;
 using Logger = UnityEngine.Logger;
 
 namespace WayfarersWings.UI;
@@ -86,6 +87,8 @@ public class WingsAppWindowController : MonoBehaviour
 
         _root = _window.rootVisualElement[0];
         _root.StopMouseEventsPropagation();
+
+        _root.Q<Label>("title").text = LocalizedStrings.AchievementsTitle.ToString().ToUpper();
 
         _tabs["ribbons"] = _root.Q<ScrollView>("ribbons-tab");
         _tabs["kerbals"] = _root.Q<ScrollView>("kerbals-tab");
