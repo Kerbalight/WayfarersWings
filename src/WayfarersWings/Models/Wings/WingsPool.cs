@@ -20,6 +20,22 @@ public class WingsPool
 
     private List<WingsConfig> _wingsConfigs = [];
 
+    private static List<string[]> _rankedImageLayers =
+    [
+        ["Assets/Wings/Layers/rank1.png"],
+        ["Assets/Wings/Layers/rank2.png"],
+        ["Assets/Wings/Layers/rank3.png"],
+        ["Assets/Wings/Layers/rank4.png"],
+        ["Assets/Wings/Layers/rank5.png"],
+        ["Assets/Wings/Layers/rank6.png"],
+        ["Assets/Wings/Layers/first.png", "Assets/Wings/Layers/rank1.png"],
+        ["Assets/Wings/Layers/first.png", "Assets/Wings/Layers/rank2.png"],
+        ["Assets/Wings/Layers/first.png", "Assets/Wings/Layers/rank3.png"],
+        ["Assets/Wings/Layers/first.png", "Assets/Wings/Layers/rank4.png"],
+        ["Assets/Wings/Layers/first.png", "Assets/Wings/Layers/rank5.png"],
+        ["Assets/Wings/Layers/first.png", "Assets/Wings/Layers/rank6.png"]
+    ];
+
     public const string FirstSuffix = "_first";
 
     /// <summary>
@@ -47,6 +63,10 @@ public class WingsPool
             if (templateConfig.celestialBody != null)
             {
                 AddTemplateForBodies(templateConfig);
+            }
+            else if (templateConfig.ranked != null)
+            {
+                AddTemplateRanked(templateConfig);
             }
             else
             {
@@ -105,6 +125,43 @@ public class WingsPool
             }
 
             AddTemplateWing(templateConfig, wingConfig, localizationParams);
+        }
+    }
+
+    /// <summary>
+    /// Should be working, not tested.
+    /// </summary>
+    /// <param name="templateConfig"></param>
+    private void AddTemplateRanked(WingTemplateConfig templateConfig)
+    {
+        _logger.LogInfo("Adding template " + templateConfig.name + " for ranked wings");
+        for (int i = 0; i < templateConfig.ranked!.partials.Count; i++)
+        {
+            var partialConfig = templateConfig.ranked.partials[i];
+
+            var wingConfig = templateConfig.template.Clone();
+            wingConfig.name = $"{templateConfig.name}_${i + 1}";
+
+            if (i < _rankedImageLayers.Count)
+            {
+                foreach (var rankImageLayer in _rankedImageLayers.ElementAt(i))
+                {
+                    wingConfig.imageLayers.Add(rankImageLayer);
+                }
+            }
+            else
+            {
+                _logger.LogWarning("Not enough rank images for template " + templateConfig.name);
+            }
+
+            if (partialConfig.description != null)
+                wingConfig.description = partialConfig.description;
+
+            wingConfig.conditions.AddRange(partialConfig.conditions);
+            wingConfig.localizationParams.AddRange(partialConfig.localizationParams);
+            wingConfig.localizationParams.Add("rank", RomanNumbers.Convert(i + 1));
+
+            AddTemplateWing(templateConfig, wingConfig);
         }
     }
 

@@ -1,210 +1,165 @@
 {
-  "wings": [
+  "templates": [
     {
-      "name": "gee_force_1",
-      "displayName": "Withstand 3G",
-      "imageLayers": [
-        "Assets/Wings/Layers/gee_force.png"
-      ],
-      "description": "WayfarersWings/Ribbons/GeeForce",
-      "localizationParams": {
-        "geeForce": "3"
+      "name": "gee_force",
+      "template": {
+        "name": "gee_force",
+        "displayName": "High Gee Force {rank}",
+        "imageLayers": [
+          "Assets/Wings/Layers/gee_force.png"
+        ],
+        "description": "WayfarersWings/Ribbons/GeeForce",
+        "localizationParams": {},
+        "conditions": []
       },
-      "conditions": [
-        {
-          "type": "Travel",
-          "minGeeForce": 3
-        }
-      ]
-    },
-    {
-      "name": "gee_force_2",
-      "displayName": "Withstand 4G",
-      "imageLayers": [
-        "Assets/Wings/Layers/gee_force.png",
-        "Assets/Wings/Layers/rank1.png"
-      ],
-      "description": "WayfarersWings/Ribbons/GeeForce",
-      "localizationParams": {
-        "geeForce": "4"
-      },
-      "conditions": [
-        {
-          "type": "Travel",
-          "minGeeForce": 4
-        }
-      ]
-    },
-    {
-      "name": "gee_force_3",
-      "displayName": "Withstand 5G",
-      "imageLayers": [
-        "Assets/Wings/Layers/gee_force.png",
-        "Assets/Wings/Layers/rank2.png"
-      ],
-      "description": "Withstand an acceleration of 5G",
-      "conditions": [
-        {
-          "type": "Travel",
-          "minGeeForce": 5
-        }
-      ]
-    },
-    {
-      "name": "gee_force_4",
-      "displayName": "Withstand 6G",
-      "imageLayers": [
-        "Assets/Wings/Layers/gee_force.png",
-        "Assets/Wings/Layers/rank3.png"
-      ],
-      "description": "Withstand an acceleration of 6G",
-      "conditions": [
-        {
-          "type": "Travel",
-          "minGeeForce": 6
-        }
-      ]
-    },
-    {
-      "name": "gee_force_5",
-      "displayName": "Withstand 7G",
-      "imageLayers": [
-        "Assets/Wings/Layers/gee_force.png",
-        "Assets/Wings/Layers/rank4.png"
-      ],
-      "description": "Withstand an acceleration of 7G",
-      "conditions": [
-        {
-          "type": "Travel",
-          "minGeeForce": 7
-        }
-      ]
-    },
-    {
-      "name": "gee_force_6",
-      "displayName": "Withstand 8G",
-      "imageLayers": [
-        "Assets/Wings/Layers/gee_force.png",
-        "Assets/Wings/Layers/rank5.png"
-      ],
-      "description": "Withstand an acceleration of 8G",
-      "conditions": [
-        {
-          "type": "Travel",
-          "minGeeForce": 8
-        }
-      ]
-    },
-    {
-      "name": "gee_force_7",
-      "displayName": "Withstand 9G",
-      "imageLayers": [
-        "Assets/Wings/Layers/gee_force.png",
-        "Assets/Wings/Layers/rank6.png"
-      ],
-      "description": "Withstand an acceleration of 9G",
-      "conditions": [
-        {
-          "type": "Travel",
-          "minGeeForce": 9
-        }
-      ]
-    },
-    {
-      "name": "gee_force_8",
-      "displayName": "Withstand 10G",
-      "imageLayers": [
-        "Assets/Wings/Layers/gee_force.png",
-        "Assets/Wings/Layers/rank1.png",
-        "Assets/Wings/Layers/first.png"
-      ],
-      "description": "Withstand an acceleration of 10G",
-      "conditions": [
-        {
-          "type": "Travel",
-          "minGeeForce": 10
-        }
-      ]
-    },
-    {
-      "name": "gee_force_9",
-      "displayName": "Withstand 11G",
-      "imageLayers": [
-        "Assets/Wings/Layers/gee_force.png",
-        "Assets/Wings/Layers/rank2.png",
-        "Assets/Wings/Layers/first.png"
-      ],
-      "description": "Withstand an acceleration of 11G",
-      "conditions": [
-        {
-          "type": "Travel",
-          "minGeeForce": 11
-        }
-      ]
-    },
-    {
-      "name": "gee_force_10",
-      "displayName": "Withstand 12G",
-      "imageLayers": [
-        "Assets/Wings/Layers/gee_force.png",
-        "Assets/Wings/Layers/rank3.png",
-        "Assets/Wings/Layers/first.png"
-      ],
-      "description": "Withstand an acceleration of 12G",
-      "conditions": [
-        {
-          "type": "Travel",
-          "minGeeForce": 12
-        }
-      ]
-    },
-    {
-      "name": "gee_force_11",
-      "displayName": "Withstand 13G",
-      "imageLayers": [
-        "Assets/Wings/Layers/gee_force.png",
-        "Assets/Wings/Layers/rank4.png",
-        "Assets/Wings/Layers/first.png"
-      ],
-      "description": "Withstand an acceleration of 13G",
-      "conditions": [
-        {
-          "type": "Travel",
-          "minGeeForce": 13
-        }
-      ]
-    },
-    {
-      "name": "gee_force_12",
-      "displayName": "Withstand 14G",
-      "imageLayers": [
-        "Assets/Wings/Layers/gee_force.png",
-        "Assets/Wings/Layers/rank5.png",
-        "Assets/Wings/Layers/first.png"
-      ],
-      "description": "Withstand an acceleration of 14G",
-      "conditions": [
-        {
-          "type": "Travel",
-          "minGeeForce": 14
-        }
-      ]
-    },
-    {
-      "name": "gee_force_13",
-      "displayName": "Withstand 15G",
-      "imageLayers": [
-        "Assets/Wings/Layers/gee_force.png",
-        "Assets/Wings/Layers/rank6.png",
-        "Assets/Wings/Layers/first.png"
-      ],
-      "description": "Withstand an acceleration of 15G",
-      "conditions": [
-        {
-          "type": "Travel",
-          "minGeeForce": 15
-        }
-      ]
+      "ranked": {
+        "partials": [
+          {
+            "localizationParams": {
+              "geeForce": "3"
+            },
+            "conditions": [
+              {
+                "type": "Travel",
+                "minGeeForce": 3
+              }
+            ]
+          },
+          {
+            "localizationParams": {
+              "geeForce": "4"
+            },
+            "conditions": [
+              {
+                "type": "Travel",
+                "minGeeForce": 4
+              }
+            ]
+          },
+          {
+            "localizationParams": {
+              "geeForce": "5"
+            },
+            "conditions": [
+              {
+                "type": "Travel",
+                "minGeeForce": 5
+              }
+            ]
+          },
+          {
+            "localizationParams": {
+              "geeForce": "6"
+            },
+            "conditions": [
+              {
+                "type": "Travel",
+                "minGeeForce": 6
+              }
+            ]
+          },
+          {
+            "localizationParams": {
+              "geeForce": "7"
+            },
+            "conditions": [
+              {
+                "type": "Travel",
+                "minGeeForce": 7
+              }
+            ]
+          },
+          {
+            "localizationParams": {
+              "geeForce": "8"
+            },
+            "conditions": [
+              {
+                "type": "Travel",
+                "minGeeForce": 8
+              }
+            ]
+          },
+          {
+            "localizationParams": {
+              "geeForce": "9"
+            },
+            "conditions": [
+              {
+                "type": "Travel",
+                "minGeeForce": 9
+              }
+            ]
+          },
+          {
+            "localizationParams": {
+              "geeForce": "10"
+            },
+            "conditions": [
+              {
+                "type": "Travel",
+                "minGeeForce": 10
+              }
+            ]
+          },
+          {
+            "localizationParams": {
+              "geeForce": "11"
+            },
+            "conditions": [
+              {
+                "type": "Travel",
+                "minGeeForce": 11
+              }
+            ]
+          },
+          {
+            "localizationParams": {
+              "geeForce": "12"
+            },
+            "conditions": [
+              {
+                "type": "Travel",
+                "minGeeForce": 12
+              }
+            ]
+          },
+          {
+            "localizationParams": {
+              "geeForce": "13"
+            },
+            "conditions": [
+              {
+                "type": "Travel",
+                "minGeeForce": 13
+              }
+            ]
+          },
+          {
+            "localizationParams": {
+              "geeForce": "14"
+            },
+            "conditions": [
+              {
+                "type": "Travel",
+                "minGeeForce": 14
+              }
+            ]
+          },
+          {
+            "localizationParams": {
+              "geeForce": "15"
+            },
+            "conditions": [
+              {
+                "type": "Travel",
+                "minGeeForce": 15
+              }
+            ]
+          }
+        ]
+      }
     }
-  ]
+  ],
+  "wings": []
 }
