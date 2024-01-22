@@ -20,7 +20,7 @@ public class SaveManager
     private void SaveGameData(SaveData dataToSave)
     {
         dataToSave.KerbalWings.Clear();
-        foreach (var kerbalWings in WingsSessionManager.Instance.KerbalsWings)
+        foreach (var (kerbalId, kerbalWings) in WingsSessionManager.Instance.KerbalsWings)
         {
             dataToSave.KerbalWings.Add(new KerbalWingEntriesData(kerbalWings));
         }

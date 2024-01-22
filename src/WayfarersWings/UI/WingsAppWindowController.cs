@@ -41,6 +41,7 @@ public class WingsAppWindowController : MonoBehaviour
     private VisualElement _root;
 
     // private ScrollView _content;
+    private string _selectedTab = "ribbons";
     private readonly Dictionary<string, ScrollView> _tabs = new();
 
     // The backing field for the IsWindowOpen property
@@ -59,8 +60,7 @@ public class WingsAppWindowController : MonoBehaviour
             _isWindowOpen = value;
 
             // if (value && !_isInitialized) BuildUI();
-            if (value) BuildUI("ribbons");
-            if (value && _isDirty) BuildUI("kerbals");
+            if (value && (!_isInitialized || _isDirty)) BuildUI(_selectedTab);
 
             // Set the display style of the root element to show or hide the window
             _root.style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
@@ -122,7 +122,8 @@ public class WingsAppWindowController : MonoBehaviour
     private void OnSelectTab(string tabName)
     {
         Logger.LogDebug($"Selected tab: {tabName}");
-        BuildUI(tabName);
+        _selectedTab = tabName;
+        BuildUI(_selectedTab);
         foreach (var tab in _tabs)
         {
             tab.Value.style.display = tab.Key == tabName ? DisplayStyle.Flex : DisplayStyle.None;
@@ -137,6 +138,7 @@ public class WingsAppWindowController : MonoBehaviour
             return;
         }
 
+        _isInitialized = true;
         _isDirty = false;
         _tabs[tabName].Clear();
 
@@ -164,17 +166,17 @@ public class WingsAppWindowController : MonoBehaviour
 
     private void BuildKerbalsTab()
     {
-        foreach (var kerbalWings in WingsSessionManager.Instance.KerbalsWings)
+        foreach (var kerbalInfo in WingsSessionManager.Roster.GetAllKerbals())
         {
-            if (!WingsSessionManager.Roster.TryGetKerbalByID(kerbalWings.KerbalId, out var kerbalInfo))
-            {
-                Logger.LogError("Kerbal not found in roster" + kerbalWings.KerbalId);
-                continue;
-            }
-
+            var kerbalWings = WingsSessionManager.Instance.GetKerbalWings(kerbalInfo.Id);
             var row = KerbalWingsRowController.Create();
             _tabs["kerbals"].Add(row.Root);
             row.Bind(kerbalWings);
         }
+    }
+
+    public void Refresh()
+    {
+        BuildUI(_selectedTab);
     }
 }

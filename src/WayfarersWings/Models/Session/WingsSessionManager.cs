@@ -1,5 +1,6 @@
 ﻿using BepInEx.Logging;
 using KSP.Game;
+using KSP.Sim.impl;
 using WayfarersWings.Managers;
 using WayfarersWings.Managers.Messages;
 using WayfarersWings.Models.Wings;
@@ -17,16 +18,20 @@ public class WingsSessionManager
 
     public static KerbalRosterManager Roster => GameManager.Instance?.Game?.SessionManager?.KerbalRosterManager;
 
-    private List<KerbalWingEntries> _kerbalsWings = [];
-    public IEnumerable<KerbalWingEntries> KerbalsWings => _kerbalsWings.AsReadOnly();
+    public Dictionary<IGGuid, KerbalWingEntries> KerbalsWings { get; private set; } = [];
 
     private HashSet<string> _firstWingsAlreadyUnlocked = [];
 
     public void Initialize(IEnumerable<KerbalWingEntries> kerbalsWings)
     {
-        _kerbalsWings = kerbalsWings.ToList();
+        KerbalsWings = [];
+        foreach (var kerbalWings in kerbalsWings)
+        {
+            KerbalsWings.Add(kerbalWings.KerbalId, kerbalWings);
+        }
+
         _firstWingsAlreadyUnlocked = new HashSet<string>();
-        foreach (var kerbalWings in _kerbalsWings)
+        foreach (var (kerbalId, kerbalWings) in KerbalsWings)
         {
             foreach (var entry in kerbalWings.Entries)
             {
@@ -40,17 +45,23 @@ public class WingsSessionManager
         return wing.config.isFirst && _firstWingsAlreadyUnlocked.Contains(wing.config.name);
     }
 
+    public KerbalWingEntries GetKerbalWings(IGGuid kerbalId)
+    {
+        if (!KerbalsWings.TryGetValue(kerbalId, out KerbalWingEntries kerbalWings))
+        {
+            kerbalWings = new KerbalWingEntries(kerbalId);
+            KerbalsWings.Add(kerbalId, kerbalWings);
+        }
+
+        return kerbalWings;
+    }
+
     public void Award(Wing wing, KerbalInfo kerbalInfo)
     {
         var config = wing.config;
         if (IsFirstAlreadyUnlocked(wing)) return;
 
-        var kerbalWings = KerbalsWings.FirstOrDefault(kw => kw.KerbalId == kerbalInfo.Id);
-        if (kerbalWings == null)
-        {
-            kerbalWings = new KerbalWingEntries(kerbalInfo.Id);
-            _kerbalsWings.Add(kerbalWings);
-        }
+        var kerbalWings = GetKerbalWings(kerbalInfo.Id);
 
         if (kerbalWings.HasWing(wing)) return;
 
