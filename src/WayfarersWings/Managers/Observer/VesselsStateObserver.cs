@@ -83,7 +83,8 @@ public class VesselsStateObserver : MonoBehaviour
     private void OnVesselChangedMessage(MessageCenterMessage message)
     {
         var vesselChangedMessage = message as VesselChangedMessage;
-        var vessel = vesselChangedMessage!.Vessel;
+        var vessel = vesselChangedMessage?.Vessel;
+        if (vessel == null) return;
         Logger.LogInfo("Vessel changed to: " + vessel.Name);
         UpdateVessel(vessel);
     }
