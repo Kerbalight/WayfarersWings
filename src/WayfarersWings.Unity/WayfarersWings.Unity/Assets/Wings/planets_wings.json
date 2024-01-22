@@ -132,7 +132,8 @@
           },
           {
             "type": "Vessel",
-            "situation": "Landed"
+            "situation": "Landed",
+            "isAtRest": true
           }
         ]
       }

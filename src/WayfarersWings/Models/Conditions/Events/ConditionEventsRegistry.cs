@@ -21,6 +21,10 @@ public class ConditionEventsRegistry
         MessageListener.Instance.MessageCenter.PersistentSubscribe<EVAEnteredMessage>(OnEVAEnteredMessage);
         MessageListener.Instance.MessageCenter.PersistentSubscribe<VesselSituationChangedMessage>(
             OnVesselSituationChangedMessage);
+        MessageListener.Instance.MessageCenter.PersistentSubscribe<VesselLandedGroundAtRestMessage>(
+            OnVesselLandedGroundAtRestMessage);
+        MessageListener.Instance.MessageCenter.PersistentSubscribe<VesselLandedWaterAtRestMessage>(
+            OnVesselLandedWaterAtRestMessage);
         MessageListener.Instance.MessageCenter.PersistentSubscribe<WingVesselGeeForceUpdatedMessage>(
             OnVesselGeeForceUpdatedMessage);
     }
@@ -52,6 +56,20 @@ public class ConditionEventsRegistry
     {
         var situationMessage = (VesselSituationChangedMessage)message;
         var transaction = new Transaction(situationMessage, situationMessage.Vessel);
+        AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+    }
+
+    public void OnVesselLandedGroundAtRestMessage(MessageCenterMessage message)
+    {
+        var landedMessage = (VesselLandedGroundAtRestMessage)message;
+        var transaction = new Transaction(landedMessage, landedMessage.Vessel);
+        AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+    }
+
+    public void OnVesselLandedWaterAtRestMessage(MessageCenterMessage message)
+    {
+        var landedMessage = (VesselLandedWaterAtRestMessage)message;
+        var transaction = new Transaction(landedMessage, landedMessage.Vessel);
         AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
     }
 

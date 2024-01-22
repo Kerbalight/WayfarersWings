@@ -12,6 +12,8 @@ namespace WayfarersWings.Models.Conditions;
 /// </summary>
 [Serializable]
 [ConditionTriggerEvent(typeof(VesselSituationChangedMessage))]
+[ConditionTriggerEvent(typeof(VesselLandedGroundAtRestMessage))]
+[ConditionTriggerEvent(typeof(VesselLandedWaterAtRestMessage))]
 public class VesselCondition : BaseCondition
 {
     [JsonConverter(typeof(StringEnumConverter))]
@@ -19,6 +21,7 @@ public class VesselCondition : BaseCondition
 
     // By default, we don't want to trigger on EVAs.
     public bool? isEva = false;
+    public bool? isAtRest;
 
     public override bool IsValid(Transaction transaction)
     {
@@ -33,9 +36,7 @@ public class VesselCondition : BaseCondition
             return false;
         if (RequiresLandedOrSplashed() && (transaction.Vessel.AltitudeFromTerrain > 100))
             return false;
-        if (situation == VesselSituations.Landed && !transaction.Vessel._hasLandedAtRestFired)
-            return false;
-        if (situation == VesselSituations.Splashed && !transaction.Vessel._hasSplashedAtRestFired)
+        if (isAtRest != null && transaction.Vessel.IsVesselAtRest() != isAtRest)
             return false;
 
         return true;
