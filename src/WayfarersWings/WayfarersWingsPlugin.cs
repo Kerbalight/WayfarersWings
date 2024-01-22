@@ -105,6 +105,9 @@ public class WayfarersWingsPlugin : BaseSpaceWarpPlugin
         // Save manager
         SaveManager.Instance.Register();
 
+        // Settings
+        Settings.SetupConfig();
+
         // Providers
         var providers = new GameObject("OrbitalSurvey_Providers");
         providers.transform.parent = this.transform;

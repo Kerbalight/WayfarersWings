@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UIElements;
 using WayfarersWings.Models.Wings;
+using WayfarersWings.Utility;
 
 namespace WayfarersWings.UI.Components;
 
@@ -23,6 +24,8 @@ public class WingRibbonController
         _ribbonContainer = _root.Q<VisualElement>("ribbon-container");
         _base = _root.Q<VisualElement>("base");
         _layers = new List<VisualElement>();
+
+        _root.Q<VisualElement>("test").style.display = DisplayStyle.None;
     }
 
     public VisualElement Root
@@ -43,8 +46,11 @@ public class WingRibbonController
     {
         foreach (var layer in _layers)
         {
-            _root.Remove(layer);
+            _ribbonContainer.Remove(layer);
         }
+
+        if (Settings.ShowAlwaysBigRibbons.Value) _ribbonContainer.RemoveFromClassList("ribbon--small");
+        else _ribbonContainer.AddToClassList("ribbon--small");
 
         _layers.Clear();
 
@@ -55,6 +61,7 @@ public class WingRibbonController
             // Logger.LogDebug("Adding layer to ribbon " + imageLayer);
             var layer = new VisualElement();
             layer.AddToClassList("ribbon-layer");
+            // if (!Settings.ShowAlwaysBigRibbons.Value) layer.AddToClassList("ribbon-layer__small");
 
             GameManager.Instance.Assets.LoadAssetAsync<Sprite>(imageLayer).Completed += handle =>
             {
