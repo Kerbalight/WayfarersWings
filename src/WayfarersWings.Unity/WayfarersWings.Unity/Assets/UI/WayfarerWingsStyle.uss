@@ -1,6 +1,17 @@
 :root {
     --dark-red: rgb(133, 13, 0);
     --background-lightgray-4: rgb(122, 133, 153);
+    --blue-3-translucent: rgba(105, 109, 255, 0.5);
+    --lightgray-2: rgb(132, 140, 157);
+    --lightgray-3: rgb(85, 88, 102);
+    --gray-1: rgb(71, 74, 86);
+    --gray-2: rgb(46, 53, 64);
+    --gray-3: rgb(46, 53, 64);
+    --gray-4: rgb(33, 38, 46);
+    --gray-5: rgb(29, 32, 41);
+    --blue-3: rgb(105, 109, 255);
+    --blue-5: rgb(83, 86, 204);
+    --darkblue-4: rgb(13, 13, 22);
 }
 
 #root {
@@ -16,6 +27,15 @@
     max-height: 32px;
     min-width: 120px;
     min-height: 32px;
+}
+
+.ribbon--small .ribbon-layer {
+    width: 60px;
+    height: 16px;
+    max-width: 60px;
+    max-height: 16px;
+    min-width: 60px;
+    min-height: 16px;
 }
 
 .ribbons-space .unity-scroll-view__content-container {
@@ -37,18 +57,28 @@
     margin-bottom: 2px;
 }
 
+.ribbon--small.ribbon-container {
+    width: 60px;
+    height: 16px;
+    max-width: 60px;
+    max-height: 16px;
+    min-width: 60px;
+    min-height: 16px;
+}
+
 .portrait {
     width: 80px;
-    height: 80px;
+    height: 70px;
     max-width: 80px;
-    max-height: 80px;
+    max-height: 70px;
     min-width: 80px;
-    min-height: 80px;
+    min-height: 70px;
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
     background-color: rgb(75, 77, 94);
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 #app-icon {
@@ -151,4 +181,75 @@
     padding-top: 6px;
     font-size: 12px;
     color: rgb(223, 232, 248);
+}
+
+.tabs-menu {
+    flex-grow: 1;
+    flex-direction: row;
+    min-height: 32px;
+    background-color: var(--gray-4);
+    border-color: var(--lightgray-3);
+    border-width: 1px;
+}
+
+.tabs-menu .tabs-menu__item {
+    background-color: var(--gray-4);
+    border-width: 0;
+    height: 24px;
+    margin-right: 4px;
+    font-size: 12px;
+    transition-property: background-color;
+    transition-duration: 0.2s;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.tabs-menu .tabs-menu__item:hover {
+    background-color: var(--blue-3);
+}
+
+.tabs-menu .tabs-menu__item--last {
+    margin-right: 0;
+}
+
+.tabs-menu .tabs-menu__item--selected {
+    background-color: var(--blue-5);
+}
+
+.wing-row__container {
+    background-color: var(--gray-3);
+    padding: 4px;
+    border-radius: 4px;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.wing-row__name {
+    -unity-text-align: upper-left;
+    margin-top: 6px;
+    font-size: 12px;
+}
+
+.wing-row__details {
+    background-color: rgba(0, 0, 0, 0);
+    margin-right: 10px;
+    align-self: stretch;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 120px;
+}
+
+.vertical-separator {
+    background-image: url('project://database/Assets/Images/VerticalSep.png?fileID=21300000&guid=d820e38cb74e70a4780e43a9419ef4c0&type=3#VerticalSep');
+    background-repeat: repeat-y;
+    background-size: contain;
+    -unity-background-image-tint-color: var(--gray-1);
 }

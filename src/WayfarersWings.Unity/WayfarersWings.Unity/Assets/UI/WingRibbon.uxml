@@ -2,5 +2,6 @@
     <Style src="project://database/Assets/UI/WayfarerWingsStyle.uss?fileID=7433441132597879392&amp;guid=da08ea5b9d5173244bc93b4727182b4b&amp;type=3#WayfarerWingsStyle" />
     <ui:VisualElement name="ribbon-container" class="ribbon-container">
         <ui:VisualElement name="base" class="ribbon-layer" />
+        <ui:VisualElement name="test" class="ribbon-layer" style="background-image: url(&apos;project://database/Assets/Wings/Layers/minmus.png?fileID=21300000&amp;guid=bac6fc2e6c94c334aab335e0018ed386&amp;type=3#minmus&apos;);" />
     </ui:VisualElement>
 </ui:UXML>
