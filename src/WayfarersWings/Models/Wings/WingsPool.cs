@@ -22,6 +22,7 @@ public class WingsPool
 
     private static List<string[]> _rankedImageLayers =
     [
+        [],
         ["Assets/Wings/Layers/rank1.png"],
         ["Assets/Wings/Layers/rank2.png"],
         ["Assets/Wings/Layers/rank3.png"],
