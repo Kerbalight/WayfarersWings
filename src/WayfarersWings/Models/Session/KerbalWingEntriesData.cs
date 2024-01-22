@@ -23,7 +23,8 @@ public class KerbalWingEntriesData
             {
                 wingCode = entry.Wing.config.name,
                 unlockedAt = entry.UnlockedAt,
-                universeTime = entry.UniverseTime
+                universeTime = entry.UniverseTime,
+                isSuperseeded = entry.isSuperseeded
             });
         }
     }

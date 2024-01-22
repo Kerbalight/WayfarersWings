@@ -4,85 +4,91 @@
       "name": "Kerbin",
       "code": "kerbin",
       "imageLayer": "Assets/Wings/Layers/kerbin.png",
-      "points": 1
+      "points": 1000
     },
     {
       "name": "Mun",
       "code": "mun",
       "imageLayer": "Assets/Wings/Layers/mun.png",
-      "points": 1
+      "points": 2000
     },
     {
       "name": "Minmus",
       "code": "minmus",
       "imageLayer": "Assets/Wings/Layers/minmus.png",
-      "points": 1
+      "points": 3000
     },
     {
       "name": "Moho",
       "code": "moho",
       "imageLayer": "Assets/Wings/Layers/moho.png",
-      "points": 2
+      "points": 9000
     },
     {
       "name": "Eve",
       "code": "eve",
       "imageLayer": "Assets/Wings/Layers/eve.png",
-      "points": 2
+      "points": 7000
     },
     {
       "name": "Gilly",
       "code": "gilly",
       "imageLayer": "Assets/Wings/Layers/gilly.png",
-      "points": 1
+      "points": 6000
     },
     {
       "name": "Dres",
       "code": "dres",
       "imageLayer": "Assets/Wings/Layers/dres.png",
-      "points": 2
+      "points": 8000
     },
     {
       "name": "Duna",
       "code": "duna",
       "imageLayer": "Assets/Wings/Layers/duna.png",
-      "points": 2
+      "points": 4000
     },
     {
       "name": "Ike",
       "code": "ike",
       "imageLayer": "Assets/Wings/Layers/ike.png",
-      "points": 1
+      "points": 5000
     },
     {
       "name": "Jool",
       "code": "jool",
       "imageLayer": "Assets/Wings/Layers/jool.png",
-      "points": 3
+      "points": 10000
     },
     {
       "name": "Laythe",
       "code": "laythe",
       "imageLayer": "Assets/Wings/Layers/laythe.png",
-      "points": 2
+      "points": 11000
     },
     {
       "name": "Vall",
       "code": "vall",
       "imageLayer": "Assets/Wings/Layers/vall.png",
-      "points": 2
+      "points": 12000
     },
     {
       "name": "Tylo",
       "code": "tylo",
       "imageLayer": "Assets/Wings/Layers/tylo.png",
-      "points": 2
+      "points": 13000
     },
     {
       "name": "Bop",
       "code": "bop",
       "imageLayer": "Assets/Wings/Layers/bop.png",
-      "points": 1
+      "points": 14000
+    },
+    {
+      "name": "Eeloo",
+      "code": "eeloo",
+      "imageLayer": "Assets/Wings/Layers/eeloo.png",
+      "points": 15000
     }
   ]
 }

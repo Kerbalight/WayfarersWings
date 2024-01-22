@@ -11,12 +11,14 @@ public class KerbalWingEntry
     public IGGuid KerbalId;
     public DateTime UnlockedAt;
     public double UniverseTime;
+    public bool isSuperseeded;
 
-    public KerbalWingEntry(Wing wing, IGGuid kerbalId, DateTime unlockedAt, double universeTime)
+    public KerbalWingEntry(Wing wing, IGGuid kerbalId, DateTime unlockedAt, double universeTime, bool isSuperseeded)
     {
         Wing = wing;
         KerbalId = kerbalId;
         UnlockedAt = unlockedAt;
         this.UniverseTime = universeTime;
+        this.isSuperseeded = isSuperseeded;
     }
 }

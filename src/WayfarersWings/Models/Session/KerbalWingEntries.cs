@@ -40,7 +40,8 @@ public class KerbalWingEntries
                 wing,
                 kerbalId: KerbalId,
                 unlockedAt: entryData.unlockedAt,
-                universeTime: entryData.universeTime
+                universeTime: entryData.universeTime,
+                isSuperseeded: entryData.isSuperseeded
             );
             UpdateUnlockedWingCodes(entry.Wing);
             _entries.Add(entry);
@@ -52,6 +53,22 @@ public class KerbalWingEntries
         return _unlockedWingsCodes.Contains(wing.config.name);
     }
 
+    public bool IsAwardable(Wing wing)
+    {
+        if (HasWing(wing)) return false;
+        if (wing.config.chain != null)
+        {
+            foreach (var awarded in _entries)
+            {
+                if (awarded.Wing.config.chain == wing.config.chain &&
+                    awarded.Wing.config.points >= wing.config.points)
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
     public void AddWing(Wing wing)
     {
         var universeTime = Core.GetUniverseTime();
@@ -59,8 +76,22 @@ public class KerbalWingEntries
             wing,
             kerbalId: KerbalId,
             unlockedAt: DateTime.Now,
-            universeTime: universeTime
+            universeTime: universeTime,
+            isSuperseeded: false
         );
+
+        if (wing.config.chain != null)
+        {
+            foreach (var awarded in _entries)
+            {
+                if (awarded.Wing.config.chain == wing.config.chain &&
+                    awarded.Wing.config.points < wing.config.points)
+                {
+                    awarded.isSuperseeded = true;
+                }
+            }
+        }
+
 
         UpdateUnlockedWingCodes(wing);
         _entries.Add(entry);

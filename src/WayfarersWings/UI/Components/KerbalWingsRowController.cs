@@ -50,6 +50,7 @@ public class KerbalWingsRowController
         _ribbonsSpace.Clear();
         foreach (var wingEntry in kerbalWingEntries.Entries)
         {
+            if (wingEntry.isSuperseeded) continue;
             var ribbon = WingRibbonController.Create();
             ribbon.Bind(wingEntry.Wing);
             _ribbonsSpace.Add(ribbon.Root);

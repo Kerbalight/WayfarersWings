@@ -20,6 +20,8 @@ public class WingsPool
 
     private List<WingsConfig> _wingsConfigs = [];
 
+    public const int PlanetPointsStart = 0;
+
     private static List<string[]> _rankedImageLayers =
     [
         [],
@@ -89,6 +91,7 @@ public class WingsPool
             var firstWingConfig = wingConfig.Clone();
             firstWingConfig.name = $"{wingConfig.name}{FirstSuffix}";
             firstWingConfig.isFirst = true;
+            firstWingConfig.points += 1;
             // firstWingConfig.description = templateConfig.hasFirst.description;
             firstWingConfig.imageLayers.Insert(1, templateConfig.hasFirst.imageLayer);
             AddWing(firstWingConfig, localizationParams);
@@ -117,6 +120,7 @@ public class WingsPool
             var wingConfig = templateConfig.template.Clone();
             wingConfig.name = $"{bodyConfig.code}_{templateConfig.name}";
             wingConfig.imageLayers.Insert(0, bodyConfig.imageLayer);
+            wingConfig.points += PlanetPointsStart + bodyConfig.points;
             foreach (var condition in wingConfig.conditions)
             {
                 if (condition is CelestialBodyCondition { celestialBody: null } celestialBodyCondition)
@@ -142,6 +146,7 @@ public class WingsPool
 
             var wingConfig = templateConfig.template.Clone();
             wingConfig.name = $"{templateConfig.name}_${i + 1}";
+            wingConfig.points += i;
 
             if (i < _rankedImageLayers.Count)
             {

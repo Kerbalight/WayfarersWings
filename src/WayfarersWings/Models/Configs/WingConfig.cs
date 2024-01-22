@@ -28,6 +28,9 @@ public class WingConfig
 
     public Dictionary<string, string> localizationParams = new();
 
+    /// Chain of wings, only the last one will be displayed (the most prestigious one).
+    public string? chain;
+
     /// The name of the wing's textures in the addressable bundle.
     /// Each layer is a separate texture which will be overlaid on top of each other.
     public List<string> imageLayers = [];

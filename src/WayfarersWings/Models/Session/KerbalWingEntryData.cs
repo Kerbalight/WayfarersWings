@@ -8,4 +8,5 @@ public class KerbalWingEntryData
     public string wingCode;
     public DateTime unlockedAt;
     public double universeTime;
+    public bool isSuperseeded;
 }

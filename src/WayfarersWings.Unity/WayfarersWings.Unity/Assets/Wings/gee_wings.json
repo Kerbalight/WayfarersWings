@@ -5,6 +5,8 @@
       "template": {
         "name": "gee_force",
         "displayName": "High Gee Force {rank}",
+        "chain": "gee_force",
+        "points": 80,
         "imageLayers": [
           "Assets/Wings/Layers/gee_force.png"
         ],
