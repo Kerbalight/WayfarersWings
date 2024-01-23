@@ -80,7 +80,7 @@ public class WayfarersWingsPlugin : BaseSpaceWarpPlugin
             ModName,
             ToolbarFlightButtonID,
             AssetManager.GetAsset<Texture2D>($"{ModGuid}/images/icon.png"),
-            isOpen => MainUIManager.Instance.AppWindow.IsWindowOpen = isOpen
+            isOpen => MainUIManager.Instance.ToggleUI(isOpen)
         );
 
         // Register OAB AppBar Button
@@ -88,7 +88,7 @@ public class WayfarersWingsPlugin : BaseSpaceWarpPlugin
             ModName,
             ToolbarOabButtonID,
             AssetManager.GetAsset<Texture2D>($"{ModGuid}/images/icon.png"),
-            isOpen => MainUIManager.Instance.AppWindow.IsWindowOpen = isOpen
+            isOpen => MainUIManager.Instance.ToggleUI(isOpen)
         );
 
         // Register KSC AppBar Button
@@ -96,7 +96,7 @@ public class WayfarersWingsPlugin : BaseSpaceWarpPlugin
             ModName,
             ToolbarKscButtonID,
             AssetManager.GetAsset<Texture2D>($"{ModGuid}/images/icon.png"),
-            () => MainUIManager.Instance.AppWindow.IsWindowOpen = !MainUIManager.Instance.AppWindow.IsWindowOpen
+            () => MainUIManager.Instance.ToggleUI()
         );
 
         // Messages subscribe

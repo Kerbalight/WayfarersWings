@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/WayfarerWingsStyle.uss?fileID=7433441132597879392&amp;guid=da08ea5b9d5173244bc93b4727182b4b&amp;type=3#WayfarerWingsStyle" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); padding-left: 4px; padding-right: 4px; padding-top: 2px; padding-bottom: 2px;">
+        <ui:VisualElement class="wing-row__container" style="flex-grow: 1; flex-direction: row;">
+            <ui:VisualElement name="ribbons-space" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); width: 130px;" />
+            <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column; margin-left: 10px; -unity-text-align: middle-left;">
+                <ui:Label tabindex="-1" text="Ribbon I" display-tooltip-when-elided="true" name="name" class="ribbon--title" style="font-size: 13px; padding-right: 0; padding-left: 0; padding-top: 0; padding-bottom: 0; margin-top: 0; text-overflow: clip; white-space: normal;" />
+                <ui:Label tabindex="-1" text="This is the ribbon description" display-tooltip-when-elided="true" name="description" class="ribbon--description" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -18,12 +18,16 @@ public class WingRibbonController
     private VisualElement _base;
     private List<VisualElement> _layers;
 
+    public bool DisplayBig;
+
     public WingRibbonController(VisualElement root)
     {
         _root = root;
         _ribbonContainer = _root.Q<VisualElement>("ribbon-container");
         _base = _root.Q<VisualElement>("base");
         _layers = new List<VisualElement>();
+
+        DisplayBig = Settings.ShowAlwaysBigRibbons.Value;
 
         _root.Q<VisualElement>("test").style.display = DisplayStyle.None;
     }
@@ -49,12 +53,14 @@ public class WingRibbonController
             _ribbonContainer.Remove(layer);
         }
 
-        if (Settings.ShowAlwaysBigRibbons.Value) _ribbonContainer.RemoveFromClassList("ribbon--small");
+        if (DisplayBig) _ribbonContainer.RemoveFromClassList("ribbon--small");
         else _ribbonContainer.AddToClassList("ribbon--small");
 
         _layers.Clear();
 
-        _root.AddManipulator(new TooltipManipulator(wing.Description ?? "N/A"));
+        _root.AddManipulator(
+            new TooltipManipulator(
+                $"<size=12><uppercase><color=#9295E8>{wing.DisplayName}</color></uppercase></size>\n{wing.Description ?? "N/A"}"));
 
         foreach (var imageLayer in wing.config.imageLayers)
         {

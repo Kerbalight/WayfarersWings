@@ -2,6 +2,7 @@
     --dark-red: rgb(133, 13, 0);
     --background-lightgray-4: rgb(122, 133, 153);
     --blue-3-translucent: rgba(105, 109, 255, 0.5);
+    --blue-5-translucent: rgba(83, 86, 204, 0.5);
     --lightgray-2: rgb(132, 140, 157);
     --lightgray-3: rgb(85, 88, 102);
     --gray-1: rgb(71, 74, 86);
@@ -11,6 +12,7 @@
     --gray-5: rgb(29, 32, 41);
     --gray-6: rgb(25, 31, 37);
     --button-bg: var(--gray-6);
+    --blue-1: rgb(134, 144, 255);
     --blue-3: rgb(105, 109, 255);
     --blue-5: rgb(83, 86, 204);
     --darkblue-4: rgb(13, 13, 22);
@@ -69,10 +71,10 @@
 }
 
 .portrait {
-    width: 60px;
+    width: 58px;
     height: 46px;
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
     background-color: rgb(75, 77, 94);
@@ -221,10 +223,10 @@
     background-color: var(--gray-3);
     padding: 4px;
     border-radius: 4px;
-    padding-left: 6px;
-    padding-right: 6px;
-    padding-top: 6px;
-    padding-bottom: 6px;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
     border-top-right-radius: 6px;
@@ -276,7 +278,7 @@
 }
 
 .button--invisible:hover {
-    background-color: var(--blue-3-translucent);
+    background-color: var(--blue-5-translucent);
 }
 
 .button--icon {
@@ -291,4 +293,32 @@
     flex-shrink: 0;
     flex-grow: 0;
     background-size: 14px 14px;
+}
+
+.ribbon--title {
+    color: var(--blue-1);
+    font-size: 14px;
+    -unity-font-definition: var(--font-bold);
+}
+
+.ribbon--description {
+    font-size: 12px;
+    color: rgb(187, 195, 212);
+    padding-bottom: 0;
+    padding-top: 2px;
+    -unity-font-definition: var(--font-regular);
+}
+
+.foldout--pixel .unity-foldout__toggle > .unity-toggle__input > .unity-toggle__checkmark {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-image: url('project://database/Assets/Images/ArrowIcon.png?fileID=21300000&guid=4a506aed588797846a24861c8c87047c&type=3#ArrowIcon');
+    rotate: -90deg;
+    transition-property: rotate;
+    transition-duration: 0.12s;
+}
+
+.foldout--pixel .unity-foldout__toggle > .unity-toggle__input:checked > .unity-toggle__checkmark {
+    rotate: 0;
 }

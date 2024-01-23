@@ -40,6 +40,8 @@ public class WingsAppWindowController : MonoBehaviour
     // The elements of the window that we need to access
     private VisualElement _root;
 
+    public VisualElement Root => _root;
+
     // private ScrollView _content;
     private string _selectedTab = "ribbons";
     private readonly Dictionary<string, ScrollView> _tabs = new();
@@ -62,6 +64,11 @@ public class WingsAppWindowController : MonoBehaviour
             // if (value && !_isInitialized) BuildUI();
             if (value && (!_isInitialized || _isDirty)) BuildUI(_selectedTab);
 
+            if (!value && MainUIManager.Instance.KerbalWindow != null)
+            {
+                MainUIManager.Instance.KerbalWindow.IsWindowOpen = false;
+            }
+
             // Set the display style of the root element to show or hide the window
             _root.style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
 
@@ -76,6 +83,8 @@ public class WingsAppWindowController : MonoBehaviour
                 ?.SetValue(value);
         }
     }
+
+    public float Width => _root.resolvedStyle.width;
 
     /// <summary>
     /// Runs when the window is first created, and every time the window is re-enabled.

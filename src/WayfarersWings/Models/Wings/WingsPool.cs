@@ -112,11 +112,6 @@ public class WingsPool
                 continue;
             }
 
-            var localizationParams = new Dictionary<string, string>
-            {
-                ["body"] = body.DisplayName
-            };
-
             var wingConfig = templateConfig.template.Clone();
             wingConfig.name = $"{bodyConfig.code}_{templateConfig.name}";
             wingConfig.imageLayers.Insert(0, bodyConfig.imageLayer);
@@ -129,7 +124,10 @@ public class WingsPool
                 }
             }
 
-            AddTemplateWing(templateConfig, wingConfig, localizationParams);
+            wingConfig.localizationParams.Add("body", body.DisplayName);
+
+
+            AddTemplateWing(templateConfig, wingConfig);
         }
     }
 
@@ -187,10 +185,13 @@ public class WingsPool
             wing.config.localizationParams.AddRange(localizationParams);
         }
 
+        wing.DisplayName =
+            LocalizedStrings.GetTranslationWithParams(wing.config.displayName, wing.config.localizationParams);
         wing.Description =
             LocalizedStrings.GetTranslationWithParams(wing.config.description, wing.config.localizationParams);
         if (wing.config.isFirst)
         {
+            wing.DisplayName += " " + "1°";
             // TODO Configurable position?
             wing.Description += " " + LocalizedStrings.FirstTime;
         }

@@ -4,14 +4,14 @@
       "name": "gee_force",
       "template": {
         "name": "gee_force",
-        "displayName": "High Gee Force {rank}",
+        "displayName": "WayfarersWings/Ribbons/GeeForceName",
+        "description": "WayfarersWings/Ribbons/GeeForce",
+        "localizationParams": {},
         "chain": "gee_force",
         "points": 80,
         "imageLayers": [
           "Assets/Wings/Layers/gee_force.png"
         ],
-        "description": "WayfarersWings/Ribbons/GeeForce",
-        "localizationParams": {},
         "conditions": []
       },
       "ranked": {

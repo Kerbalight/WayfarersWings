@@ -7,7 +7,7 @@
       },
       "template": {
         "name": "soi",
-        "displayName": "{body} SoI",
+        "displayName": "WayfarersWings/Ribbons/SphereOfInfluenceName",
         "imageLayers": [],
         "description": "WayfarersWings/Ribbons/SphereOfInfluence",
         "triggers": [],
@@ -29,7 +29,7 @@
       },
       "template": {
         "name": "orbit",
-        "displayName": "{0} Stable Orbit",
+        "displayName": "WayfarersWings/Ribbons/OrbitName",
         "imageLayers": [
           "Assets/Wings/Layers/vessel.png",
           "Assets/Wings/Layers/orbit.png"
@@ -58,7 +58,7 @@
       },
       "template": {
         "name": "eva_orbit",
-        "displayName": "{0} EVA in stable Orbit",
+        "displayName": "WayfarersWings/Ribbons/EVAOrbitName",
         "imageLayers": [
           "Assets/Wings/Layers/vessel.png",
           "Assets/Wings/Layers/eva.png"
@@ -91,7 +91,7 @@
       },
       "template": {
         "name": "eva_space",
-        "displayName": "{0} EVA in space",
+        "displayName": "WayfarersWings/Ribbons/EVASpaceName",
         "imageLayers": [
           "Assets/Wings/Layers/eva.png"
         ],
@@ -119,7 +119,7 @@
       },
       "template": {
         "name": "landed",
-        "displayName": "{0} Landing",
+        "displayName": "WayfarersWings/Ribbons/LandedName",
         "imageLayers": [
           "Assets/Wings/Layers/landed.png"
         ],
@@ -144,7 +144,7 @@
         "requires": []
       },
       "hasFirst": {
-        "description": "First to walk on {0} ground",
+        "description": "WayfarersWings/Ribbons/EVAGroundName",
         "imageLayer": "Assets/Wings/Layers/first.png"
       },
       "template": {
@@ -154,7 +154,7 @@
           "Assets/Wings/Layers/eva.png",
           "Assets/Wings/Layers/landed.png"
         ],
-        "description": "Walk on {0} ground",
+        "description": "WayfarersWings/Ribbons/EVAGround",
         "triggers": [],
         "conditions": [
           {

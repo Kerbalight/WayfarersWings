@@ -44,6 +44,7 @@ public class KerbalWingsRowController
     private void OnInfoClicked()
     {
         Logger.LogDebug("Info clicked");
+        MainUIManager.Instance.KerbalWindow.SelectKerbal(_kerbalWingEntries.KerbalId);
     }
 
     private void OnStarClicked()

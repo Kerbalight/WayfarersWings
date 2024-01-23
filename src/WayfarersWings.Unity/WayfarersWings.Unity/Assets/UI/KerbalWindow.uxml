@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/WayfarerWingsStyle.uss?fileID=7433441132597879392&amp;guid=da08ea5b9d5173244bc93b4727182b4b&amp;type=3#WayfarerWingsStyle" />
+    <ui:VisualElement name="root" class="root" style="flex-grow: 1; max-height: 600px; width: 600px; height: 600px;">
+        <ui:VisualElement name="title-bar" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-self: stretch; justify-content: space-between;">
+            <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; align-items: center;">
+                <ui:Label tabindex="-1" text="DETAIL" display-tooltip-when-elided="true" name="title" style="padding-bottom: 0; margin-left: 0; font-size: 10px;" />
+            </ui:VisualElement>
+            <ui:Button display-tooltip-when-elided="true" enable-rich-text="false" name="close-button" />
+        </ui:VisualElement>
+        <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="name-label" />
+        <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="detail-label" style="font-size: 12px; padding-top: 0; color: rgb(137, 150, 176);" />
+        <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="ribbons-view" style="display: flex;" />
+    </ui:VisualElement>
+</ui:UXML>
