@@ -296,9 +296,10 @@
 }
 
 .ribbon--title {
-    color: var(--blue-1);
+    color: rgb(179, 185, 245);
     font-size: 14px;
     -unity-font-definition: var(--font-bold);
+    margin-left: 1px;
 }
 
 .ribbon--description {
@@ -321,4 +322,11 @@
 
 .foldout--pixel .unity-foldout__toggle > .unity-toggle__input:checked > .unity-toggle__checkmark {
     rotate: 0;
+}
+
+.ribbon--date {
+    font-size: 9px;
+    -unity-font-style: normal;
+    -unity-text-align: middle-right;
+    color: rgb(108, 122, 152);
 }

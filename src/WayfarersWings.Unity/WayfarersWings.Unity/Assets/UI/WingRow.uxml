@@ -4,7 +4,10 @@
         <ui:VisualElement class="wing-row__container" style="flex-grow: 1; flex-direction: row;">
             <ui:VisualElement name="ribbons-space" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); width: 130px;" />
             <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column; margin-left: 10px; -unity-text-align: middle-left;">
-                <ui:Label tabindex="-1" text="Ribbon I" display-tooltip-when-elided="true" name="name" class="ribbon--title" style="font-size: 13px; padding-right: 0; padding-left: 0; padding-top: 0; padding-bottom: 0; margin-top: 0; text-overflow: clip; white-space: normal;" />
+                <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row; justify-content: space-between;">
+                    <ui:Label tabindex="-1" text="Ribbon I" display-tooltip-when-elided="true" name="name" class="ribbon--title" style="font-size: 13px; padding-right: 0; padding-left: 0; padding-top: 0; padding-bottom: 0; margin-top: 0; text-overflow: clip; white-space: normal;" />
+                    <ui:Label tabindex="-1" text="12Y 4D 11:00:12.000" display-tooltip-when-elided="true" name="date" class="ribbon--date" />
+                </ui:VisualElement>
                 <ui:Label tabindex="-1" text="This is the ribbon description" display-tooltip-when-elided="true" name="description" class="ribbon--description" />
             </ui:VisualElement>
         </ui:VisualElement>

@@ -1,6 +1,7 @@
 ﻿using BepInEx.Logging;
 using UnityEngine.UIElements;
 using WayfarersWings.Models.Session;
+using WayfarersWings.Utility;
 
 namespace WayfarersWings.UI.Components;
 
@@ -14,6 +15,7 @@ public class WingRowController
     private VisualElement _portrait;
     private Label _name;
     private Label _description;
+    private Label _date;
 
     private KerbalWingEntry _kerbalWingEntry;
 
@@ -25,6 +27,7 @@ public class WingRowController
         _ribbonsSpace = _root.Q<VisualElement>("ribbons-space");
         _name = _root.Q<Label>("name");
         _description = _root.Q<Label>("description");
+        _date = _root.Q<Label>("date");
     }
 
     public static WingRowController Create()
@@ -42,6 +45,7 @@ public class WingRowController
 
         _name.text = entry.Wing.DisplayName;
         _description.text = entry.Wing.Description;
+        _date.text = DateTimeLogic.FormatUniverseTime(entry.UniverseTime);
 
         _ribbonsSpace.Clear();
         var ribbon = WingRibbonController.Create();
