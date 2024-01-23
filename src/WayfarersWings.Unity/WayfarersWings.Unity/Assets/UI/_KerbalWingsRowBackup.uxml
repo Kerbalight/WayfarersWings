@@ -1,0 +1,55 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/WayfarerWingsStyle.uss?fileID=7433441132597879392&amp;guid=da08ea5b9d5173244bc93b4727182b4b&amp;type=3#WayfarerWingsStyle" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); padding-left: 4px; padding-right: 4px; padding-top: 2px; padding-bottom: 2px;">
+        <ui:VisualElement class="wing-row__container" style="flex-grow: 1; flex-direction: row; padding-left: 8px; padding-right: 8px; padding-top: 8px; padding-bottom: 8px;">
+            <ui:VisualElement name="header-side-old" style="background-color: rgba(0, 0, 0, 0); justify-content: space-between; width: 210px; display: none; visibility: hidden;">
+                <ui:Button display-tooltip-when-elided="true" name="header-button" class="button-default button--invisible" style="flex-direction: row; align-items: center;">
+                    <ui:VisualElement name="portrait" class="portrait" />
+                    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column; margin-left: 10px; -unity-text-align: middle-left;">
+                        <ui:Label tabindex="-1" text="Valentina Kerman" display-tooltip-when-elided="true" name="name" class="wing-row__name" style="font-size: 13px; padding-right: 0; padding-left: 0; padding-top: 0; padding-bottom: 0; margin-top: 0; text-overflow: clip; white-space: normal;" />
+                        <ui:Label tabindex="-1" text="10 Missions" display-tooltip-when-elided="true" name="missions-label" style="font-size: 12px; color: rgb(102, 113, 137); padding-bottom: 0; padding-top: 2px;" />
+                    </ui:VisualElement>
+                </ui:Button>
+                <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); margin-top: 8px;">
+                    <ui:VisualElement name="header-buttons" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+                        <ui:Button display-tooltip-when-elided="true" name="star-button" class="button--default button--icon" style="margin-right: 6px; background-image: url(&apos;project://database/Assets/Images/StarIcon.png?fileID=21300000&amp;guid=0c7012c530716fc43b04feedf556d7af&amp;type=3#StarIcon&apos;);" />
+                        <ui:Button display-tooltip-when-elided="true" name="info-button" class="button--default button--icon" style="background-image: url(&apos;project://database/Assets/Images/InfoIcon.png?fileID=21300000&amp;guid=3304fe77669167f4f9d70344fd307f6f&amp;type=3#InfoIcon&apos;);" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="header" class="wing-row__details" style="flex-direction: row; align-items: center; width: 160px; margin-right: 0;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="header-side-alt" style="background-color: rgba(0, 0, 0, 0); justify-content: flex-start; width: 160px; flex-shrink: 0; display: none; visibility: hidden;">
+                <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row; align-items: center; justify-content: flex-start; flex-shrink: 0; margin-bottom: 0;">
+                    <ui:VisualElement name="portrait" class="portrait" />
+                    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); margin-top: 0; flex-direction: row; margin-left: 10px; justify-content: flex-start; align-self: flex-end; align-items: center;">
+                        <ui:VisualElement name="header-buttons" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; justify-content: flex-start; align-items: center;">
+                            <ui:Button display-tooltip-when-elided="true" name="star-button" class="button--default button--icon" style="margin-right: 6px; background-image: url(&apos;project://database/Assets/Images/StarIcon.png?fileID=21300000&amp;guid=0c7012c530716fc43b04feedf556d7af&amp;type=3#StarIcon&apos;);" />
+                            <ui:Button display-tooltip-when-elided="true" name="info-button" class="button--default button--icon" style="background-image: url(&apos;project://database/Assets/Images/InfoIcon.png?fileID=21300000&amp;guid=3304fe77669167f4f9d70344fd307f6f&amp;type=3#InfoIcon&apos;);" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:Button display-tooltip-when-elided="true" name="header-button" class="button-default button--invisible" style="flex-direction: row; align-items: center; padding-top: 10px; align-self: stretch; justify-content: flex-start; white-space: normal;">
+                    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column; margin-left: 0; -unity-text-align: middle-left; flex-shrink: 0;">
+                        <ui:Label tabindex="-1" text="Valentina Kerman" display-tooltip-when-elided="true" name="name" class="wing-row__name" style="font-size: 13px; padding-right: 0; padding-left: 0; padding-top: 0; padding-bottom: 0; margin-top: 0; text-overflow: clip; white-space: normal;" />
+                        <ui:Label tabindex="-1" text="10 Missions" display-tooltip-when-elided="true" name="missions-label" style="font-size: 12px; color: rgb(102, 113, 137); padding-bottom: 0; padding-top: 2px;" />
+                    </ui:VisualElement>
+                </ui:Button>
+            </ui:VisualElement>
+            <ui:VisualElement name="header-side" style="background-color: rgba(0, 0, 0, 0); justify-content: space-between; width: 250px; display: flex;">
+                <ui:Button display-tooltip-when-elided="true" name="header-button" class="button-default button--invisible" style="flex-direction: row; align-items: center;">
+                    <ui:VisualElement name="header-buttons" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: column; margin-right: 8px;">
+                        <ui:Button display-tooltip-when-elided="true" name="star-button" class="button--default button--icon" style="background-image: url(&apos;project://database/Assets/Images/StarIcon.png?fileID=21300000&amp;guid=0c7012c530716fc43b04feedf556d7af&amp;type=3#StarIcon&apos;); margin-bottom: 2px;" />
+                        <ui:Button display-tooltip-when-elided="true" name="info-button" class="button--default button--icon" style="background-image: url(&apos;project://database/Assets/Images/InfoIcon.png?fileID=21300000&amp;guid=3304fe77669167f4f9d70344fd307f6f&amp;type=3#InfoIcon&apos;);" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="portrait" class="portrait" />
+                    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column; margin-left: 10px; -unity-text-align: middle-left;">
+                        <ui:Label tabindex="-1" text="Valentina Kerman" display-tooltip-when-elided="true" name="name" class="wing-row__name" style="font-size: 13px; padding-right: 0; padding-left: 0; padding-top: 0; padding-bottom: 0; margin-top: 0; text-overflow: clip; white-space: normal;" />
+                        <ui:Label tabindex="-1" text="10 Missions" display-tooltip-when-elided="true" name="missions-label" style="font-size: 12px; color: rgb(102, 113, 137); padding-bottom: 0; padding-top: 2px;" />
+                    </ui:VisualElement>
+                </ui:Button>
+            </ui:VisualElement>
+            <ui:VisualElement class="vertical-separator" style="flex-grow: 0; width: 2px; margin-left: 12px; margin-right: 12px;" />
+            <ui:VisualElement name="ribbons-space" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-wrap: wrap; flex-direction: row;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

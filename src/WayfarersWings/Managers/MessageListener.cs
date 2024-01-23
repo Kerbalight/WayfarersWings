@@ -29,6 +29,7 @@ public class MessageListener
         // MessageCenter.PersistentSubscribe<VesselScienceSituationChangedMessage>(OnVesselScienceSituationChangedMessage);
         MessageCenter.PersistentSubscribe<GameStateChangedMessage>(HideWindowOnInvalidState);
         // MessageCenter.PersistentSubscribe<TechTierUnlockedMessage>(OnTechTierUnlockedMessage);
+        // MessageCenter.PersistentSubscribe<VesselRecoveredMessage>(OnVesselRecoveredMessage);
 
         Core.Instance.EventsRegistry.SetupListeners();
     }
@@ -74,5 +75,9 @@ public class MessageListener
         if (GameStateManager.Instance.IsInvalidState())
             // Close the windows if the game is in an invalid state
             MainUIManager.Instance.AppWindow.IsWindowOpen = false;
+    }
+
+    private void OnVesselRecoveredMessage()
+    {
     }
 }

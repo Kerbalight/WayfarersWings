@@ -20,6 +20,9 @@ public class KerbalWingEntries
 
     private HashSet<string> _unlockedWingsCodes = [];
 
+    public int MissionsCount = 0;
+    public bool IsStarred = false;
+
     public KerbalWingEntries(IGGuid kerbalId)
     {
         KerbalId = kerbalId;
