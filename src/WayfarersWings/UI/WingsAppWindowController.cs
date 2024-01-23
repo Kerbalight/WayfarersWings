@@ -45,6 +45,7 @@ public class WingsAppWindowController : MonoBehaviour
     // private ScrollView _content;
     private string _selectedTab = "ribbons";
     private readonly Dictionary<string, ScrollView> _tabs = new();
+    private readonly Dictionary<string, Button> _tabButtons = new();
 
     // The backing field for the IsWindowOpen property
     private bool _isWindowOpen;
@@ -99,13 +100,15 @@ public class WingsAppWindowController : MonoBehaviour
 
         _root.Q<Label>("title").text = LocalizedStrings.AchievementsTitle.ToString().ToUpper();
 
+        // Tab buttons
         _tabs["ribbons"] = _root.Q<ScrollView>("ribbons-tab");
         _tabs["kerbals"] = _root.Q<ScrollView>("kerbals-tab");
 
-        var debugButton = _root.Q<Button>("debug-button");
-        debugButton.clicked += OnDebug;
+        _tabButtons["ribbons"] = _root.Q<Button>("ribbons-button");
+        _tabButtons["ribbons"].clicked += () => OnSelectTab("ribbons");
 
-        _root.Q<Button>("kerbals-button").clicked += () => OnSelectTab("kerbals");
+        _tabButtons["kerbals"] = _root.Q<Button>("kerbals-button");
+        _tabButtons["kerbals"].clicked += () => OnSelectTab("kerbals");
 
         // Center the window by default
         _root.CenterByDefault();
@@ -119,15 +122,6 @@ public class WingsAppWindowController : MonoBehaviour
         MessageListener.Instance.Subscribe<WingAwardedMessage>(message => BuildUI("kerbals"));
     }
 
-    private void OnDebug()
-    {
-        OnSelectTab("ribbons");
-        foreach (var ribbon in _tabs["ribbons"].Children())
-        {
-            // Logger.LogDebug($"Ribbon: {ribbon.name}");
-        }
-    }
-
     private void OnSelectTab(string tabName)
     {
         Logger.LogDebug($"Selected tab: {tabName}");
@@ -135,8 +129,11 @@ public class WingsAppWindowController : MonoBehaviour
         BuildUI(_selectedTab);
         foreach (var tab in _tabs)
         {
+            _tabButtons[tab.Key].RemoveFromClassList("tabs-menu__item--selected");
             tab.Value.style.display = tab.Key == tabName ? DisplayStyle.Flex : DisplayStyle.None;
         }
+
+        _tabButtons[tabName].AddToClassList("tabs-menu__item--selected");
     }
 
     private void BuildUI(string tabName)

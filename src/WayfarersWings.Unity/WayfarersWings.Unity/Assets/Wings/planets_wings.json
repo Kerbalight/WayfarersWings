@@ -144,12 +144,11 @@
         "requires": []
       },
       "hasFirst": {
-        "description": "WayfarersWings/Ribbons/EVAGroundName",
         "imageLayer": "Assets/Wings/Layers/first.png"
       },
       "template": {
         "name": "eva_ground",
-        "displayName": "{0} EVA on ground",
+        "displayName": "WayfarersWings/Ribbons/EVAGroundName",
         "imageLayers": [
           "Assets/Wings/Layers/eva.png",
           "Assets/Wings/Layers/landed.png"
