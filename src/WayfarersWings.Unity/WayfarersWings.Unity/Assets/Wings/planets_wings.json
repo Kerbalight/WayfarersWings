@@ -11,6 +11,7 @@
         "imageLayers": [],
         "description": "WayfarersWings/Ribbons/SphereOfInfluence",
         "triggers": [],
+        "points": 0,
         "conditions": [
           {
             "type": "SphereOfInfluence",
@@ -36,6 +37,7 @@
         ],
         "description": "WayfarersWings/Ribbons/Orbit",
         "triggers": [],
+        "points": 10,
         "conditions": [
           {
             "type": "SphereOfInfluence",
@@ -65,6 +67,7 @@
         ],
         "description": "WayfarersWings/Ribbons/EVAOrbit",
         "triggers": [],
+        "points": 40,
         "conditions": [
           {
             "type": "SphereOfInfluence",
@@ -97,6 +100,7 @@
         ],
         "description": "WayfarersWings/Ribbons/EVASpace",
         "triggers": [],
+        "points": 20,
         "conditions": [
           {
             "type": "SphereOfInfluence",
@@ -112,7 +116,9 @@
     {
       "name": "landed",
       "celestialBody": {
-        "requires": []
+        "requires": [
+          "HasSurface"
+        ]
       },
       "hasFirst": {
         "imageLayer": "Assets/Wings/Layers/first.png"
@@ -125,6 +131,7 @@
         ],
         "description": "WayfarersWings/Ribbons/Landed",
         "triggers": [],
+        "points": 50,
         "conditions": [
           {
             "type": "SphereOfInfluence",
@@ -141,7 +148,9 @@
     {
       "name": "eva_ground",
       "celestialBody": {
-        "requires": []
+        "requires": [
+          "HasSurface"
+        ]
       },
       "hasFirst": {
         "imageLayer": "Assets/Wings/Layers/first.png"
@@ -155,6 +164,7 @@
         ],
         "description": "WayfarersWings/Ribbons/EVAGround",
         "triggers": [],
+        "points": 60,
         "conditions": [
           {
             "type": "SphereOfInfluence",
@@ -168,6 +178,37 @@
             "type": "Vessel",
             "isEva": true,
             "situation": "Landed"
+          }
+        ]
+      }
+    },
+    {
+      "name": "flag_planted",
+      "celestialBody": {
+        "requires": [
+          "HasSurface"
+        ]
+      },
+      "hasFirst": {
+        "imageLayer": "Assets/Wings/Layers/first.png"
+      },
+      "template": {
+        "name": "flag_planted",
+        "displayName": "WayfarersWings/Ribbons/FlagPlantedName",
+        "imageLayers": [
+          "Assets/Wings/Layers/eva.png",
+          "Assets/Wings/Layers/flag.png"
+        ],
+        "description": "WayfarersWings/Ribbons/FlagPlanted",
+        "triggers": [],
+        "points": 70,
+        "conditions": [
+          {
+            "type": "SphereOfInfluence",
+            "celestialBody": null
+          },
+          {
+            "type": "FlagPlanted"
           }
         ]
       }

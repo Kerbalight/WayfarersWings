@@ -5,6 +5,7 @@ using KSP.Messages;
 using KSP.Sim.impl;
 using WayfarersWings.Managers;
 using WayfarersWings.Managers.Messages;
+using WayfarersWings.Managers.Observer;
 using WayfarersWings.Models.Wings;
 
 namespace WayfarersWings.Models.Conditions.Events;
@@ -27,6 +28,13 @@ public class ConditionEventsRegistry
             OnVesselLandedWaterAtRestMessage);
         MessageListener.Instance.MessageCenter.PersistentSubscribe<WingVesselGeeForceUpdatedMessage>(
             OnVesselGeeForceUpdatedMessage);
+        MessageListener.Instance.MessageCenter.PersistentSubscribe<FlagPlantedMessage>(OnFlagPlantedMessage);
+    }
+
+    private Transaction ActiveVesselTransaction(MessageCenterMessage message)
+    {
+        var activeVessel = GameManager.Instance.Game.ViewController.GetActiveSimVessel();
+        return new Transaction(message, activeVessel);
     }
 
     private void OnSOIEnteredMessage(MessageCenterMessage message)
@@ -47,8 +55,7 @@ public class ConditionEventsRegistry
         // TODO
         var vessels = GameManager.Instance.Game.SpaceSimulation.GetAllObjectsWithComponent<OrbiterComponent>();
 
-        var transaction = new Transaction(stableOrbitMessage,
-            GameManager.Instance.Game.ViewController.GetActiveSimVessel());
+        var transaction = ActiveVesselTransaction(stableOrbitMessage);
         AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
     }
 
@@ -75,6 +82,7 @@ public class ConditionEventsRegistry
 
     public void OnEVAEnteredMessage(MessageCenterMessage message)
     {
+        // TODO Active vessel
         var evaMessage = (EVAEnteredMessage)message;
         var allVessels = GameManager.Instance.Game.UniverseModel.GetAllVessels();
         var allKerbals =
@@ -91,6 +99,15 @@ public class ConditionEventsRegistry
     {
         var geeForceMessage = (WingVesselGeeForceUpdatedMessage)message;
         var transaction = new Transaction(geeForceMessage, geeForceMessage.Vessel);
+        AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+    }
+
+    private void OnFlagPlantedMessage(MessageCenterMessage message)
+    {
+        var flagPlantedMessage = (FlagPlantedMessage)message;
+        var kerbals = KerbalStateObserver.GetKerbalsInRange();
+        var transaction = ActiveVesselTransaction(flagPlantedMessage);
+        transaction.AffectedKerbals.AddRange(kerbals);
         AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
     }
 }

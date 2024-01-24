@@ -3,6 +3,7 @@ using KSP.Messages;
 using KSP.Sim.impl;
 using UnityEngine;
 using WayfarersWings.Managers.Observer;
+using WayfarersWings.Models.Session;
 
 namespace WayfarersWings.Models.Wings;
 
@@ -15,6 +16,13 @@ public class Transaction
 
     public VesselObservedState? ObservedState { get; private set; }
 
+    /// <summary>
+    /// Promotes this transaction to a transaction that affects
+    /// all nearby kerbals.
+    /// Used for example for flag planting.
+    /// </summary>
+    public List<KerbalInfo> AffectedKerbals { get; set; } = new();
+
     public Transaction(MessageCenterMessage? message, VesselComponent? vessel)
     {
         VesselID = vessel?.GlobalId;
@@ -24,15 +32,23 @@ public class Transaction
         ObservedState = VesselsStateObserver.Instance.GetVesselObservedState(VesselID);
     }
 
-    public List<KerbalInfo> GetKerbals()
+    public IEnumerable<KerbalInfo> GetKerbals()
     {
+        var kerbals = new List<KerbalInfo>();
+        if (AffectedKerbals.Count > 0)
+        {
+            kerbals.AddRange(AffectedKerbals);
+        }
+
         var vesselID = VesselID;
         if (vesselID == null)
         {
             Debug.LogError("VesselID is null");
-            return [];
+            return kerbals;
         }
 
-        return GameManager.Instance.Game.SessionManager.KerbalRosterManager.GetAllKerbalsInVessel(vesselID.Value);
+        kerbals.AddRange(
+            WingsSessionManager.Roster.GetAllKerbalsInVessel(vesselID.Value));
+        return kerbals;
     }
 }

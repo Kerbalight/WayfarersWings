@@ -112,6 +112,8 @@ public class WingsPool
                 continue;
             }
 
+            if (!templateConfig.celestialBody!.IsValid(body)) continue;
+
             var wingConfig = templateConfig.template.Clone();
             wingConfig.name = $"{bodyConfig.code}_{templateConfig.name}";
             wingConfig.imageLayers.Insert(0, bodyConfig.imageLayer);
