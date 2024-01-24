@@ -28,4 +28,17 @@ public static class JsonConvertExtension
         var serialized = JsonConvert.SerializeObject(source);
         return JsonConvert.DeserializeObject<T>(serialized);
     }
+
+    public static JsonReader CopyReaderForObject(JsonReader reader, JToken jToken)
+    {
+        JsonReader jTokenReader = jToken.CreateReader();
+        jTokenReader.Culture = reader.Culture;
+        jTokenReader.DateFormatString = reader.DateFormatString;
+        jTokenReader.DateParseHandling = reader.DateParseHandling;
+        jTokenReader.DateTimeZoneHandling = reader.DateTimeZoneHandling;
+        jTokenReader.FloatParseHandling = reader.FloatParseHandling;
+        jTokenReader.MaxDepth = reader.MaxDepth;
+        jTokenReader.SupportMultipleContent = reader.SupportMultipleContent;
+        return jTokenReader;
+    }
 }

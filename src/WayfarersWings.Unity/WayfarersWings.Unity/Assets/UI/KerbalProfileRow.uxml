@@ -8,11 +8,14 @@
                         <ui:Button display-tooltip-when-elided="true" name="star-button" class="button--default button--icon" style="background-image: url(&apos;project://database/Assets/Images/StarIcon.png?fileID=21300000&amp;guid=0c7012c530716fc43b04feedf556d7af&amp;type=3#StarIcon&apos;); margin-bottom: 2px; border-top-left-radius: 6px;" />
                         <ui:Button display-tooltip-when-elided="true" name="info-button" class="button--default button--icon" style="background-image: url(&apos;project://database/Assets/Images/InfoIcon.png?fileID=21300000&amp;guid=3304fe77669167f4f9d70344fd307f6f&amp;type=3#InfoIcon&apos;); border-bottom-left-radius: 6px;" />
                     </ui:VisualElement>
-                    <ui:Button display-tooltip-when-elided="true" name="header-button" class="button-default button--invisible" style="flex-direction: row; align-items: center; border-top-left-radius: 3px; border-bottom-left-radius: 3px;">
+                    <ui:Button display-tooltip-when-elided="true" name="header-button" class="button-default button--invisible" style="flex-direction: row; align-items: center; border-top-left-radius: 3px; border-bottom-left-radius: 3px; flex-grow: 1;">
                         <ui:VisualElement name="portrait" class="portrait" />
                         <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column; margin-left: 10px; -unity-text-align: middle-left;">
                             <ui:Label tabindex="-1" text="Valentina Kerman" display-tooltip-when-elided="true" name="name" class="wing-row__name" style="font-size: 13px; padding-right: 0; padding-left: 0; padding-top: 0; padding-bottom: 0; margin-top: 0; text-overflow: clip; white-space: normal;" />
-                            <ui:Label tabindex="-1" text="10 Missions" display-tooltip-when-elided="true" name="missions-label" style="font-size: 12px; color: rgb(102, 113, 137); padding-bottom: 0; padding-top: 2px;" />
+                            <ui:VisualElement name="VisualElement" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row; align-items: center; justify-content: space-between;">
+                                <ui:Label tabindex="-1" text="10 Missions" display-tooltip-when-elided="true" name="missions-label" style="font-size: 12px; color: rgb(102, 113, 137); padding-bottom: 0; padding-top: 2px; white-space: nowrap;" />
+                                <ui:VisualElement name="status" class="kerbal-status" style="margin-top: 3px;" />
+                            </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:Button>
                 </ui:VisualElement>

@@ -143,7 +143,7 @@ public class WingsPool
             var partialConfig = templateConfig.ranked.partials[i];
 
             var wingConfig = templateConfig.template.Clone();
-            wingConfig.name = $"{templateConfig.name}_${i + 1}";
+            wingConfig.name = $"{templateConfig.name}_{i + 1}";
             wingConfig.points += i;
 
             if (i < _rankedImageLayers.Count)

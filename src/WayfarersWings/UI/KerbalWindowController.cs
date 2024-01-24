@@ -122,13 +122,13 @@ public class KerbalWindowController : MonoBehaviour
         _nameLabel.text = kerbalInfo.Attributes.GetFullName();
         _detailLabel.text = "10 Missions";
 
-        var entries = WingsSessionManager.Instance.GetKerbalWings(kerbalInfo.Id);
+        var entries = WingsSessionManager.Instance.GetKerbalProfile(kerbalInfo.Id);
 
         _ribbonsView.Clear();
         foreach (var wingEntry in entries.Entries)
         {
             if (wingEntry.isSuperseeded) continue;
-            var row = WingRowController.Create();
+            var row = KerbalWingEntryRowController.Create();
             row.Bind(wingEntry);
             _ribbonsView.Add(row.Root);
         }

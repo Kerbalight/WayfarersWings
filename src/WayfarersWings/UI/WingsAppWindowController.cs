@@ -174,8 +174,8 @@ public class WingsAppWindowController : MonoBehaviour
     {
         foreach (var kerbalInfo in WingsSessionManager.Roster.GetAllKerbals())
         {
-            var kerbalWings = WingsSessionManager.Instance.GetKerbalWings(kerbalInfo.Id);
-            var row = KerbalWingsRowController.Create();
+            var kerbalWings = WingsSessionManager.Instance.GetKerbalProfile(kerbalInfo.Id);
+            var row = KerbalProfileRowController.Create();
             _tabs["kerbals"].Add(row.Root);
             row.Bind(kerbalWings);
         }

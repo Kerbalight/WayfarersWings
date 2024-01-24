@@ -19,16 +19,18 @@ public class SaveManager
 
     private void SaveGameData(SaveData dataToSave)
     {
-        dataToSave.KerbalWings.Clear();
-        foreach (var (kerbalId, kerbalWings) in WingsSessionManager.Instance.KerbalsWings)
+        dataToSave.KerbalProfiles.Clear();
+        foreach (var (kerbalId, profile) in WingsSessionManager.Instance.KerbalProfiles)
         {
-            dataToSave.KerbalWings.Add(new KerbalWingEntriesData(kerbalWings));
+            dataToSave.KerbalProfiles.Add(profile);
         }
     }
 
     private void LoadGameData(SaveData dataToLoad)
     {
         loadedSaveData = dataToLoad;
+        if (dataToLoad.KerbalWings.Count > 0)
+            dataToLoad.KerbalProfiles = dataToLoad.KerbalWings;
         _Logger.LogInfo("Loaded game data");
     }
 
@@ -40,13 +42,14 @@ public class SaveManager
             return;
         }
 
-        var kerbalWings = new List<KerbalWingEntries>();
-        foreach (var kerbalWingsData in loadedSaveData.KerbalWings)
+        var loadedProfiles = new List<KerbalProfile>();
+        foreach (var profile in loadedSaveData.KerbalProfiles)
         {
-            kerbalWings.Add(new KerbalWingEntries(kerbalWingsData));
+            profile.OnAfterGameLoad();
+            loadedProfiles.Add(profile);
         }
 
-        WingsSessionManager.Instance.Initialize(kerbalWings);
+        WingsSessionManager.Instance.Initialize(loadedProfiles);
         loadedSaveData = null;
         _Logger.LogInfo("Loaded game data into session");
     }

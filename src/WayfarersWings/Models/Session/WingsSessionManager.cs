@@ -18,22 +18,22 @@ public class WingsSessionManager
 
     public static KerbalRosterManager Roster => GameManager.Instance?.Game?.SessionManager?.KerbalRosterManager;
 
-    public Dictionary<IGGuid, KerbalWingEntries> KerbalsWings { get; private set; } = [];
+    public Dictionary<IGGuid, KerbalProfile> KerbalProfiles { get; private set; } = [];
 
     private HashSet<string> _firstWingsAlreadyUnlocked = [];
 
-    public void Initialize(IEnumerable<KerbalWingEntries> kerbalsWings)
+    public void Initialize(IEnumerable<KerbalProfile> loadedProfiles)
     {
-        KerbalsWings = [];
-        foreach (var kerbalWings in kerbalsWings)
+        KerbalProfiles = [];
+        foreach (var profile in loadedProfiles)
         {
-            KerbalsWings.Add(kerbalWings.KerbalId, kerbalWings);
+            KerbalProfiles.Add(profile.kerbalId, profile);
         }
 
         _firstWingsAlreadyUnlocked = new HashSet<string>();
-        foreach (var (kerbalId, kerbalWings) in KerbalsWings)
+        foreach (var (kerbalId, profile) in KerbalProfiles)
         {
-            foreach (var entry in kerbalWings.Entries)
+            foreach (var entry in profile.Entries)
             {
                 if (entry.Wing.config.isFirst) _firstWingsAlreadyUnlocked.Add(entry.Wing.config.name);
             }
@@ -45,12 +45,12 @@ public class WingsSessionManager
         return wing.config.isFirst && _firstWingsAlreadyUnlocked.Contains(wing.config.name);
     }
 
-    public KerbalWingEntries GetKerbalWings(IGGuid kerbalId)
+    public KerbalProfile GetKerbalProfile(IGGuid kerbalId)
     {
-        if (!KerbalsWings.TryGetValue(kerbalId, out KerbalWingEntries kerbalWings))
+        if (!KerbalProfiles.TryGetValue(kerbalId, out KerbalProfile kerbalWings))
         {
-            kerbalWings = new KerbalWingEntries(kerbalId);
-            KerbalsWings.Add(kerbalId, kerbalWings);
+            kerbalWings = new KerbalProfile(kerbalId);
+            KerbalProfiles.Add(kerbalId, kerbalWings);
         }
 
         return kerbalWings;
@@ -61,11 +61,11 @@ public class WingsSessionManager
         var config = wing.config;
         if (IsFirstAlreadyUnlocked(wing)) return;
 
-        var kerbalWings = GetKerbalWings(kerbalInfo.Id);
+        var profile = GetKerbalProfile(kerbalInfo.Id);
 
-        if (kerbalWings.HasWing(wing)) return;
+        if (profile.HasWing(wing)) return;
 
-        kerbalWings.AddWing(wing);
+        profile.AddWing(wing);
         if (wing.config.isFirst) _firstWingsAlreadyUnlocked.Add(wing.config.name);
 
         Logger.LogInfo("Awarded " + config.name + " to " + kerbalInfo.Attributes.GetFullName());

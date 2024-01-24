@@ -16,6 +16,7 @@
     --blue-3: rgb(105, 109, 255);
     --blue-5: rgb(83, 86, 204);
     --darkblue-4: rgb(13, 13, 22);
+    --led-green: rgb(0, 255, 102);
 }
 
 #root {
@@ -329,4 +330,26 @@
     -unity-font-style: normal;
     -unity-text-align: middle-right;
     color: rgb(108, 122, 152);
+}
+
+.kerbal-status {
+    flex-grow: 0;
+    background-color: rgba(0, 0, 0, 0);
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    background-image: url('project://database/Assets/Images/TooltipBg.png?fileID=21300000&guid=d3a152b3c2806f04d835c162a0c88a4f&type=3#TooltipBg');
+    -unity-slice-left: 1;
+    -unity-slice-top: 1;
+    -unity-slice-right: 1;
+    -unity-slice-bottom: 1;
+    -unity-background-image-tint-color: rgb(13, 14, 18);
+}
+
+.kerbal-status.kerbal-status--available {
+    -unity-background-image-tint-color: var(--led-green);
+}
+
+.kerbal-status.kerbal-status--assigned {
+    -unity-background-image-tint-color: rgb(146, 58, 202);
 }

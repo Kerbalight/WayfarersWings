@@ -7,7 +7,7 @@ using WayfarersWings.Utility;
 
 namespace WayfarersWings.UI.Components;
 
-public class KerbalWingsRowController
+public class KerbalProfileRowController
 {
     private static ManualLogSource
         Logger = BepInEx.Logging.Logger.CreateLogSource("WayfarerWings.KerbalWingsRowController");
@@ -15,17 +15,18 @@ public class KerbalWingsRowController
     private VisualElement _root;
     private VisualElement _ribbonsSpace;
     private VisualElement _portrait;
+    private VisualElement _status;
     private Label _name;
     private Label _missionsLabel;
     private Button _starButton;
     private Button _infoButton;
     private Button _headerButton;
 
-    private KerbalWingEntries _kerbalWingEntries;
+    private KerbalProfile _kerbalProfile;
 
     public VisualElement Root => _root;
 
-    public KerbalWingsRowController(VisualElement root)
+    public KerbalProfileRowController(VisualElement root)
     {
         _root = root;
         _ribbonsSpace = _root.Q<VisualElement>("ribbons-space");
@@ -35,6 +36,7 @@ public class KerbalWingsRowController
         _starButton = _root.Q<Button>("star-button");
         _infoButton = _root.Q<Button>("info-button");
         _headerButton = _root.Q<Button>("header-button");
+        _status = _root.Q<VisualElement>("status");
 
         _headerButton.clicked += OnInfoClicked;
         _infoButton.clicked += OnInfoClicked;
@@ -44,30 +46,30 @@ public class KerbalWingsRowController
     private void OnInfoClicked()
     {
         Logger.LogDebug("Info clicked");
-        MainUIManager.Instance.KerbalWindow.SelectKerbal(_kerbalWingEntries.KerbalId);
+        MainUIManager.Instance.KerbalWindow.SelectKerbal(_kerbalProfile.kerbalId);
     }
 
     private void OnStarClicked()
     {
-        _kerbalWingEntries.IsStarred = !_kerbalWingEntries.IsStarred;
+        _kerbalProfile.isStarred = !_kerbalProfile.isStarred;
         _starButton.style.unityBackgroundImageTintColor =
-            _kerbalWingEntries.IsStarred ? Colors.LedGreen : Color.white;
+            _kerbalProfile.isStarred ? Colors.LedGreen : Color.white;
     }
 
-    public static KerbalWingsRowController Create()
+    public static KerbalProfileRowController Create()
     {
-        var template = MainUIManager.Instance.GetTemplate("KerbalWingsRow");
+        var template = MainUIManager.Instance.GetTemplate("KerbalProfileRow");
         var root = template.Instantiate();
-        var controller = new KerbalWingsRowController(root);
+        var controller = new KerbalProfileRowController(root);
         root.userData = controller;
         return controller;
     }
 
-    public void Bind(KerbalWingEntries kerbalWingEntries)
+    public void Bind(KerbalProfile kerbalProfile)
     {
-        _kerbalWingEntries = kerbalWingEntries;
+        _kerbalProfile = kerbalProfile;
 
-        if (!WingsSessionManager.Roster.TryGetKerbalByID(kerbalWingEntries.KerbalId, out var kerbalInfo))
+        if (!WingsSessionManager.Roster.TryGetKerbalByID(kerbalProfile.kerbalId, out var kerbalInfo))
         {
             Logger.LogError("Kerbal not found in roster");
             return;
@@ -77,12 +79,25 @@ public class KerbalWingsRowController
 
         _portrait.style.backgroundImage = new StyleBackground(kerbalInfo.Portrait.texture);
         _name.text = kerbalInfo.Attributes.GetFullName();
-        _missionsLabel.text = kerbalWingEntries.MissionsCount + " missions"; // TODO i18n
+        _missionsLabel.text = kerbalProfile.missionsCount + " missions"; // TODO i18n
         _starButton.style.unityBackgroundImageTintColor =
-            _kerbalWingEntries.IsStarred ? Colors.LedGreen : Color.white;
+            _kerbalProfile.isStarred ? Colors.LedGreen : Color.white;
+
+        switch (kerbalProfile.GetStatus())
+        {
+            case KerbalStatus.Assigned:
+                _status.AddToClassList("kerbal-status--assigned");
+                break;
+            case KerbalStatus.Available:
+                _status.AddToClassList("kerbal-status--available");
+                break;
+            default:
+                _status.AddToClassList("kerbal-status--default");
+                break;
+        }
 
         _ribbonsSpace.Clear();
-        foreach (var wingEntry in kerbalWingEntries.Entries)
+        foreach (var wingEntry in kerbalProfile.Entries)
         {
             if (wingEntry.isSuperseeded) continue;
             var ribbon = WingRibbonController.Create();

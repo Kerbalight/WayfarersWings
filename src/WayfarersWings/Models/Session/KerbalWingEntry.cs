@@ -1,24 +1,38 @@
 ﻿using KSP.Sim.impl;
+using Newtonsoft.Json;
 using UnityEngine.Serialization;
 using WayfarersWings.Managers;
+using WayfarersWings.Models.Session.Json;
 using WayfarersWings.Models.Wings;
 
 namespace WayfarersWings.Models.Session;
 
-public class KerbalWingEntry
+[Serializable]
+public class KerbalWingEntry : IJsonSaved
 {
+    [JsonIgnore]
     public Wing Wing;
-    public IGGuid KerbalId;
-    public DateTime UnlockedAt;
-    public double UniverseTime;
+
+    public string wingCode;
+    public DateTime unlockedAt;
+    public double universeTime;
     public bool isSuperseeded;
 
-    public KerbalWingEntry(Wing wing, IGGuid kerbalId, DateTime unlockedAt, double universeTime, bool isSuperseeded)
+    public KerbalWingEntry() { }
+
+    public KerbalWingEntry(Wing wing, DateTime unlockedAt, double universeTime, bool isSuperseeded)
     {
         Wing = wing;
-        KerbalId = kerbalId;
-        UnlockedAt = unlockedAt;
-        this.UniverseTime = universeTime;
+        wingCode = wing.config.name;
+        this.unlockedAt = unlockedAt;
+        this.universeTime = universeTime;
         this.isSuperseeded = isSuperseeded;
+    }
+
+    public void OnAfterGameLoad() { }
+
+    public void OnBeforeGameSave()
+    {
+        wingCode = Wing.config.name;
     }
 }

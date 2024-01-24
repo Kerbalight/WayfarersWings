@@ -5,7 +5,7 @@ using WayfarersWings.Utility;
 
 namespace WayfarersWings.UI.Components;
 
-public class WingRowController
+public class KerbalWingEntryRowController
 {
     private static ManualLogSource
         Logger = BepInEx.Logging.Logger.CreateLogSource("WayfarerWings.WingRowController");
@@ -17,11 +17,11 @@ public class WingRowController
     private Label _description;
     private Label _date;
 
-    private KerbalWingEntry _kerbalWingEntry;
+    private KerbalWingEntry _entry;
 
     public VisualElement Root => _root;
 
-    public WingRowController(VisualElement root)
+    public KerbalWingEntryRowController(VisualElement root)
     {
         _root = root;
         _ribbonsSpace = _root.Q<VisualElement>("ribbons-space");
@@ -30,22 +30,22 @@ public class WingRowController
         _date = _root.Q<Label>("date");
     }
 
-    public static WingRowController Create()
+    public static KerbalWingEntryRowController Create()
     {
-        var template = MainUIManager.Instance.GetTemplate("WingRow");
+        var template = MainUIManager.Instance.GetTemplate("KerbalWingEntryRow");
         var root = template.Instantiate();
-        var controller = new WingRowController(root);
+        var controller = new KerbalWingEntryRowController(root);
         root.userData = controller;
         return controller;
     }
 
     public void Bind(KerbalWingEntry entry)
     {
-        _kerbalWingEntry = entry;
+        _entry = entry;
 
         _name.text = entry.Wing.DisplayName;
         _description.text = entry.Wing.Description;
-        _date.text = DateTimeLogic.FormatUniverseTime(entry.UniverseTime);
+        _date.text = DateTimeLogic.FormatUniverseTime(entry.universeTime);
 
         _ribbonsSpace.Clear();
         var ribbon = WingRibbonController.Create();
