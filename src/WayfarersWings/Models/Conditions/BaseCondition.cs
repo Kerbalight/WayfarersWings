@@ -7,6 +7,7 @@ namespace WayfarersWings.Models.Conditions;
 [ConditionType("Vessel", typeof(VesselCondition))]
 [ConditionType("Orbit", typeof(OrbitCondition))]
 [ConditionType("Kerbal", typeof(KerbalCondition))]
+[ConditionType("KerbalProfile", typeof(KerbalProfileCondition))]
 [ConditionType("Travel", typeof(TravelCondition))]
 [ConditionType("FlagPlanted", typeof(FlagPlantedCondition))]
 [ConditionType("SphereOfInfluence", typeof(SphereOfInfluenceCondition))]

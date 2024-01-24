@@ -3,6 +3,7 @@ using BepInEx.Logging;
 using KSP.Game;
 using KSP.Sim.impl;
 using UnityEngine;
+using WayfarersWings.Managers.Observer;
 using WayfarersWings.Models.Conditions.Events;
 using WayfarersWings.Models.Configs;
 using WayfarersWings.Models.Configs.Planets;
@@ -21,6 +22,7 @@ public class Core
     public string SessionGuidString { get; set; } = null!;
 
     public ConditionEventsRegistry EventsRegistry { get; } = new();
+    public KerbalStateObserver KerbalStateObserver { get; } = new();
 
     public WingsPool WingsPool { get; set; } = new();
     public List<CelestialBodyConfig> PlanetsPool { get; set; } = [];

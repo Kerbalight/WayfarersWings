@@ -54,6 +54,18 @@ public class KerbalProfile : IJsonSaved
     /// </summary>
     public int missionsCount = 0;
 
+    public double? lastLaunchedAt;
+    public double lastMissionTime = 0;
+    public double totalMissionTime = 0;
+
+    public double? lastEvaEnteredAt;
+    public double lastEvaTime = 0;
+    public double totalEvaSpaceTime = 0;
+    public double totalEvaAtmosphereTime = 0;
+
+    public double TotalEvaTime => totalEvaSpaceTime + totalEvaAtmosphereTime;
+
+
     /// <summary>
     /// Check if this Kerbal is starred
     /// </summary>
@@ -133,6 +145,43 @@ public class KerbalProfile : IJsonSaved
         // If we unlock the "first" wing, unlock the "not first" wing too
         if (wing.config.isFirst)
             _unlockedWingsCodes.Add(WingsPool.GetNotFirstWingName(wing));
+    }
+
+    public void CompleteMission(VesselComponent vessel)
+    {
+        missionsCount++;
+
+        if (!lastLaunchedAt.HasValue)
+        {
+            Logger.LogWarning("lastLaunchedAt is null, cannot CompleteMission. Discarding.");
+            return;
+        }
+
+        lastMissionTime = Core.GetUniverseTime() - lastLaunchedAt.Value;
+        totalMissionTime += lastMissionTime;
+    }
+
+    /// <summary>
+    /// Updates EVA times
+    /// </summary>
+    /// <param name="vessel"></param>
+    public void CompleteEVA(VesselComponent vessel)
+    {
+        if (!lastEvaEnteredAt.HasValue)
+        {
+            Logger.LogWarning("lastEvaEnterTime is null, cannot CompleteEVA. Discarding.");
+            return;
+        }
+
+        var evaTime = Core.GetUniverseTime() - lastEvaEnteredAt.Value;
+
+        if (vessel.IsInAtmosphere)
+            totalEvaAtmosphereTime += evaTime;
+        else
+            totalEvaSpaceTime += evaTime;
+
+        lastEvaTime = evaTime;
+        lastEvaEnteredAt = null;
     }
 
     /// <summary>

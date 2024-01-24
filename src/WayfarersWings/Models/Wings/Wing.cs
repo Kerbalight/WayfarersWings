@@ -36,6 +36,9 @@ public class Wing
             WayfarersWingsPlugin.Instance.SWLogger.LogError($"Wing '{config.name}' has no conditions");
         }
 
+        if (config.name == null)
+            throw new InvalidOperationException("Wing name is null");
+
         if (config.isFirst && !config.name.EndsWith("_first"))
             throw new InvalidOperationException(
                 $"Wing '{config.name}' is marked as first but does not end with '_first'");

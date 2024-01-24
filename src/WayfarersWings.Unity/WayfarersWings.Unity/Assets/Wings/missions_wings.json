@@ -1,0 +1,316 @@
+{
+  "templates": [
+    {
+      "name": "missions_completed",
+      "template": {
+        "name": "missions_completed",
+        "displayName": "WayfarersWings/Ribbons/MissionsCompletedName",
+        "description": "WayfarersWings/Ribbons/MissionsCompleted",
+        "localizationParams": {},
+        "chain": "missions_completed",
+        "points": 55,
+        "imageLayers": [
+          "Assets/Wings/Layers/missions_completed.png"
+        ],
+        "conditions": []
+      },
+      "ranked": {
+        "partials": [
+          {
+            "name": "missions_completed_1",
+            "localizationParams": {
+              "missions": "1"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minMissionCount": 1
+              }
+            ]
+          },
+          {
+            "name": "missions_completed_5",
+            "localizationParams": {
+              "missions": "5"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minMissionCount": 5
+              }
+            ]
+          },
+          {
+            "name": "missions_completed_20",
+            "localizationParams": {
+              "missions": "20"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minMissionCount": 20
+              }
+            ]
+          },
+          {
+            "name": "missions_completed_50",
+            "localizationParams": {
+              "missions": "50"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minMissionCount": 50
+              }
+            ]
+          },
+          {
+            "name": "missions_completed_100",
+            "localizationParams": {
+              "missions": "100"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minMissionCount": 100
+              }
+            ]
+          },
+          {
+            "name": "missions_completed_200",
+            "localizationParams": {
+              "missions": "200"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minMissionCount": 200
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "single_mission_time",
+      "template": {
+        "name": "single_mission_time",
+        "displayName": "WayfarersWings/Ribbons/SingleMissionTimeName",
+        "description": "WayfarersWings/Ribbons/SingleMissionTime",
+        "localizationParams": {},
+        "chain": "single_mission_time",
+        "points": 4950,
+        "imageLayers": [
+          "Assets/Wings/Layers/single_mission_time.png"
+        ],
+        "conditions": []
+      },
+      "ranked": {
+        "partials": [
+          {
+            "name": "single_mission_time__test",
+            "localizationParams": {
+              "time": "1",
+              "unit": "#Unit/Text/Minutes"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minMissionTime": "1 minutes"
+              }
+            ]
+          },
+          {
+            "name": "single_mission_time_20d",
+            "localizationParams": {
+              "time": "20",
+              "unit": "#Unit/Text/Days"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minMissionTime": "20 days"
+              }
+            ]
+          },
+          {
+            "name": "single_mission_time_50d",
+            "localizationParams": {
+              "time": "50",
+              "unit": "#Unit/Text/Days"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minMissionTime": "50 days"
+              }
+            ]
+          },
+          {
+            "name": "single_mission_time_125d",
+            "localizationParams": {
+              "time": "125",
+              "unit": "#Unit/Text/Days"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minMissionTime": "125 days"
+              }
+            ]
+          },
+          {
+            "name": "single_mission_time_500d",
+            "localizationParams": {
+              "time": "500",
+              "unit": "#Unit/Text/Days"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minMissionTime": "500 days"
+              }
+            ]
+          },
+          {
+            "name": "single_mission_time_2000d",
+            "localizationParams": {
+              "time": "2000",
+              "unit": "#Unit/Text/Days"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minMissionTime": "2000 days"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "total_missions_time",
+      "template": {
+        "name": "total_missions_time",
+        "displayName": "WayfarersWings/Ribbons/TotalMissionsTimeName",
+        "description": "WayfarersWings/Ribbons/TotalMissionsTime",
+        "localizationParams": {},
+        "chain": "total_missions_time",
+        "points": 4900,
+        "imageLayers": [
+          "Assets/Wings/Layers/total_missions_time.png"
+        ],
+        "conditions": []
+      },
+      "ranked": {
+        "partials": [
+          {
+            "name": "total_missions_time__test",
+            "localizationParams": {
+              "time": "2",
+              "unit": "#Unit/Text/Minutes"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minMissionTime": "2 minutes"
+              }
+            ]
+          },
+          {
+            "name": "total_missions_time_5d",
+            "localizationParams": {
+              "time": "5",
+              "unit": "#Unit/Text/Days"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minMissionTime": "5 days"
+              }
+            ]
+          },
+          {
+            "name": "total_missions_time_20d",
+            "localizationParams": {
+              "time": "20",
+              "unit": "#Unit/Text/Days"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minMissionTime": "20 days"
+              }
+            ]
+          },
+          {
+            "name": "total_missions_time_50d",
+            "localizationParams": {
+              "time": "50",
+              "unit": "#Unit/Text/Days"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minMissionTime": "50 days"
+              }
+            ]
+          },
+          {
+            "name": "total_missions_time_100d",
+            "localizationParams": {
+              "time": "100",
+              "unit": "#Unit/Text/Days"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minMissionTime": "100 days"
+              }
+            ]
+          },
+          {
+            "name": "total_missions_time_500d",
+            "localizationParams": {
+              "time": "500",
+              "unit": "#Unit/Text/Days"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minMissionTime": "500 days"
+              }
+            ]
+          },
+          {
+            "name": "total_missions_time_2000d",
+            "localizationParams": {
+              "time": "2000",
+              "unit": "#Unit/Text/Days"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minMissionTime": "2000 days"
+              }
+            ]
+          },
+          {
+            "name": "missions_time_5000d",
+            "localizationParams": {
+              "time": "5000",
+              "unit": "#Unit/Text/Days"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minMissionTime": "5000 days"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "wings": []
+}

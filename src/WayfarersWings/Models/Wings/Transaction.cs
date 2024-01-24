@@ -13,7 +13,8 @@ public class Transaction
     public IGGuid? VesselID { get; set; }
     public SimulationObjectModel? SimulationObject { get; set; }
     public VesselComponent? Vessel { get; set; }
-
+    public KerbalInfo? KerbalInfo { get; set; }
+    public KerbalProfile? KerbalProfile { get; set; }
     public VesselObservedState? ObservedState { get; private set; }
 
     /// <summary>
@@ -30,6 +31,13 @@ public class Transaction
         Message = message;
         Vessel = vessel;
         ObservedState = VesselsStateObserver.Instance.GetVesselObservedState(VesselID);
+    }
+
+    public Transaction(MessageCenterMessage? message, KerbalInfo kerbalInfo)
+    {
+        KerbalInfo = kerbalInfo;
+        Message = message;
+        KerbalProfile = WingsSessionManager.Instance.GetKerbalProfile(kerbalInfo.Id);
     }
 
     public IEnumerable<KerbalInfo> GetKerbals()

@@ -77,7 +77,5 @@ public class MessageListener
             MainUIManager.Instance.AppWindow.IsWindowOpen = false;
     }
 
-    private void OnVesselRecoveredMessage()
-    {
-    }
+    private void OnVesselRecoveredMessage() { }
 }

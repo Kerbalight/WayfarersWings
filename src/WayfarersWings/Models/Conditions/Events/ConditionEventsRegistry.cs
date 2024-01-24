@@ -14,24 +14,30 @@ public class ConditionEventsRegistry
 {
     private static ManualLogSource _logger = BepInEx.Logging.Logger.CreateLogSource("ConditionEventsRegistry");
 
+    private static MessageCenter MessageCenter => MessageListener.Instance.MessageCenter;
+
     public void SetupListeners()
     {
-        MessageListener.Instance.MessageCenter.PersistentSubscribe<SOIEnteredMessage>(OnSOIEnteredMessage);
-        MessageListener.Instance.MessageCenter.PersistentSubscribe<StableOrbitCreatedMessage>(
-            OnStableOrbitCreatedMessage);
-        MessageListener.Instance.MessageCenter.PersistentSubscribe<EVAEnteredMessage>(OnEVAEnteredMessage);
-        MessageListener.Instance.MessageCenter.PersistentSubscribe<VesselSituationChangedMessage>(
-            OnVesselSituationChangedMessage);
-        MessageListener.Instance.MessageCenter.PersistentSubscribe<VesselLandedGroundAtRestMessage>(
-            OnVesselLandedGroundAtRestMessage);
-        MessageListener.Instance.MessageCenter.PersistentSubscribe<VesselLandedWaterAtRestMessage>(
-            OnVesselLandedWaterAtRestMessage);
-        MessageListener.Instance.MessageCenter.PersistentSubscribe<WingVesselGeeForceUpdatedMessage>(
-            OnVesselGeeForceUpdatedMessage);
-        MessageListener.Instance.MessageCenter.PersistentSubscribe<FlagPlantedMessage>(OnFlagPlantedMessage);
+        MessageCenter.PersistentSubscribe<SOIEnteredMessage>(OnSOIEnteredMessage);
+        MessageCenter.PersistentSubscribe<StableOrbitCreatedMessage>(OnStableOrbitCreatedMessage);
+
+        // Vessel
+        MessageCenter.PersistentSubscribe<VesselLaunchedMessage>(OnVesselLaunched);
+        MessageCenter.PersistentSubscribe<VesselSituationChangedMessage>(OnVesselSituationChangedMessage);
+        MessageCenter.PersistentSubscribe<VesselLandedGroundAtRestMessage>(OnVesselLandedGroundAtRestMessage);
+        MessageCenter.PersistentSubscribe<VesselLandedWaterAtRestMessage>(OnVesselLandedWaterAtRestMessage);
+        MessageCenter.PersistentSubscribe<VesselRecoveredMessage>(OnVesselRecovered);
+
+        // Vessel Observer
+        MessageCenter.PersistentSubscribe<WingVesselGeeForceUpdatedMessage>(OnVesselGeeForceUpdatedMessage);
+
+        // EVA
+        MessageCenter.PersistentSubscribe<EVAEnteredMessage>(OnEVAEnteredMessage);
+        MessageCenter.PersistentSubscribe<EVALeftMessage>(OnEVALeftMessage);
+        MessageCenter.PersistentSubscribe<FlagPlantedMessage>(OnFlagPlantedMessage);
     }
 
-    private Transaction ActiveVesselTransaction(MessageCenterMessage message)
+    private static Transaction ActiveVesselTransaction(MessageCenterMessage message)
     {
         var activeVessel = GameManager.Instance.Game.ViewController.GetActiveSimVessel();
         return new Transaction(message, activeVessel);
@@ -95,7 +101,18 @@ public class ConditionEventsRegistry
         }
     }
 
-    public void OnVesselGeeForceUpdatedMessage(MessageCenterMessage message)
+    private void OnEVALeftMessage(MessageCenterMessage message)
+    {
+        var evaMessage = (EVALeftMessage)message;
+        var transaction = ActiveVesselTransaction(evaMessage);
+
+        // Update kerbal eva time
+        KerbalStateObserver.OnEVALeftMessage(evaMessage, transaction.Vessel);
+
+        AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+    }
+
+    private static void OnVesselGeeForceUpdatedMessage(MessageCenterMessage message)
     {
         var geeForceMessage = (WingVesselGeeForceUpdatedMessage)message;
         var transaction = new Transaction(geeForceMessage, geeForceMessage.Vessel);
@@ -110,4 +127,31 @@ public class ConditionEventsRegistry
         transaction.AffectedKerbals.AddRange(kerbals);
         AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
     }
+
+    #region Vessel
+
+    private static void OnVesselLaunched(MessageCenterMessage message)
+    {
+        var launchedMessage = (VesselLaunchedMessage)message;
+
+        KerbalStateObserver.OnVesselLaunched(launchedMessage, launchedMessage.Vessel);
+
+        var transaction = new Transaction(launchedMessage, launchedMessage.Vessel);
+        AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+    }
+
+
+    private void OnVesselRecovered(MessageCenterMessage message)
+    {
+        var recoveredMessage = (VesselRecoveredMessage)message;
+        var vessel = Core.UniverseModel?.FindVesselComponent(recoveredMessage.VesselID);
+
+        // Update kerbal missions count
+        KerbalStateObserver.OnVesselRecovered(recoveredMessage, vessel);
+
+        var transaction = new Transaction(recoveredMessage, vessel);
+        AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+    }
+
+    #endregion
 }

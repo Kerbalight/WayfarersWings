@@ -23,7 +23,6 @@
     </ItemGroup>
     <ItemGroup>
         <Folder Include="Patches\Simulation\"/>
-        <Folder Include="Utility\Serialization\"/>
     </ItemGroup>
 </Project>
 
