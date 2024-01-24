@@ -17,20 +17,20 @@ public class GameTimeSpanJsonConverter : JsonConverter<GameTimeSpan>
     {
         var timeSpanToken = (string?)reader.Value;
         if (string.IsNullOrEmpty(timeSpanToken))
-            return new GameTimeSpan(TimeSpan.Zero);
+            return new GameTimeSpan();
 
         var tokens = timeSpanToken.Split(' ');
         var amount = double.Parse(tokens[0]);
         var timeSpan = tokens[1] switch
         {
-            "weeks" => TimeSpan.FromDays(amount * 7),
-            "days" => TimeSpan.FromDays(amount),
-            "hours" => TimeSpan.FromHours(amount),
-            "minutes" => TimeSpan.FromMinutes(amount),
-            "seconds" => TimeSpan.FromSeconds(amount),
+            "weeks" => new GameTimeSpan(days: amount * 7),
+            "days" => new GameTimeSpan(days: amount),
+            "hours" => new GameTimeSpan(hours: amount),
+            "minutes" => new GameTimeSpan(minutes: amount),
+            "seconds" => new GameTimeSpan(seconds: amount),
             _ => throw new NotImplementedException(
-                "TimeSpan unit not implemented. Allowed only 'weeks', 'days', 'hours', 'minutes', 'seconds'")
+                "GameTimeSpan unit not implemented. Allowed only 'weeks', 'days', 'hours', 'minutes', 'seconds'")
         };
-        return new GameTimeSpan(timeSpan);
+        return timeSpan;
     }
 }
