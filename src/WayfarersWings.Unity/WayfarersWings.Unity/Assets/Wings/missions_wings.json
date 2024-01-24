@@ -198,7 +198,8 @@
         "chain": "total_missions_time",
         "points": 4900,
         "imageLayers": [
-          "Assets/Wings/Layers/total_missions_time.png"
+          "Assets/Wings/Layers/total_missions_time.png",
+          "Assets/Wings/Layers/single_orange_bands.png"
         ],
         "conditions": []
       },

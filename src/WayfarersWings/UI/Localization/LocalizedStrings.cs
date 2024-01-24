@@ -17,7 +17,12 @@ public static class LocalizedStrings
 
         foreach (var (key, value) in parameters)
         {
-            translation = translation.Replace($"{{{key}}}", value);
+            // Allows substitution of other localization keys
+            var substitution = value?.StartsWith("#") == true
+                ? LocalizationManager.GetTranslation(value[1..]) ?? value
+                : value;
+
+            translation = translation.Replace($"{{{key}}}", substitution);
         }
 
         return translation;

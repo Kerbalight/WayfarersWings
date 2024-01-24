@@ -145,12 +145,8 @@ public class WingsPool
             var partialConfig = templateConfig.ranked.partials[i];
 
             var wingConfig = templateConfig.template.Clone();
-            // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
-            if (partialConfig.name == null)
-            {
-                wingConfig.name = $"{templateConfig.name}_{i + 1}";
-            }
-
+            // ReSharper disable once NullCoalescingConditionIsAlwaysNotNullAccordingToAPIContract
+            wingConfig.name = partialConfig.name ?? $"{templateConfig.name}_{i + 1}";
             wingConfig.points += i;
 
             if (i < _rankedImageLayers.Count)

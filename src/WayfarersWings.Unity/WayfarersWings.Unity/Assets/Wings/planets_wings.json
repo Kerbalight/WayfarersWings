@@ -15,6 +15,7 @@
         "conditions": [
           {
             "type": "SphereOfInfluence",
+            "isRightAfterSOIChange": true,
             "celestialBody": null
           }
         ]
