@@ -17,6 +17,8 @@ public class KerbalCondition : BaseCondition
 
     public override bool IsValid(Transaction transaction)
     {
+        // Attention: this condition is NOT valid on EVALeftMessage since
+        // the kerbal is already set as `IsKerbalEVA = false` when the message is dispatched
         if (transaction.Vessel is not { IsKerbalEVA: true }) return false;
 
         return true;

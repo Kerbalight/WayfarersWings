@@ -18,6 +18,7 @@ public class ConditionEventsRegistry
 
     public void SetupListeners()
     {
+        // Orbit
         MessageCenter.PersistentSubscribe<SOIEnteredMessage>(OnSOIEnteredMessage);
         MessageCenter.PersistentSubscribe<StableOrbitCreatedMessage>(OnStableOrbitCreatedMessage);
 
@@ -43,7 +44,7 @@ public class ConditionEventsRegistry
         return new Transaction(message, activeVessel);
     }
 
-    private void OnSOIEnteredMessage(MessageCenterMessage message)
+    private static void OnSOIEnteredMessage(MessageCenterMessage message)
     {
         var soiMessage = (SOIEnteredMessage)message;
         var transaction = new Transaction(soiMessage, soiMessage.vessel);
@@ -57,10 +58,6 @@ public class ConditionEventsRegistry
     public void OnStableOrbitCreatedMessage(MessageCenterMessage message)
     {
         var stableOrbitMessage = (StableOrbitCreatedMessage)message;
-
-        // TODO
-        var vessels = GameManager.Instance.Game.SpaceSimulation.GetAllObjectsWithComponent<OrbiterComponent>();
-
         var transaction = ActiveVesselTransaction(stableOrbitMessage);
         AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
     }
@@ -86,25 +83,23 @@ public class ConditionEventsRegistry
         AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
     }
 
-    public void OnEVAEnteredMessage(MessageCenterMessage message)
+    private static void OnEVAEnteredMessage(MessageCenterMessage message)
     {
-        // TODO Active vessel
         var evaMessage = (EVAEnteredMessage)message;
-        var allVessels = GameManager.Instance.Game.UniverseModel.GetAllVessels();
-        var allKerbals =
-            GameManager.Instance.Game.SpaceSimulation.GetAllSimulationObjectsWithComponent<KerbalComponent>();
-        foreach (var kerbalSimObj in allKerbals)
-        {
-            if (!kerbalSimObj.IsKerbal) continue;
-            var transaction = new Transaction(evaMessage, kerbalSimObj.Vessel);
-            AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
-        }
+        var transaction = ActiveVesselTransaction(evaMessage);
+
+        // Start tracking kerbal eva time
+        KerbalStateObserver.OnEVAEnterMessage(evaMessage, transaction.Vessel);
+
+        AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
     }
 
-    private void OnEVALeftMessage(MessageCenterMessage message)
+    private static void OnEVALeftMessage(MessageCenterMessage message)
     {
         var evaMessage = (EVALeftMessage)message;
-        var transaction = ActiveVesselTransaction(evaMessage);
+
+        // We need to get the previous vessel because the boarded vessel is the active one
+        var transaction = new Transaction(evaMessage, VesselsStateObserver.Instance.PreviousVessel);
 
         // Update kerbal eva time
         KerbalStateObserver.OnEVALeftMessage(evaMessage, transaction.Vessel);
@@ -119,12 +114,14 @@ public class ConditionEventsRegistry
         AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
     }
 
-    private void OnFlagPlantedMessage(MessageCenterMessage message)
+    private static void OnFlagPlantedMessage(MessageCenterMessage message)
     {
         var flagPlantedMessage = (FlagPlantedMessage)message;
         var kerbals = KerbalStateObserver.GetKerbalsInRange();
         var transaction = ActiveVesselTransaction(flagPlantedMessage);
-        transaction.AffectedKerbals.AddRange(kerbals);
+        // Flag planting is a special case, we want to trigger the wing for
+        // all nearby kerbals
+        transaction.NearbyKerbals.AddRange(kerbals);
         AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
     }
 

@@ -1,4 +1,5 @@
 ﻿using BepInEx.Logging;
+using KSP.Game;
 using KSP.Sim.impl;
 using Newtonsoft.Json;
 using UnityEngine.Serialization;
@@ -63,13 +64,25 @@ public class KerbalProfile : IJsonSaved
     public double totalEvaSpaceTime = 0;
     public double totalEvaAtmosphereTime = 0;
 
-    public double TotalEvaTime => totalEvaSpaceTime + totalEvaAtmosphereTime;
-
-
     /// <summary>
     /// Check if this Kerbal is starred
     /// </summary>
     public bool isStarred = false;
+
+    [JsonIgnore]
+    public double TotalEvaTime => totalEvaSpaceTime + totalEvaAtmosphereTime;
+
+    [JsonIgnore]
+    public KerbalInfo KerbalInfo
+    {
+        get
+        {
+            if (!WingsSessionManager.Roster.TryGetKerbalByID(kerbalId, out var kerbalInfo))
+                throw new Exception("Failed to find KerbalInfo for " + kerbalId);
+
+            return kerbalInfo;
+        }
+    }
 
     public KerbalProfile() { }
 
@@ -159,29 +172,33 @@ public class KerbalProfile : IJsonSaved
 
         lastMissionTime = Core.GetUniverseTime() - lastLaunchedAt.Value;
         totalMissionTime += lastMissionTime;
+
+        Logger.LogDebug("Added " + lastMissionTime + "s mission time to " + KerbalInfo.Attributes.GetFullName());
     }
 
     /// <summary>
     /// Updates EVA times
     /// </summary>
-    /// <param name="vessel"></param>
-    public void CompleteEVA(VesselComponent vessel)
+    /// <param name="kerbalVessel"></param>
+    public void CompleteEVA(VesselComponent kerbalVessel)
     {
         if (!lastEvaEnteredAt.HasValue)
         {
-            Logger.LogWarning("lastEvaEnterTime is null, cannot CompleteEVA. Discarding.");
+            Logger.LogWarning("lastEvaEnteredAt is null, cannot CompleteEVA. Discarding.");
             return;
         }
 
         var evaTime = Core.GetUniverseTime() - lastEvaEnteredAt.Value;
 
-        if (vessel.IsInAtmosphere)
+        if (kerbalVessel.IsInAtmosphere)
             totalEvaAtmosphereTime += evaTime;
         else
             totalEvaSpaceTime += evaTime;
 
         lastEvaTime = evaTime;
         lastEvaEnteredAt = null;
+
+        Logger.LogDebug("Added " + evaTime + "s EVA time to " + KerbalInfo.Attributes.GetFullName());
     }
 
     /// <summary>

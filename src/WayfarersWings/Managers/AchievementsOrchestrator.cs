@@ -29,7 +29,7 @@ public class AchievementsOrchestrator
         {
             if (!wing.Check(transaction)) continue;
 
-            Logger.LogDebug("Triggered wing " + wing.config.name);
+            Logger.LogDebug("Triggered wing " + wing.config.name + " for " + transaction.Message?.GetType().Name);
             var kerbals = transaction.GetKerbals();
             foreach (var kerbal in kerbals)
             {

@@ -54,10 +54,12 @@ public class KerbalStateObserver
 
     #endregion
 
-    public void OnEVAEnterMessage(EVAEnteredMessage message, VesselComponent? vesselComponent)
+    #region EVA
+
+    public static void OnEVAEnterMessage(EVAEnteredMessage message, VesselComponent? kerbalVessel)
     {
-        if (vesselComponent == null) return;
-        var kerbal = vesselComponent.SimulationObject.Kerbal.KerbalInfo;
+        if (kerbalVessel == null) return;
+        var kerbal = kerbalVessel.SimulationObject.Kerbal.KerbalInfo;
         var profile = WingsSessionManager.Instance.GetKerbalProfile(kerbal.Id);
         profile.lastEvaEnteredAt = Core.GetUniverseTime();
 
@@ -65,14 +67,16 @@ public class KerbalStateObserver
         AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
     }
 
-    public static void OnEVALeftMessage(EVALeftMessage message, VesselComponent? vesselComponent)
+    public static void OnEVALeftMessage(EVALeftMessage message, VesselComponent? kerbalVessel)
     {
-        if (vesselComponent == null) return;
-        var kerbal = vesselComponent.SimulationObject.Kerbal.KerbalInfo;
+        if (kerbalVessel == null) return;
+        var kerbal = kerbalVessel.SimulationObject.Kerbal.KerbalInfo;
         var profile = WingsSessionManager.Instance.GetKerbalProfile(kerbal.Id);
-        profile.CompleteEVA(vesselComponent);
+        profile.CompleteEVA(kerbalVessel);
 
         var transaction = new Transaction(message, kerbal);
         AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
     }
+
+    #endregion
 }

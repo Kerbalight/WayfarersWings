@@ -14,6 +14,11 @@ public class VesselsStateObserver : MonoBehaviour
 
     public static VesselsStateObserver Instance { get; set; } = null!;
 
+    /// <summary>
+    /// If the vessel changed, this is the previous vessel.
+    /// </summary>
+    public VesselComponent? PreviousVessel { get; private set; }
+
     private readonly Dictionary<IGGuid, VesselObservedState> _vesselsState = new();
 
     public VesselObservedState? GetVesselObservedState(IGGuid? vesselId)
@@ -57,6 +62,7 @@ public class VesselsStateObserver : MonoBehaviour
         Instance = this;
 
         MessageListener.Instance.Subscribe<GameStateChangedMessage>(OnGameStateChangedMessage);
+        MessageListener.Instance.Subscribe<VesselChangingMessage>(OnVesselChangingMessage);
         MessageListener.Instance.Subscribe<VesselChangedMessage>(OnVesselChangedMessage);
     }
 
@@ -78,6 +84,16 @@ public class VesselsStateObserver : MonoBehaviour
                 _observeTask = null;
                 break;
         }
+    }
+
+    /// <summary>
+    /// We need to keep track of the previous vessel, since when `VesselChangedMessage` is triggered,
+    /// the new vessel is already active and we can't get the previous one.
+    /// </summary>
+    private void OnVesselChangingMessage(MessageCenterMessage message)
+    {
+        var vesselChangingMessage = message as VesselChangingMessage;
+        PreviousVessel = vesselChangingMessage?.OldVessel;
     }
 
     private void OnVesselChangedMessage(MessageCenterMessage message)

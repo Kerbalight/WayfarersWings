@@ -1,4 +1,5 @@
-﻿using KSP.Game;
+﻿using BepInEx.Logging;
+using KSP.Game;
 using KSP.Messages;
 using KSP.Sim.impl;
 using UnityEngine;
@@ -9,6 +10,9 @@ namespace WayfarersWings.Models.Wings;
 
 public class Transaction
 {
+    private static readonly ManualLogSource Logger =
+        BepInEx.Logging.Logger.CreateLogSource("WayfarersWings.Transaction");
+
     public MessageCenterMessage? Message { get; set; }
     public IGGuid? VesselID { get; set; }
     public SimulationObjectModel? SimulationObject { get; set; }
@@ -22,7 +26,7 @@ public class Transaction
     /// all nearby kerbals.
     /// Used for example for flag planting.
     /// </summary>
-    public List<KerbalInfo> AffectedKerbals { get; set; } = new();
+    public List<KerbalInfo> NearbyKerbals { get; set; } = new();
 
     public Transaction(MessageCenterMessage? message, VesselComponent? vessel)
     {
@@ -40,23 +44,24 @@ public class Transaction
         KerbalProfile = WingsSessionManager.Instance.GetKerbalProfile(kerbalInfo.Id);
     }
 
+    /// <summary>
+    /// Gets all kerbals affected by this transaction, depending on how it was created.
+    /// </summary>
     public IEnumerable<KerbalInfo> GetKerbals()
     {
         var kerbals = new List<KerbalInfo>();
-        if (AffectedKerbals.Count > 0)
-        {
-            kerbals.AddRange(AffectedKerbals);
-        }
 
-        var vesselID = VesselID;
-        if (vesselID == null)
-        {
-            Debug.LogError("VesselID is null");
-            return kerbals;
-        }
 
-        kerbals.AddRange(
-            WingsSessionManager.Roster.GetAllKerbalsInVessel(vesselID.Value));
+        if (VesselID != null)
+            kerbals.AddRange(WingsSessionManager.Roster.GetAllKerbalsInVessel(VesselID.Value));
+        if (KerbalInfo != null)
+            kerbals.Add(KerbalInfo);
+        if (NearbyKerbals.Count > 0)
+            kerbals.AddRange(NearbyKerbals);
+
+        if (kerbals.Count == 0)
+            Logger.LogWarning("No kerbal in this transaction" + Message?.GetType().Name);
+
         return kerbals;
     }
 }
