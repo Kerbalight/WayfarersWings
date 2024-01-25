@@ -10,21 +10,28 @@ namespace WayfarersWings.Models.Conditions;
 [ConditionTriggerEvent(typeof(SOIEnteredMessage))]
 public class SphereOfInfluenceCondition : CelestialBodyCondition
 {
+    /// <summary>
+    /// Whether the condition should be triggered right after the SOI change
+    /// or it's enough to be in the SOI
+    /// </summary>
+    public bool? isRightAfterSOIChange;
+
     public override bool IsValid(Transaction transaction)
     {
+        if (isRightAfterSOIChange.HasValue && isRightAfterSOIChange.Value)
+        {
+            if (transaction.Message is not SOIEnteredMessage soiEnteredMessage) return false;
+
+            // TODO Double check
+            if (soiEnteredMessage.bodyEntered.isHomeWorld &&
+                soiEnteredMessage.bodyExited is null or { isHomeWorld: true })
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         return transaction.Vessel?.mainBody?.Equals(CelestialBody) ?? false;
-
-        if (transaction.Message is not SOIEnteredMessage message)
-        {
-            return transaction.Vessel?.mainBody?.Equals(CelestialBody) ?? false;
-        }
-
-        if (message.bodyEntered.isHomeWorld && message.bodyExited.isHomeWorld)
-        {
-            //TODO DOuble check bodyExited, is it null?
-            return false;
-        }
-
-        return message.bodyEntered.Equals(CelestialBody) && !message.bodyExited.Equals(CelestialBody);
     }
 }
