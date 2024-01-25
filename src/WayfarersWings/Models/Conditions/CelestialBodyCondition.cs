@@ -11,7 +11,14 @@ public class CelestialBodyCondition : BaseCondition
 {
     public string? celestialBody;
 
-    [JsonIgnore] public CelestialBodyComponent? CelestialBody { get; set; }
+    /// <summary>
+    /// Is the same as setting celestialBody to the home world's name,
+    /// e.g. usually "Kerbin" 
+    /// </summary>
+    public bool? isHomeWorld;
+
+    [JsonIgnore]
+    public CelestialBodyComponent? CelestialBody { get; set; }
 
     public override bool IsValid(Transaction transaction)
     {
@@ -20,6 +27,11 @@ public class CelestialBodyCondition : BaseCondition
 
     public override void Configure()
     {
+        if (isHomeWorld.HasValue)
+        {
+            celestialBody = GameManager.Instance.Game.UniverseModel.HomeWorld.Name;
+        }
+
         if (string.IsNullOrEmpty(celestialBody))
             throw new InvalidCastException("celestialBody must be a string");
 

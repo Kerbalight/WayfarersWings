@@ -2,8 +2,10 @@
 using KSP.Sim.impl;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using WayfarersWings.Managers;
 using WayfarersWings.Models.Conditions.Events;
 using WayfarersWings.Models.Wings;
+using WayfarersWings.Utility.Serialization;
 
 namespace WayfarersWings.Models.Conditions;
 
@@ -31,6 +33,12 @@ public class VesselCondition : BaseCondition
     public bool? isEva = false;
     public bool? isAtRest;
 
+    [JsonConverter(typeof(GameTimeSpanJsonConverter))]
+    public GameTimeSpan? maxTimeFromLaunch;
+
+    [JsonConverter(typeof(GameTimeSpanJsonConverter))]
+    public GameTimeSpan? minTimeFromLaunch;
+
     public override bool IsValid(Transaction transaction)
     {
         if (transaction?.Vessel == null)
@@ -45,8 +53,9 @@ public class VesselCondition : BaseCondition
             if (transaction.Message is not VesselSituationChangedMessage situationChangedMessage)
                 return false;
 
-            return (situationChangedMessage.OldSituation == previousSituation &&
-                    situationChangedMessage.NewSituation == situation);
+            if (situationChangedMessage.OldSituation != previousSituation ||
+                situationChangedMessage.NewSituation != situation)
+                return false;
         }
 
         if (situation != null && transaction.Vessel?.Situation != situation)
@@ -54,6 +63,12 @@ public class VesselCondition : BaseCondition
         if (RequiresLandedOrSplashed() && (transaction.Vessel.AltitudeFromTerrain > 100))
             return false;
         if (isAtRest.HasValue && transaction.Vessel.IsVesselAtRest() != isAtRest)
+            return false;
+        if (maxTimeFromLaunch.HasValue &&
+            !(Core.GetUniverseTime() - transaction.Vessel.launchTime < maxTimeFromLaunch.Value.Seconds))
+            return false;
+        if (minTimeFromLaunch.HasValue &&
+            !(Core.GetUniverseTime() - transaction.Vessel.launchTime > minTimeFromLaunch.Value.Seconds))
             return false;
 
         return true;
