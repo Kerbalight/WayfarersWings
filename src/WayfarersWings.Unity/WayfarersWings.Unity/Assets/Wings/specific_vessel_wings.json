@@ -77,5 +77,23 @@
       }
     }
   ],
-  "wings": []
+  "wings": [
+    {
+      "name": "splashdown",
+      "displayName": "WayfarersWings/Ribbons/SplashdownName",
+      "description": "WayfarersWings/Ribbons/Splashdown",
+      "localizationParams": {},
+      "points": 80,
+      "imageLayers": [
+        "Assets/Wings/Layers/splashdown.png"
+      ],
+      "conditions": [
+        {
+          "type": "Vessel",
+          "situation": "Splashed",
+          "previousSituation": "Flying"
+        }
+      ]
+    }
+  ]
 }
