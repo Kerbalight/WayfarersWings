@@ -115,6 +115,38 @@
       }
     },
     {
+      "name": "atmosphere",
+      "celestialBody": {
+        "requires": [
+          "HasAtmosphere"
+        ]
+      },
+      "hasFirst": {
+        "imageLayer": "Assets/Wings/Layers/first.png"
+      },
+      "template": {
+        "name": "atmosphere",
+        "displayName": "WayfarersWings/Ribbons/AtmosphereName",
+        "imageLayers": [
+          "Assets/Wings/Layers/atmosphere.png"
+        ],
+        "description": "WayfarersWings/Ribbons/Atmosphere",
+        "triggers": [],
+        "points": 15,
+        "conditions": [
+          {
+            "type": "SphereOfInfluence",
+            "celestialBody": null
+          },
+          {
+            "type": "Vessel",
+            "situation": "Flying",
+            "previousSituation": "SubOrbital"
+          }
+        ]
+      }
+    },
+    {
       "name": "landed",
       "celestialBody": {
         "requires": [

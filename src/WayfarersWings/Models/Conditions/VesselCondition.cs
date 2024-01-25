@@ -19,6 +19,14 @@ public class VesselCondition : BaseCondition
     [JsonConverter(typeof(StringEnumConverter))]
     public VesselSituations? situation;
 
+    /// <summary>
+    /// When set, the condition will only trigger if the vessel's situation
+    /// is changed from this situation; this requires the VesselSituationChangedMessage
+    /// to be triggered.
+    /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
+    public VesselSituations? previousSituation;
+
     // By default, we don't want to trigger on EVAs.
     public bool? isEva = false;
     public bool? isAtRest;
@@ -32,11 +40,20 @@ public class VesselCondition : BaseCondition
         if (isEva != null && transaction.Vessel.IsKerbalEVA != isEva)
             return false;
 
+        if (previousSituation.HasValue)
+        {
+            if (transaction.Message is not VesselSituationChangedMessage situationChangedMessage)
+                return false;
+
+            return (situationChangedMessage.OldSituation == previousSituation &&
+                    situationChangedMessage.NewSituation == situation);
+        }
+
         if (situation != null && transaction.Vessel?.Situation != situation)
             return false;
         if (RequiresLandedOrSplashed() && (transaction.Vessel.AltitudeFromTerrain > 100))
             return false;
-        if (isAtRest != null && transaction.Vessel.IsVesselAtRest() != isAtRest)
+        if (isAtRest.HasValue && transaction.Vessel.IsVesselAtRest() != isAtRest)
             return false;
 
         return true;
@@ -47,7 +64,5 @@ public class VesselCondition : BaseCondition
         return situation is VesselSituations.Landed or VesselSituations.Splashed;
     }
 
-    public override void Configure()
-    {
-    }
+    public override void Configure() { }
 }
