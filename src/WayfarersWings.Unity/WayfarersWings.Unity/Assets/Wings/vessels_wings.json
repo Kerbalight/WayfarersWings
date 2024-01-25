@@ -1,0 +1,63 @@
+{
+  "templates": [
+    {
+      "name": "solid_fuel_booster",
+      "template": {
+        "name": "solid_fuel_booster",
+        "displayName": "WayfarersWings/Ribbons/SolidFuelBoosterName",
+        "description": "WayfarersWings/Ribbons/SolidFuelBooster",
+        "localizationParams": {},
+        "chain": "solid_fuel_booster",
+        "points": 700,
+        "imageLayers": [
+          "Assets/Wings/Layers/solid_fuel_booster.png"
+        ],
+        "conditions": []
+      },
+      "ranked": {
+        "partials": [
+          {
+            "name": "solid_fuel_booster_10",
+            "localizationParams": {
+              "percentage": "10"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "previousSituation": "PreLaunch",
+                "minSolidFuelMassPercentage": 0.1
+              }
+            ]
+          },
+          {
+            "name": "solid_fuel_booster_20",
+            "localizationParams": {
+              "percentage": "20"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "previousSituation": "PreLaunch",
+                "minSolidFuelMassPercentage": 0.2
+              }
+            ]
+          },
+          {
+            "name": "solid_fuel_booster_30",
+            "localizationParams": {
+              "percentage": "30"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "previousSituation": "PreLaunch",
+                "minSolidFuelMassPercentage": 0.3
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "wings": []
+}

@@ -1,8 +1,11 @@
 ﻿using KSP.Messages;
+using KSP.Modules;
+using KSP.Sim.DeltaV;
 using KSP.Sim.impl;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using WayfarersWings.Managers;
+using WayfarersWings.Managers.Analyzers;
 using WayfarersWings.Models.Conditions.Events;
 using WayfarersWings.Models.Wings;
 using WayfarersWings.Utility.Serialization;
@@ -14,6 +17,7 @@ namespace WayfarersWings.Models.Conditions;
 /// </summary>
 [Serializable]
 [ConditionTriggerEvent(typeof(VesselSituationChangedMessage))]
+[ConditionTriggerEvent(typeof(VesselLaunchedMessage))]
 [ConditionTriggerEvent(typeof(VesselLandedGroundAtRestMessage))]
 [ConditionTriggerEvent(typeof(VesselLandedWaterAtRestMessage))]
 public class VesselCondition : BaseCondition
@@ -40,6 +44,18 @@ public class VesselCondition : BaseCondition
     [JsonConverter(typeof(GameTimeSpanJsonConverter))]
     public GameTimeSpan? minTimeFromLaunch;
 
+    /// <summary>
+    /// Checks the percentage of solid fuel in the vessel
+    /// </summary>
+    public double? minSolidFuelMassPercentage;
+
+    /// <summary>
+    /// Checks the total mass of the vessel
+    /// </summary>
+    public double? minMass;
+
+    public double? maxMass;
+
     public override bool IsValid(Transaction transaction)
     {
         if (transaction?.Vessel == null)
@@ -54,8 +70,8 @@ public class VesselCondition : BaseCondition
             if (transaction.Message is not VesselSituationChangedMessage situationChangedMessage)
                 return false;
 
-            if (situationChangedMessage.OldSituation != previousSituation ||
-                situationChangedMessage.NewSituation != situation)
+            if (situationChangedMessage.OldSituation != previousSituation) return false;
+            if (situation.HasValue && situationChangedMessage.NewSituation != situation)
                 return false;
         }
 
@@ -73,6 +89,17 @@ public class VesselCondition : BaseCondition
             return false;
         if (minTimeFromLaunch.HasValue &&
             !(Core.GetUniverseTime() - transaction.Vessel.launchTime > minTimeFromLaunch.Value.Seconds))
+            return false;
+
+        // Mass
+        if (minMass.HasValue && !(transaction.Vessel.totalMass > minMass.Value))
+            return false;
+        if (maxMass.HasValue && !(transaction.Vessel.totalMass < maxMass.Value))
+            return false;
+
+        // Expensive checks, we check them last
+        if (minSolidFuelMassPercentage.HasValue && !(VesselPartsAnalyzer.GetSolidFuelPercentage(transaction.Vessel) >
+                                                     minSolidFuelMassPercentage))
             return false;
 
         return true;
