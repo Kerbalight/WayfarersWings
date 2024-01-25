@@ -192,7 +192,7 @@ public class WingsPool
             LocalizedStrings.GetTranslationWithParams(wing.config.displayName, wing.config.localizationParams);
         wing.Description =
             LocalizedStrings.GetTranslationWithParams(wing.config.description, wing.config.localizationParams);
-        if (wing.config.isFirst)
+        if (wing.config.isFirst && wing.config.hasDisplayNameFirstAlready != true)
         {
             wing.DisplayName += " " + "1°";
             // TODO Configurable position?

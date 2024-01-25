@@ -32,6 +32,7 @@ public class VesselCondition : BaseCondition
     // By default, we don't want to trigger on EVAs.
     public bool? isEva = false;
     public bool? isAtRest;
+    public bool? isInAtmosphere;
 
     [JsonConverter(typeof(GameTimeSpanJsonConverter))]
     public GameTimeSpan? maxTimeFromLaunch;
@@ -57,6 +58,9 @@ public class VesselCondition : BaseCondition
                 situationChangedMessage.NewSituation != situation)
                 return false;
         }
+
+        if (isInAtmosphere.HasValue && transaction.Vessel?.IsInAtmosphere != isInAtmosphere)
+            return false;
 
         if (situation != null && transaction.Vessel?.Situation != situation)
             return false;

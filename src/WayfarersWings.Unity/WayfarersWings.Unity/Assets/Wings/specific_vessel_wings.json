@@ -94,6 +94,44 @@
           "previousSituation": "Flying"
         }
       ]
+    },
+    {
+      "name": "kerbal_in_space_first",
+      "isFirst": true,
+      "hasDisplayNameAlreadyFirst": true,
+      "displayName": "WayfarersWings/Ribbons/KerbalInSpaceFirstName",
+      "description": "WayfarersWings/Ribbons/KerbalInSpaceFirst",
+      "localizationParams": {},
+      "points": 901000,
+      "imageLayers": [
+        "Assets/Wings/Layers/kerbal_in_space_first.png"
+      ],
+      "conditions": [
+        {
+          "type": "Vessel",
+          "situation": "Flying",
+          "previousSituation": "SubOrbital"
+        }
+      ]
+    },
+    {
+      "name": "kerbal_eva_in_space_first",
+      "isFirst": true,
+      "hasDisplayNameAlreadyFirst": true,
+      "displayName": "WayfarersWings/Ribbons/KerbalEVAInSpaceFirstName",
+      "description": "WayfarersWings/Ribbons/KerbalEVAInSpaceFirst",
+      "localizationParams": {},
+      "points": 900900,
+      "imageLayers": [
+        "Assets/Wings/Layers/kerbal_eva_in_space_first.png"
+      ],
+      "conditions": [
+        {
+          "type": "Kerbal",
+          "isEva": true,
+          "isInAtmosphere": false
+        }
+      ]
     }
   ]
 }
