@@ -258,7 +258,7 @@ MonoBehaviour:
     - wayfarer_wings_images
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 245c1d1e04abd2d4fa140b330c0052b8
-    m_Address: Assets/Wings/Layers/val.png
+    m_Address: Assets/Wings/Layers/vall.png
     m_ReadOnly: 0
     m_SerializedLabels:
     - wayfarer_wings_images
