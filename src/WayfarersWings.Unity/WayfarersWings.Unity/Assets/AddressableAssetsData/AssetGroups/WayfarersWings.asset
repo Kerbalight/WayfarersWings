@@ -311,14 +311,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - wayfarer_wings_images
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7f5d8306422e6e9448ed606212764437
-    m_Address: Assets/Wings/vessels_wings.json
+  - m_GUID: 221e3f4cca31e1c4aa579497e6808e30
+    m_Address: Assets/Wings/vessels_wings.jsonc
     m_ReadOnly: 0
     m_SerializedLabels:
     - wayfarer_wings_data
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7bfd8ed677f96894b91cfaaa65344916
     m_Address: Assets/Wings/Layers/solid_fuel_booster.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a4fca2d24dd33e14d83191b2789f85a1
+    m_Address: Assets/Wings/Layers/heavy_vehicle.png
     m_ReadOnly: 0
     m_SerializedLabels:
     - wayfarer_wings_images

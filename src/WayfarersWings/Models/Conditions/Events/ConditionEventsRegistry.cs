@@ -65,6 +65,10 @@ public class ConditionEventsRegistry
     public void OnVesselSituationChangedMessage(MessageCenterMessage message)
     {
         var situationMessage = (VesselSituationChangedMessage)message;
+
+        VesselsStateObserver.Instance.GetVesselObservedState(situationMessage.Vessel).previousSituation =
+            situationMessage.OldSituation;
+
         var transaction = new Transaction(situationMessage, situationMessage.Vessel);
         AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
     }

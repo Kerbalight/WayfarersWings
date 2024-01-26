@@ -33,10 +33,18 @@ public class VesselCondition : BaseCondition
     [JsonConverter(typeof(StringEnumConverter))]
     public VesselSituations? previousSituation;
 
+    /// <summary>
+    /// When set, the condition will only trigger if the vessel's previous
+    /// situation is _not_ this situation
+    /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
+    public VesselSituations? skipPreviousSituation;
+
     // By default, we don't want to trigger on EVAs.
     public bool? isEva = false;
     public bool? isAtRest;
     public bool? isInAtmosphere;
+    public bool? isRightAfterLaunch;
 
     [JsonConverter(typeof(GameTimeSpanJsonConverter))]
     public GameTimeSpan? maxTimeFromLaunch;
@@ -50,11 +58,18 @@ public class VesselCondition : BaseCondition
     public double? minSolidFuelMassPercentage;
 
     /// <summary>
-    /// Checks the total mass of the vessel
+    /// Checks the total mass of the vessel.
+    /// Not sure about how we should handle docking / how it is handled by KSP2
     /// </summary>
     public double? minMass;
 
     public double? maxMass;
+
+    public double? minAltitudeSeaLevel;
+    public double? maxAltitudeSeaLevel;
+    public double? minAltitudeTerrain;
+
+    // public double? didUseParachutes;
 
     public override bool IsValid(Transaction transaction)
     {
@@ -65,6 +80,7 @@ public class VesselCondition : BaseCondition
         if (isEva != null && transaction.Vessel.IsKerbalEVA != isEva)
             return false;
 
+        // TODO Maybe use VesselObservedState?
         if (previousSituation.HasValue)
         {
             if (transaction.Message is not VesselSituationChangedMessage situationChangedMessage)
@@ -74,6 +90,13 @@ public class VesselCondition : BaseCondition
             if (situation.HasValue && situationChangedMessage.NewSituation != situation)
                 return false;
         }
+
+        if (isRightAfterLaunch.HasValue && transaction.Message is not VesselLaunchedMessage)
+            return false;
+
+        // Test for VesselObservedState
+        if (skipPreviousSituation.HasValue && transaction.ObservedState?.previousSituation == skipPreviousSituation)
+            return false;
 
         if (isInAtmosphere.HasValue && transaction.Vessel?.IsInAtmosphere != isInAtmosphere)
             return false;
@@ -89,6 +112,13 @@ public class VesselCondition : BaseCondition
             return false;
         if (minTimeFromLaunch.HasValue &&
             !(Core.GetUniverseTime() - transaction.Vessel.launchTime > minTimeFromLaunch.Value.Seconds))
+            return false;
+
+        if (minAltitudeSeaLevel.HasValue && !(transaction.Vessel.AltitudeFromSeaLevel > minAltitudeSeaLevel.Value))
+            return false;
+        if (maxAltitudeSeaLevel.HasValue && !(transaction.Vessel.AltitudeFromSeaLevel < maxAltitudeSeaLevel.Value))
+            return false;
+        if (minAltitudeTerrain.HasValue && !(transaction.Vessel.AltitudeFromTerrain > minAltitudeTerrain.Value))
             return false;
 
         // Mass

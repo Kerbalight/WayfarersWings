@@ -6,7 +6,10 @@ namespace WayfarersWings.Managers.Observer;
 
 public class VesselObservedState
 {
+    // Tracked properties
     public CelestialBodyComponent? referenceBody;
+    public VesselSituations? previousSituation;
+
     public VesselObservedGeeForce geeForce = new();
 
     public IEnumerable<WingVesselUpdatedMessage> Update(VesselComponent vessel, out bool hasChanged)

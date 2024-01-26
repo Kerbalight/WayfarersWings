@@ -34,6 +34,11 @@ public class VesselsStateObserver : MonoBehaviour
         return state;
     }
 
+    public VesselObservedState GetVesselObservedState(VesselComponent vessel)
+    {
+        return GetVesselObservedState(vessel.GlobalId)!;
+    }
+
     public void UpdateVessel(VesselComponent vessel)
     {
         var vesselId = vessel.GlobalId;

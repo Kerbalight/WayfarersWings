@@ -57,7 +57,441 @@
           }
         ]
       }
+    },
+    {
+      "name": "heavy_vehicle",
+      "template": {
+        "name": "heavy_vehicle",
+        "displayName": "WayfarersWings/Ribbons/HeavyVehicleName",
+        "description": "WayfarersWings/Ribbons/HeavyVehicle",
+        "localizationParams": {},
+        "chain": "heavy_vehicle",
+        "points": 400,
+        "imageLayers": [
+          "Assets/Wings/Layers/heavy_vehicle.png"
+        ],
+        "conditions": []
+      },
+      "ranked": {
+        "partials": [
+          {
+            "name": "heavy_vehicle_250",
+            "localizationParams": {
+              "mass": "250"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "minMass": 10 // TODO Debug (was 250)
+              }
+            ]
+          },
+          {
+            "name": "heavy_vehicle_250",
+            "localizationParams": {
+              "mass": "250"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "minMass": 10
+              }
+            ]
+          },
+          {
+            "name": "heavy_vehicle_500",
+            "localizationParams": {
+              "mass": "500"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "minMass": 500
+              }
+            ]
+          },
+          {
+            "name": "heavy_vehicle_1000",
+            "localizationParams": {
+              "mass": "1000"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "minMass": 1000
+              }
+            ]
+          },
+          {
+            "name": "heavy_vehicle_1500",
+            "localizationParams": {
+              "mass": "1500"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "minMass": 1500
+              }
+            ]
+          },
+          {
+            "name": "heavy_vehicle_2000",
+            "localizationParams": {
+              "mass": "2000"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "minMass": 2000
+              }
+            ]
+          },
+          {
+            "name": "heavy_vehicle_4000",
+            "localizationParams": {
+              "mass": "4000"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "minMass": 4000
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "heavy_vehicle_landing",
+      "template": {
+        "name": "heavy_vehicle_landing",
+        "displayName": "WayfarersWings/Ribbons/HeavyVehicleLandingName",
+        "description": "WayfarersWings/Ribbons/HeavyVehicleLanding",
+        "localizationParams": {},
+        "chain": "heavy_vehicle_landing",
+        "points": 420,
+        "imageLayers": [
+          "Assets/Wings/Layers/heavy_vehicle.png",
+          "Assets/Wings/Layers/landed.png"
+        ],
+        "conditions": []
+      },
+      "ranked": {
+        "partials": [
+          {
+            "name": "heavy_vehicle_landing_250",
+            "localizationParams": {
+              "mass": "250"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "situation": "Landed",
+                "skipPreviousSituation": "PreLaunch",
+                "isAtRest": true,
+                "minMass": 250 // TODO Debug (set 1)
+              }
+            ]
+          },
+          {
+            "name": "heavy_vehicle_landing_500",
+            "localizationParams": {
+              "mass": "500"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "situation": "Landed",
+                "skipPreviousSituation": "PreLaunch",
+                "isAtRest": true,
+                "minMass": 500
+              }
+            ]
+          },
+          {
+            "name": "heavy_vehicle_landing_1000",
+            "localizationParams": {
+              "mass": "1000"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "situation": "Landed",
+                "skipPreviousSituation": "PreLaunch",
+                "isAtRest": true,
+                "minMass": 1000
+              }
+            ]
+          },
+          {
+            "name": "heavy_vehicle_landing_1500",
+            "localizationParams": {
+              "mass": "1500"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "situation": "Landed",
+                "skipPreviousSituation": "PreLaunch",
+                "isAtRest": true,
+                "minMass": 1500
+              }
+            ]
+          },
+          {
+            "name": "heavy_vehicle_landing_2000",
+            "localizationParams": {
+              "mass": "2000"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "situation": "Landed",
+                "skipPreviousSituation": "PreLaunch",
+                "isAtRest": true,
+                "minMass": 2000
+              }
+            ]
+          },
+          {
+            "name": "heavy_vehicle_landing_4000",
+            "localizationParams": {
+              "mass": "4000"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "situation": "Landed",
+                "skipPreviousSituation": "PreLaunch",
+                "isAtRest": true,
+                "minMass": 4000
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "heavy_vehicle_launch",
+      "template": {
+        "name": "heavy_vehicle_launch",
+        "displayName": "WayfarersWings/Ribbons/HeavyVehicleLaunchName",
+        "description": "WayfarersWings/Ribbons/HeavyVehicleLaunch",
+        "localizationParams": {},
+        "chain": "heavy_vehicle_launch",
+        "points": 420,
+        "imageLayers": [
+          "Assets/Wings/Layers/heavy_vehicle.png",
+          "Assets/Wings/Layers/rocket.png"
+        ],
+        "conditions": []
+      },
+      "ranked": {
+        "partials": [
+          {
+            "name": "heavy_vehicle_launch_250",
+            "localizationParams": {
+              "mass": "250"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "isRightAfterLaunch": true,
+                "minMass": 250
+              }
+            ]
+          },
+          {
+            "name": "heavy_vehicle_launch_500",
+            "localizationParams": {
+              "mass": "500"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "isRightAfterLaunch": true,
+                "minMass": 500
+              }
+            ]
+          },
+          {
+            "name": "heavy_vehicle_launch_1000",
+            "localizationParams": {
+              "mass": "1000"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "isRightAfterLaunch": true,
+                "minMass": 1000
+              }
+            ]
+          },
+          {
+            "name": "heavy_vehicle_launch_1500",
+            "localizationParams": {
+              "mass": "1500"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "isRightAfterLaunch": true,
+                "minMass": 1500
+              }
+            ]
+          },
+          {
+            "name": "heavy_vehicle_launch_2000",
+            "localizationParams": {
+              "mass": "2000"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "isRightAfterLaunch": true,
+                "minMass": 2000
+              }
+            ]
+          },
+          {
+            "name": "heavy_vehicle_launch_4000",
+            "localizationParams": {
+              "mass": "4000"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "isRightAfterLaunch": true,
+                "minMass": 4000
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "mountain_landing",
+      "template": {
+        "name": "mountain_landing",
+        "displayName": "WayfarersWings/Ribbons/MountainLandingName",
+        "description": "WayfarersWings/Ribbons/MountainLanding",
+        "localizationParams": {},
+        "chain": "mountain_landing",
+        "points": 430,
+        "imageLayers": [
+          "Assets/Wings/Layers/mountain.png",
+          "Assets/Wings/Layers/landed.png"
+        ],
+        "conditions": []
+      },
+      "ranked": {
+        "partials": [
+          {
+            "name": "mountain_landing_1500",
+            "localizationParams": {
+              "altitude": "1500"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "situation": "Landed",
+                "skipPreviousSituation": "PreLaunch",
+                // "isAtRest": true,  // we don't want to count atRest since you could be rolling down!
+                "minAltitudeSeaLevel": 1500
+              }
+            ]
+          },
+          {
+            "name": "mountain_landing_2000",
+            "localizationParams": {
+              "altitude": "2000"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "situation": "Landed",
+                "skipPreviousSituation": "PreLaunch",
+                "minAltitudeSeaLevel": 2000
+              }
+            ]
+          },
+          {
+            "name": "mountain_landing_2500",
+            "localizationParams": {
+              "altitude": "2500"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "situation": "Landed",
+                "skipPreviousSituation": "PreLaunch",
+                "minAltitudeSeaLevel": 2500
+              }
+            ]
+          },
+          {
+            "name": "mountain_landing_3000",
+            "localizationParams": {
+              "altitude": "3000"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "situation": "Landed",
+                "skipPreviousSituation": "PreLaunch",
+                "minAltitudeSeaLevel": 3000
+              }
+            ]
+          },
+          {
+            "name": "mountain_landing_3500",
+            "localizationParams": {
+              "altitude": "3500"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "situation": "Landed",
+                "skipPreviousSituation": "PreLaunch",
+                "minAltitudeSeaLevel": 3500
+              }
+            ]
+          },
+          {
+            "name": "mountain_landing_4000",
+            "localizationParams": {
+              "altitude": "4000"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "situation": "Landed",
+                "skipPreviousSituation": "PreLaunch",
+                "minAltitudeSeaLevel": 4000
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
-  "wings": []
+  "wings": [
+    {
+      "name": "splashdown",
+      "displayName": "WayfarersWings/Ribbons/SplashdownName",
+      "description": "WayfarersWings/Ribbons/Splashdown",
+      "localizationParams": {},
+      "points": 80,
+      "imageLayers": [
+        "Assets/Wings/Layers/splashdown.png"
+      ],
+      "conditions": [
+        {
+          "type": "Vessel",
+          "situation": "Splashed",
+          "previousSituation": "Flying"
+        }
+      ]
+    }
+  ]
 }

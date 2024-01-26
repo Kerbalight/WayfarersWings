@@ -29,6 +29,7 @@ public class WingsConfig
         {
             NullValueHandling = NullValueHandling.Include,
             Formatting = Formatting.Indented,
+
             Error = delegate(object sender, ErrorEventArgs args)
             {
                 if (args.CurrentObject != args.ErrorContext.OriginalObject) return;
