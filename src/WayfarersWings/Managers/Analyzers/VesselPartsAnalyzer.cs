@@ -58,4 +58,37 @@ public static class VesselPartsAnalyzer
             $"Solid fuel percentage: {solidFuelPercentage} (fuel={totalSolidFuel},mass={totalMass}) (vessel={vessel.Name}");
         return solidFuelPercentage;
     }
+
+    public static VesselParachutesState GetParachutesState(VesselComponent vessel)
+    {
+        var parts = vessel.SimulationObject.PartOwner.Parts;
+        var state = new VesselParachutesState();
+        foreach (var part in parts)
+        {
+            if (!part.TryGetModuleData<PartComponentModule_Parachute, Data_Parachute>(out var dataParachute)) continue;
+
+            switch (dataParachute.deployState.GetValue())
+            {
+                case Data_Parachute.DeploymentStates.DEPLOYED:
+                    state.deployedCount++;
+                    break;
+                case Data_Parachute.DeploymentStates.CUT:
+                    state.cutCount++;
+                    break;
+                case Data_Parachute.DeploymentStates.SEMIDEPLOYED:
+                    state.semiDeployedCount++;
+                    break;
+                case Data_Parachute.DeploymentStates.STOWED:
+                    state.stowedCount++;
+                    break;
+                case Data_Parachute.DeploymentStates.ARMED:
+                    state.activeCount++;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        return state;
+    }
 }
