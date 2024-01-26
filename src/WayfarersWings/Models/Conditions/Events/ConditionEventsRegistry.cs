@@ -90,7 +90,8 @@ public class ConditionEventsRegistry
     private static void OnEVAEnteredMessage(MessageCenterMessage message)
     {
         var evaMessage = (EVAEnteredMessage)message;
-        var transaction = ActiveVesselTransaction(evaMessage);
+        var kerbalVessel = KerbalStateObserver.GetActiveOrPendingKerbalVessel();
+        var transaction = new Transaction(evaMessage, kerbalVessel);
 
         // Start tracking kerbal eva time
         KerbalStateObserver.OnEVAEnterMessage(evaMessage, transaction.Vessel);

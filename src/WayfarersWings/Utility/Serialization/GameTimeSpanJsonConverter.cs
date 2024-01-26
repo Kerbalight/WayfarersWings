@@ -2,22 +2,22 @@
 
 namespace WayfarersWings.Utility.Serialization;
 
-public class GameTimeSpanJsonConverter : JsonConverter<GameTimeSpan>
+public class GameTimeSpanJsonConverter : JsonConverter<GameTimeSpan?>
 {
-    public override void WriteJson(JsonWriter writer, GameTimeSpan value, JsonSerializer serializer)
+    public override void WriteJson(JsonWriter writer, GameTimeSpan? value, JsonSerializer serializer)
     {
         throw new NotImplementedException();
     }
 
     public override bool CanWrite => false;
 
-    public override GameTimeSpan ReadJson(JsonReader reader, Type objectType, GameTimeSpan existingValue,
+    public override GameTimeSpan? ReadJson(JsonReader reader, Type objectType, GameTimeSpan? existingValue,
         bool hasExistingValue,
         JsonSerializer serializer)
     {
         var timeSpanToken = (string?)reader.Value;
         if (string.IsNullOrEmpty(timeSpanToken))
-            return new GameTimeSpan();
+            return null;
 
         var tokens = timeSpanToken.Split(' ');
         var amount = double.Parse(tokens[0]);

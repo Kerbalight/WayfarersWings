@@ -92,8 +92,8 @@
       "conditions": [
         {
           "type": "Vessel",
-          "situation": "Flying",
-          "previousSituation": "SubOrbital"
+          "situation": "SubOrbital",
+          "previousSituation": "Flying"
         }
       ]
     },

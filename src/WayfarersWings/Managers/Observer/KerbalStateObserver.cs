@@ -1,4 +1,5 @@
-﻿using KSP.Game;
+﻿using BepInEx.Logging;
+using KSP.Game;
 using KSP.Messages;
 using KSP.Sim.impl;
 using WayfarersWings.Models.Session;
@@ -8,6 +9,9 @@ namespace WayfarersWings.Managers.Observer;
 
 public class KerbalStateObserver
 {
+    private readonly static ManualLogSource Logger =
+        BepInEx.Logging.Logger.CreateLogSource("WayfarersWings.KerbalStateObserver");
+
     public static IEnumerable<KerbalInfo> GetKerbalsInRange()
     {
         var kerbals = new List<KerbalInfo>();
@@ -20,6 +24,34 @@ public class KerbalStateObserver
         }
 
         return kerbals;
+    }
+
+    /// <summary>
+    /// When an "EVA entered" message is dispatched, we are not sure if
+    /// the _active_ vessel is the kerbal or it's the _pending_ vessel.
+    /// </summary>
+    /// <returns></returns>
+    public static VesselComponent? GetActiveOrPendingKerbalVessel()
+    {
+        var pendingVessel = GameManager.Instance.Game.ViewController.GetPendingActiveVessel();
+        if (pendingVessel?.IsKerbalEVA == true) return pendingVessel;
+
+        return GameManager.Instance.Game.ViewController.GetActiveSimVessel();
+    }
+
+    /// <summary>
+    /// KerbalInfo may be null when EVA is started (EVAEnteredMessage)
+    /// </summary>
+    /// <param name="kerbal"></param>
+    /// <returns></returns>
+    private static KerbalInfo? GetKerbalInfo(KerbalComponent kerbal)
+    {
+        if (kerbal.KerbalInfo == null)
+        {
+            kerbal.AssignKerbalInfo();
+        }
+
+        return kerbal.KerbalInfo;
     }
 
     #region Vessel
@@ -59,22 +91,29 @@ public class KerbalStateObserver
     public static void OnEVAEnterMessage(EVAEnteredMessage message, VesselComponent? kerbalVessel)
     {
         if (kerbalVessel == null) return;
-        var kerbal = kerbalVessel.SimulationObject.Kerbal.KerbalInfo;
-        var profile = WingsSessionManager.Instance.GetKerbalProfile(kerbal.Id);
+
+        var kerbalInfo = GetKerbalInfo(kerbalVessel.SimulationObject.Kerbal);
+        if (kerbalInfo == null)
+        {
+            Logger.LogError("Could not get KerbalInfo from KerbalComponent OnEVAEnter. Aborting transaction");
+            return;
+        }
+
+        var profile = WingsSessionManager.Instance.GetKerbalProfile(kerbalInfo.Id);
         profile.lastEvaEnteredAt = Core.GetUniverseTime();
 
-        var transaction = new Transaction(message, kerbal);
+        var transaction = new Transaction(message, kerbalInfo);
         AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
     }
 
     public static void OnEVALeftMessage(EVALeftMessage message, VesselComponent? kerbalVessel)
     {
         if (kerbalVessel == null) return;
-        var kerbal = kerbalVessel.SimulationObject.Kerbal.KerbalInfo;
-        var profile = WingsSessionManager.Instance.GetKerbalProfile(kerbal.Id);
+        var kerbalInfo = kerbalVessel.SimulationObject.Kerbal.KerbalInfo;
+        var profile = WingsSessionManager.Instance.GetKerbalProfile(kerbalInfo.Id);
         profile.CompleteEVA(kerbalVessel);
 
-        var transaction = new Transaction(message, kerbal);
+        var transaction = new Transaction(message, kerbalInfo);
         AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
     }
 
