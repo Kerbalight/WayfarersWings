@@ -45,6 +45,9 @@ public class VesselCondition : BaseCondition
     public bool? isAtRest;
     public bool? isInAtmosphere;
     public bool? isRightAfterLaunch;
+    public bool? isRightAfterLandingGroundAtRest;
+    public bool? isRightAfterLandingWaterAtRest;
+    public bool? isRightAfterLandingAtRest;
 
     [JsonConverter(typeof(GameTimeSpanJsonConverter))]
     public GameTimeSpan? maxTimeFromLaunch;
@@ -92,6 +95,13 @@ public class VesselCondition : BaseCondition
         }
 
         if (isRightAfterLaunch.HasValue && transaction.Message is not VesselLaunchedMessage)
+            return false;
+        if (isRightAfterLandingAtRest.HasValue && transaction.Message is not VesselLandedGroundAtRestMessage &&
+            transaction.Message is not VesselLandedWaterAtRestMessage)
+            return false;
+        if (isRightAfterLandingGroundAtRest.HasValue && transaction.Message is not VesselLandedGroundAtRestMessage)
+            return false;
+        if (isRightAfterLandingWaterAtRest.HasValue && transaction.Message is not VesselLandedWaterAtRestMessage)
             return false;
 
         // Test for VesselObservedState

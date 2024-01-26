@@ -1,0 +1,306 @@
+{
+  "templates": [
+    {
+      "name": "eva_total_time",
+      "template": {
+        "name": "eva_total_time",
+        "displayName": "WayfarersWings/Ribbons/EvaTotalTimeName",
+        "description": "WayfarersWings/Ribbons/EvaTotalTime",
+        "localizationParams": {},
+        "chain": "eva_total_time",
+        "points": 470,
+        "imageLayers": [
+          "Assets/Wings/Layers/eva_total_time.png",
+          "Assets/Wings/Layers/bands_superior.png",
+          "Assets/Wings/Layers/eva_kerbal.png"
+        ],
+        "conditions": []
+      },
+      "ranked": {
+        "partials": [
+          {
+            "name": "eva_total_time__test",
+            "localizationParams": {
+              "time": "3",
+              "unit": "#Unit/Text/Minutes"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minTotalEvaTime": "3 minutes"
+              }
+            ]
+          },
+          {
+            "name": "eva_total_time_60min",
+            "localizationParams": {
+              "time": "60",
+              "unit": "#Unit/Text/Minutes"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minTotalEvaTime": "60 minutes"
+              }
+            ]
+          },
+          {
+            "name": "eva_total_time_2h",
+            "localizationParams": {
+              "time": "2",
+              "unit": "#Unit/Text/Hours"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minTotalEvaTime": "2 hours"
+              }
+            ]
+          },
+          {
+            "name": "eva_total_time_6h",
+            "localizationParams": {
+              "time": "6",
+              "unit": "#Unit/Text/Hours"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minTotalEvaTime": "6 hours"
+              }
+            ]
+          },
+          {
+            "name": "eva_total_time_12h",
+            "localizationParams": {
+              "time": "12",
+              "unit": "#Unit/Text/Hours"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minTotalEvaTime": "12 hours"
+              }
+            ]
+          },
+          {
+            "name": "eva_total_time_24h",
+            "localizationParams": {
+              "time": "4",
+              "unit": "#Unit/Text/Days"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minTotalEvaTime": "4 days"
+              }
+            ]
+          },
+          {
+            "name": "eva_total_time_48h",
+            "localizationParams": {
+              "time": "8",
+              "unit": "#Unit/Text/Days"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minTotalEvaTime": "8 days"
+              }
+            ]
+          },
+          {
+            "name": "eva_total_time_96h",
+            "localizationParams": {
+              "time": "16",
+              "unit": "#Unit/Text/Days"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minTotalEvaTime": "16 days"
+              }
+            ]
+          },
+          {
+            "name": "eva_total_time_192h",
+            "localizationParams": {
+              "time": "32",
+              "unit": "#Unit/Text/Days"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minTotalEvaTime": "32 days"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "eva_time",
+      "template": {
+        "name": "eva_time",
+        "displayName": "WayfarersWings/Ribbons/EvaTimeName",
+        "description": "WayfarersWings/Ribbons/EvaTime",
+        "localizationParams": {},
+        "chain": "eva_time",
+        "points": 450,
+        "imageLayers": [
+          "Assets/Wings/Layers/eva_time.png",
+          "Assets/Wings/Layers/eva_kerbal.png"
+        ],
+        "conditions": []
+      },
+      "ranked": {
+        "partials": [
+          {
+            "name": "eva_time__test",
+            "localizationParams": {
+              "time": "2",
+              "unit": "#Unit/Text/Minutes"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minEvaTime": "2 minutes"
+              }
+            ]
+          },
+          {
+            "name": "eva_time_20min",
+            "localizationParams": {
+              "time": "20",
+              "unit": "#Unit/Text/Minutes"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minEvaTime": "20 minutes"
+              }
+            ]
+          },
+          {
+            "name": "eva_time_30min",
+            "localizationParams": {
+              "time": "30",
+              "unit": "#Unit/Text/Minutes"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minEvaTime": "30 minutes"
+              }
+            ]
+          },
+          {
+            "name": "eva_time_40min",
+            "localizationParams": {
+              "time": "40",
+              "unit": "#Unit/Text/Minutes"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minEvaTime": "40 minutes"
+              }
+            ]
+          },
+          {
+            "name": "eva_time_50min",
+            "localizationParams": {
+              "time": "50",
+              "unit": "#Unit/Text/Minutes"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minEvaTime": "50 minutes"
+              }
+            ]
+          },
+          {
+            "name": "eva_time_60min",
+            "localizationParams": {
+              "time": "60",
+              "unit": "#Unit/Text/Minutes"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minEvaTime": "60 minutes"
+              }
+            ]
+          },
+          {
+            "name": "eva_time_90min",
+            "localizationParams": {
+              "time": "90",
+              "unit": "#Unit/Text/Minutes"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minEvaTime": "90 minutes"
+              }
+            ]
+          },
+          {
+            "name": "eva_time_120min",
+            "localizationParams": {
+              "time": "2",
+              "unit": "#Unit/Text/Hours"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minEvaTime": "2 hours"
+              }
+            ]
+          },
+          {
+            "name": "eva_time_180min",
+            "localizationParams": {
+              "time": "3",
+              "unit": "#Unit/Text/Hours"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minEvaTime": "3 hours"
+              }
+            ]
+          },
+          {
+            "name": "eva_time_240min",
+            "localizationParams": {
+              "time": "4",
+              "unit": "#Unit/Text/Hours"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minEvaTime": "4 hours"
+              }
+            ]
+          },
+          {
+            "name": "eva_time_300min",
+            "localizationParams": {
+              "time": "5",
+              "unit": "#Unit/Text/Hours"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minEvaTime": "5 hours"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "wings": []
+}
