@@ -36,7 +36,13 @@ public class WingsPool
         ["Assets/Wings/Layers/first.png", "Assets/Wings/Layers/rank3.png"],
         ["Assets/Wings/Layers/first.png", "Assets/Wings/Layers/rank4.png"],
         ["Assets/Wings/Layers/first.png", "Assets/Wings/Layers/rank5.png"],
-        ["Assets/Wings/Layers/first.png", "Assets/Wings/Layers/rank6.png"]
+        ["Assets/Wings/Layers/first.png", "Assets/Wings/Layers/rank6.png"],
+        ["Assets/Wings/Layers/bands_superior.png", "Assets/Wings/Layers/first.png", "Assets/Wings/Layers/rank1.png"],
+        ["Assets/Wings/Layers/bands_superior.png", "Assets/Wings/Layers/first.png", "Assets/Wings/Layers/rank2.png"],
+        ["Assets/Wings/Layers/bands_superior.png", "Assets/Wings/Layers/first.png", "Assets/Wings/Layers/rank3.png"],
+        ["Assets/Wings/Layers/bands_superior.png", "Assets/Wings/Layers/first.png", "Assets/Wings/Layers/rank4.png"],
+        ["Assets/Wings/Layers/bands_superior.png", "Assets/Wings/Layers/first.png", "Assets/Wings/Layers/rank5.png"],
+        ["Assets/Wings/Layers/bands_superior.png", "Assets/Wings/Layers/first.png", "Assets/Wings/Layers/rank6.png"],
     ];
 
     public const string FirstSuffix = "_first";

@@ -247,25 +247,5 @@
       }
     }
   ],
-  "wings": [
-    {
-      "name": "duna_soi_bis",
-      "displayName": "Duna SoI",
-      "points": 1,
-      "imageLayers": [
-        "Assets/Wings/Planets/duna.png",
-        "Assets/Wings/Layers/soi.png"
-      ],
-      "description": "You have entered Duna's Sphere of Influence",
-      "triggers": [
-        {"eventName": "SOIEnteredMessage"}
-      ],
-      "conditions": [
-        {
-          "type": "SphereOfInfluence",
-          "celestialBody": "Duna"
-        }
-      ]
-    }
-  ]
+  "wings": []
 }

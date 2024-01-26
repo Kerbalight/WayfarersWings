@@ -158,6 +158,39 @@
                 "minGeeForce": 15
               }
             ]
+          },
+          {
+            "localizationParams": {
+              "geeForce": "16"
+            },
+            "conditions": [
+              {
+                "type": "Travel",
+                "minGeeForce": 16
+              }
+            ]
+          },
+          {
+            "localizationParams": {
+              "geeForce": "17"
+            },
+            "conditions": [
+              {
+                "type": "Travel",
+                "minGeeForce": 17
+              }
+            ]
+          },
+          {
+            "localizationParams": {
+              "geeForce": "18"
+            },
+            "conditions": [
+              {
+                "type": "Travel",
+                "minGeeForce": 18
+              }
+            ]
           }
         ]
       }

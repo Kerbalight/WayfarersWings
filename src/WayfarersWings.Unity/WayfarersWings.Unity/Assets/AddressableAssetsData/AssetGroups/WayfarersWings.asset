@@ -311,8 +311,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - wayfarer_wings_images
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 221e3f4cca31e1c4aa579497e6808e30
-    m_Address: Assets/Wings/vessels_wings.jsonc
+  - m_GUID: 7f5d8306422e6e9448ed606212764437
+    m_Address: Assets/Wings/vessels_wings.json
     m_ReadOnly: 0
     m_SerializedLabels:
     - wayfarer_wings_data
@@ -325,6 +325,60 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a4fca2d24dd33e14d83191b2789f85a1
     m_Address: Assets/Wings/Layers/heavy_vehicle.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: edd2a65ba3bdfdc4a8e9a80d67a83658
+    m_Address: Assets/Wings/Layers/rocket.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ff04e811c975f5a4cbd145ac08a97e92
+    m_Address: Assets/Wings/Layers/mountain.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8ed1c19c8371ada4d94dc3ef361214d2
+    m_Address: Assets/Wings/Layers/eva_kerbal.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 10d790bb4bf8ca948b5a3413d6548424
+    m_Address: Assets/Wings/Layers/eva_time.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 21107c1a499288f47a8a151af10ce16a
+    m_Address: Assets/Wings/Layers/eva_total_time.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 745783de9c80fee45a7b1aab07944114
+    m_Address: Assets/Wings/Layers/bands_superior.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 58dcc94450a0c43478537f275382f44d
+    m_Address: Assets/Wings/eva_wings.json
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_data
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a7f624cc2ac07d542aa63ab6e27f9fd6
+    m_Address: Assets/Wings/Layers/kerbal_eva_in_space_first.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: de8beafee43327e49a7e1f8cda301c59
+    m_Address: Assets/Wings/Layers/moho.png
     m_ReadOnly: 0
     m_SerializedLabels:
     - wayfarer_wings_images
