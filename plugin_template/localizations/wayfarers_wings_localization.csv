@@ -1,5 +1,6 @@
 Key,Type,Desc,English,Italian,German,French,Spanish,Japanese,Korean,Polish,Russian,Chinese (Simplified),Portuguese (Brazil),Chinese (Traditional)
-WayfarersWings/UI/Achievements,Text,,Achievements,Conquiste,,,,,,,,,,
+WayfarersWings/UI/Achievements,Text,Main window title,Achievements,Conquiste,,,,,,,,,,
+WayfarersWings/UI/MissionAchievements,Text,Window title for wings gained in current mission (Flight report),Mission Achievements,,,,,,,,,,,
 WayfarersWings/UI/TotalMissionTime,Text,,Total mission time,,,,,,,,,,,
 WayfarersWings/UI/TotalEvaTime,Text,,Total EVA time,,,,,,,,,,,
 WayfarersWings/UI/MissionsCompleted,Text,,Missions completed,,,,,,,,,,,

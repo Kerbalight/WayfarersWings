@@ -20,6 +20,9 @@ public class MainUIManager
     private UIDocument _kerbalUIDocument = null!;
     public KerbalWindowController KerbalWindow { get; private set; } = null!;
 
+    public UIDocument _missionSummaryUIDocument = null!;
+    public MissionSummaryWindowController MissionSummaryWindow { get; private set; } = null!;
+
     /// <summary>
     /// Loads the UI template from the given VisualTreeAsset found in Addressables.
     /// </summary>
@@ -36,15 +39,18 @@ public class MainUIManager
     {
         Logger.LogInfo("Initializing UI");
 
+        // Mission summary window
+        _missionSummaryUIDocument =
+            Window.Create(MissionSummaryWindowController.WindowOptions, _templates["MissionSummaryWindow"]);
+        MissionSummaryWindow = _missionSummaryUIDocument.gameObject.AddComponent<MissionSummaryWindowController>();
+
         // Kerbal window
         _kerbalUIDocument = Window.Create(KerbalWindowController.WindowOptions, _templates["KerbalWindow"]);
         KerbalWindow = _kerbalUIDocument.gameObject.AddComponent<KerbalWindowController>();
 
-
         // Main window
         _wingsAppUIDocument = Window.Create(WingsAppWindowController.WindowOptions, _templates["WingsAppWindow"]);
         AppWindow = _wingsAppUIDocument.gameObject.AddComponent<WingsAppWindowController>();
-
 
         // Tooltip window (should be last)
         _tooltipUIDocument = Window.Create(TooltipWindowController.WindowOptions, _templates["TooltipWindow"]);
@@ -55,6 +61,7 @@ public class MainUIManager
     {
         AppWindow.IsWindowOpen = isOpen ?? !AppWindow.IsWindowOpen;
         KerbalWindow.IsWindowOpen = AppWindow.IsWindowOpen && KerbalWindow.KerbalId.HasValue;
+        if (!AppWindow.IsWindowOpen) MissionSummaryWindow.IsWindowOpen = false;
     }
 
     public VisualTreeAsset GetTemplate(string name)

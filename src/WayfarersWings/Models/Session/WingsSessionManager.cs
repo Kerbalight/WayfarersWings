@@ -16,7 +16,7 @@ public class WingsSessionManager
 
     public string SessionGuidString;
 
-    public static KerbalRosterManager Roster => GameManager.Instance?.Game?.SessionManager?.KerbalRosterManager;
+    public static KerbalRosterManager Roster => GameManager.Instance!.Game!.SessionManager!.KerbalRosterManager;
 
     public Dictionary<IGGuid, KerbalProfile> KerbalProfiles { get; private set; } = [];
 
@@ -69,7 +69,7 @@ public class WingsSessionManager
         if (wing.config.isFirst) _firstWingsAlreadyUnlocked.Add(wing.config.name);
 
         Logger.LogInfo("Awarded " + config.name + " to " + kerbalInfo.Attributes.GetFullName());
-        MessageListener.Instance.MessageCenter.Publish(new WingAwardedMessage(kerbalInfo, wing));
+        Core.Messages.Publish(new WingAwardedMessage(kerbalInfo, wing));
     }
 
     public void Revoke(KerbalWingEntry entry, IGGuid kerbalId)
@@ -80,7 +80,7 @@ public class WingsSessionManager
         if (entry.Wing.config.isFirst) _firstWingsAlreadyUnlocked.Remove(entry.Wing.config.name);
 
         Logger.LogInfo("Revoked " + entry.Wing.config.name + " from " + kerbalId);
-        MessageListener.Instance.MessageCenter.Publish(new WingRevokedMessage(kerbalId, entry.Wing));
+        Core.Messages.Publish(new WingRevokedMessage(kerbalId, entry.Wing));
     }
 
     public List<KerbalProfile> GetAllKerbalsProfiles()

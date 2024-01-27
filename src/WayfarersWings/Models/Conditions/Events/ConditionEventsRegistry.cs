@@ -14,28 +14,28 @@ public class ConditionEventsRegistry
 {
     private static ManualLogSource _logger = BepInEx.Logging.Logger.CreateLogSource("ConditionEventsRegistry");
 
-    private static MessageCenter MessageCenter => MessageListener.Instance.MessageCenter;
+    private static MessageCenter Messages => MessageListener.MessageCenter;
 
     public void SetupListeners()
     {
         // Orbit
-        MessageCenter.PersistentSubscribe<SOIEnteredMessage>(OnSOIEnteredMessage);
-        MessageCenter.PersistentSubscribe<StableOrbitCreatedMessage>(OnStableOrbitCreatedMessage);
+        Messages.PersistentSubscribe<SOIEnteredMessage>(OnSOIEnteredMessage);
+        Messages.PersistentSubscribe<StableOrbitCreatedMessage>(OnStableOrbitCreatedMessage);
 
         // Vessel
-        MessageCenter.PersistentSubscribe<VesselLaunchedMessage>(OnVesselLaunched);
-        MessageCenter.PersistentSubscribe<VesselSituationChangedMessage>(OnVesselSituationChangedMessage);
-        MessageCenter.PersistentSubscribe<VesselLandedGroundAtRestMessage>(OnVesselLandedGroundAtRestMessage);
-        MessageCenter.PersistentSubscribe<VesselLandedWaterAtRestMessage>(OnVesselLandedWaterAtRestMessage);
-        MessageCenter.PersistentSubscribe<VesselRecoveredMessage>(OnVesselRecovered);
+        Messages.PersistentSubscribe<VesselLaunchedMessage>(OnVesselLaunched);
+        Messages.PersistentSubscribe<VesselSituationChangedMessage>(OnVesselSituationChangedMessage);
+        Messages.PersistentSubscribe<VesselLandedGroundAtRestMessage>(OnVesselLandedGroundAtRestMessage);
+        Messages.PersistentSubscribe<VesselLandedWaterAtRestMessage>(OnVesselLandedWaterAtRestMessage);
+        Messages.PersistentSubscribe<VesselRecoveredMessage>(OnVesselRecovered);
 
         // Vessel Observer
-        MessageCenter.PersistentSubscribe<WingVesselGeeForceUpdatedMessage>(OnVesselGeeForceUpdatedMessage);
+        Messages.PersistentSubscribe<WingVesselGeeForceUpdatedMessage>(OnVesselGeeForceUpdatedMessage);
 
         // EVA
-        MessageCenter.PersistentSubscribe<EVAEnteredMessage>(OnEVAEnteredMessage);
-        MessageCenter.PersistentSubscribe<EVALeftMessage>(OnEVALeftMessage);
-        MessageCenter.PersistentSubscribe<FlagPlantedMessage>(OnFlagPlantedMessage);
+        Messages.PersistentSubscribe<EVAEnteredMessage>(OnEVAEnteredMessage);
+        Messages.PersistentSubscribe<EVALeftMessage>(OnEVALeftMessage);
+        Messages.PersistentSubscribe<FlagPlantedMessage>(OnFlagPlantedMessage);
     }
 
     private static Transaction ActiveVesselTransaction(MessageCenterMessage message)
@@ -153,6 +153,9 @@ public class ConditionEventsRegistry
 
         var transaction = new Transaction(recoveredMessage, vessel);
         AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+
+        // Show flight report summary
+        Messages.Publish(new WingMissionCompletedMessage(vessel));
     }
 
     #endregion

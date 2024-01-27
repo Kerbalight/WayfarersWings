@@ -9,22 +9,28 @@ namespace WayfarersWings.UI.Components;
 
 public class KerbalProfileRowController
 {
-    private static ManualLogSource
+    private static readonly ManualLogSource
         Logger = BepInEx.Logging.Logger.CreateLogSource("WayfarerWings.KerbalWingsRowController");
 
-    private VisualElement _root;
-    private VisualElement _ribbonsSpace;
-    private VisualElement _portrait;
-    private VisualElement _status;
-    private Label _name;
-    private Label _missionsLabel;
-    private Button _starButton;
-    private Button _infoButton;
-    private Button _headerButton;
+    private readonly VisualElement _root;
+    private readonly VisualElement _ribbonsSpace;
+    private readonly VisualElement _portrait;
+    private readonly VisualElement _status;
+    private readonly Label _name;
+    private readonly Label _missionsLabel;
+    private readonly Button _starButton;
+    private readonly Button _infoButton;
+    private readonly Button _headerButton;
 
-    private KerbalProfile _kerbalProfile;
+    private KerbalProfile? _kerbalProfile;
 
     public VisualElement Root => _root;
+
+    /// <summary>
+    /// Allows to show only the wings that were unlocked since the last launch.
+    /// Useful for the mission report.
+    /// </summary>
+    public bool ShowLastMissionOnly { get; set; } = false;
 
     public KerbalProfileRowController(VisualElement root)
     {
@@ -46,12 +52,12 @@ public class KerbalProfileRowController
     private void OnInfoClicked()
     {
         Logger.LogDebug("Info clicked");
-        MainUIManager.Instance.KerbalWindow.SelectKerbal(_kerbalProfile.kerbalId);
+        MainUIManager.Instance.KerbalWindow.SelectKerbal(_kerbalProfile!.kerbalId);
     }
 
     private void OnStarClicked()
     {
-        _kerbalProfile.isStarred = !_kerbalProfile.isStarred;
+        _kerbalProfile!.isStarred = !_kerbalProfile.isStarred;
         _starButton.style.unityBackgroundImageTintColor =
             _kerbalProfile.isStarred ? Colors.LedGreen : Color.white;
     }
@@ -75,8 +81,6 @@ public class KerbalProfileRowController
             return;
         }
 
-        Logger.LogDebug("Binding kerbal " + kerbalInfo.Attributes.GetFullName());
-
         _portrait.style.backgroundImage = new StyleBackground(kerbalInfo.Portrait.texture);
         _name.text = kerbalInfo.Attributes.GetFullName();
         _missionsLabel.text = kerbalProfile.missionsCount + " missions"; // TODO i18n
@@ -85,8 +89,15 @@ public class KerbalProfileRowController
 
         KerbalStatusElement.SetStatus(_status, kerbalProfile);
 
+
+        // Display only the wings that were unlocked since the last launch
+        // if the option is enabled
+        var entries = ShowLastMissionOnly
+            ? kerbalProfile.GetLastMissionEntries()
+            : kerbalProfile.Entries;
+
         _ribbonsSpace.Clear();
-        foreach (var wingEntry in kerbalProfile.Entries)
+        foreach (var wingEntry in entries)
         {
             if (wingEntry.isSuperseeded) continue;
             var ribbon = WingRibbonController.Create();

@@ -20,10 +20,10 @@ namespace WayfarersWings.UI;
 /// </summary>
 public class WingsAppWindowController : MonoBehaviour
 {
-    private static ManualLogSource Logger =
-        BepInEx.Logging.Logger.CreateLogSource("WayfarerWings.WingsAppWindowController");
+    private static readonly ManualLogSource Logger =
+        BepInEx.Logging.Logger.CreateLogSource("WayfarersWings.WingsAppWindowController");
 
-    private UIDocument _window;
+    private UIDocument _window = null!;
 
     public static WindowOptions WindowOptions = new()
     {
@@ -39,19 +39,19 @@ public class WingsAppWindowController : MonoBehaviour
     };
 
     // The elements of the window that we need to access
-    private VisualElement _root;
+    private VisualElement _root = null!;
 
     public VisualElement Root => _root;
 
     // private ScrollView _content;
-    private static string _defaultTab = "kerbals";
-    private string _selectedTab = _defaultTab;
+    private const string DefaultTab = "kerbals";
+    private string _selectedTab = DefaultTab;
     private readonly Dictionary<string, ScrollView> _tabs = new();
     private readonly Dictionary<string, Button> _tabButtons = new();
-    private VisualElement _kerbalsTabMenu;
-    private DropdownField _sortDropdown;
-    private Button _sortDirectionButton;
-    private TextField _nameSearchField;
+    private VisualElement _kerbalsTabMenu = null!;
+    private DropdownField _sortDropdown = null!;
+    private Button _sortDirectionButton = null!;
+    private TextField _nameSearchField = null!;
     private KerbalProfileQuery.Query _kerbalQuery = new();
 
     // The backing field for the IsWindowOpen property
@@ -202,6 +202,8 @@ public class WingsAppWindowController : MonoBehaviour
             _tabs["kerbals"].Add(row.Root);
             row.Bind(kerbalProfile);
         }
+
+        Logger.LogInfo($"Refreshed Kerbals tab with {kerbalProfiles.Count} kerbals.");
     }
 
     // Search & Sort

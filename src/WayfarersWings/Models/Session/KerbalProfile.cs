@@ -63,6 +63,12 @@ public class KerbalProfile : IJsonSaved
     public double lastMissionTime = 0;
     public double totalMissionTime = 0;
 
+    /// <summary>
+    /// Used as a reference to display mission reports. It's the value of
+    /// "lastLaunchedAt" when the vessel is recovered.
+    /// </summary>
+    public double? lastMissionLaunchedAt;
+
     public double? lastEvaEnteredAt;
     public double lastEvaTime = 0;
     public double totalEvaSpaceTime = 0;
@@ -225,6 +231,31 @@ public class KerbalProfile : IJsonSaved
             _unlockedWingsCodes.Add(WingsPool.GetNotFirstWingName(wing));
     }
 
+    public List<KerbalWingEntry> GetLastMissionEntries()
+    {
+        List<KerbalWingEntry> missionEntries = [];
+        foreach (var entry in _entries)
+        {
+            if (entry.universeTime > lastMissionLaunchedAt) continue;
+            if (entry.isSuperseeded) continue;
+            missionEntries.Add(entry);
+        }
+
+        return missionEntries;
+    }
+
+    #region Lifetime
+
+    public void StartMission(VesselComponent vessel)
+    {
+        lastLaunchedAt = Core.GetUniverseTime();
+        lastMissionLaunchedAt = lastLaunchedAt;
+        lastEvaEnteredAt = null;
+    }
+
+    /// <summary>
+    /// Updates mission times after the vessel has been recovered.
+    /// </summary>
     public void CompleteMission(VesselComponent vessel)
     {
         missionsCount++;
@@ -237,6 +268,8 @@ public class KerbalProfile : IJsonSaved
 
         lastMissionTime = Core.GetUniverseTime() - lastLaunchedAt.Value;
         totalMissionTime += lastMissionTime;
+
+        lastLaunchedAt = null;
 
         Logger.LogDebug("Added " + lastMissionTime + "s mission time to " + KerbalInfo.Attributes.GetFullName());
     }
@@ -265,6 +298,10 @@ public class KerbalProfile : IJsonSaved
 
         Logger.LogDebug("Added " + evaTime + "s EVA time to " + KerbalInfo.Attributes.GetFullName());
     }
+
+    #endregion
+
+    #region Loading & Saving
 
     /// <summary>
     /// We can't just use OnDeserialize since we need to access data available only
@@ -307,4 +344,6 @@ public class KerbalProfile : IJsonSaved
             entry.OnBeforeGameSave();
         }
     }
+
+    #endregion
 }

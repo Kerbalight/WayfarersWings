@@ -56,7 +56,7 @@ public class VesselsStateObserver : MonoBehaviour
         {
             Logger.LogDebug($"[vessel={message.Vessel.Name}] Found difference, triggering message: " +
                             message.GetType().Name + ", message=" + message);
-            MessageListener.Instance.MessageCenter.Publish(message.GetType(), message);
+            Core.Messages.Publish(message.GetType(), message);
         }
     }
 

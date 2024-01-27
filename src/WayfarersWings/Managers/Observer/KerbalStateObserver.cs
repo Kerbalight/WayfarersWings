@@ -63,7 +63,7 @@ public class KerbalStateObserver
         foreach (var kerbal in kerbals)
         {
             var profile = WingsSessionManager.Instance.GetKerbalProfile(kerbal.Id);
-            profile.lastLaunchedAt = Core.GetUniverseTime();
+            profile.StartMission(vesselComponent);
 
             var transaction = new Transaction(message, kerbal);
             AchievementsOrchestrator.Instance.DispatchTransaction(transaction);

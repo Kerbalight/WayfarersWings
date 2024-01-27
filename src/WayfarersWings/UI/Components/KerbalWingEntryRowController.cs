@@ -9,18 +9,16 @@ namespace WayfarersWings.UI.Components;
 
 public class KerbalWingEntryRowController
 {
-    private static ManualLogSource
+    private static readonly ManualLogSource
         Logger = BepInEx.Logging.Logger.CreateLogSource("WayfarerWings.WingRowController");
 
-    private VisualElement _root;
-    private VisualElement _ribbonsSpace;
-    private VisualElement _portrait;
-    private Label _name;
-    private Label _description;
-    private Label _date;
-    private Button _deleteButton;
-    private VisualElement _deleteConfirmPopover;
-    private Button _deleteConfirmButton;
+    private readonly VisualElement _root;
+    private readonly VisualElement _ribbonsSpace;
+    private readonly Label _name;
+    private readonly Label _description;
+    private readonly Label _date;
+    private readonly Button _deleteButton;
+    private readonly Button _deleteConfirmButton;
 
     private KerbalWingEntry? _entry;
 
@@ -35,12 +33,12 @@ public class KerbalWingEntryRowController
         _date = _root.Q<Label>("date");
         _deleteButton = _root.Q<Button>("delete-button");
         _deleteConfirmButton = _root.Q<Button>("delete-confirm-button");
-        _deleteConfirmPopover = _root.Q<VisualElement>("delete-confirm-popover");
+        var deleteConfirmPopover = _root.Q<VisualElement>("delete-confirm-popover");
 
         _deleteConfirmButton.text = LocalizedStrings.ConfirmRevokeButton;
-        _deleteConfirmPopover.style.display = DisplayStyle.None;
+        deleteConfirmPopover.style.display = DisplayStyle.None;
         _deleteButton.clicked += () =>
-            _deleteConfirmPopover.style.display = _deleteConfirmPopover.style.display == DisplayStyle.None
+            deleteConfirmPopover.style.display = deleteConfirmPopover.style.display == DisplayStyle.None
                 ? DisplayStyle.Flex
                 : DisplayStyle.None;
         _deleteConfirmButton.clicked += OnDeleteConfirm;

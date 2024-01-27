@@ -5,6 +5,7 @@ namespace WayfarersWings.UI.Localization;
 public static class LocalizedStrings
 {
     public static LocalizedString AchievementsTitle = "WayfarersWings/UI/Achievements";
+    public static LocalizedString MissionAchievementsTitle = "WayfarersWings/UI/MissionAchievements";
     public static LocalizedString TotalMissionTime = "WayfarersWings/UI/TotalMissionTime";
     public static LocalizedString TotalEvaTime = "WayfarersWings/UI/TotalEvaTime";
     public static LocalizedString MissionsCompleted = "WayfarersWings/UI/MissionsCompleted";

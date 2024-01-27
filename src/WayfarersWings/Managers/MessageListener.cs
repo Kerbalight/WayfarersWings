@@ -10,7 +10,7 @@ public class MessageListener
 {
     public static MessageListener Instance { get; } = new();
 
-    public MessageCenter MessageCenter => GameManager.Instance.Game.Messages;
+    public static MessageCenter MessageCenter => GameManager.Instance.Game.Messages;
 
     /// <summary>
     /// Subscribe to messages from the game, without blocking for the needed delay.
@@ -70,11 +70,19 @@ public class MessageListener
     //     MainUIManager.Instance.ArchiveWindowController.IsDirty = true;
     // }
 
-    private void HideWindowOnInvalidState(MessageCenterMessage message)
+    private static void HideWindowOnInvalidState(MessageCenterMessage message)
     {
-        if (GameStateManager.Instance.IsInvalidState())
+        if (GameStateManager.IsInvalidState())
+        {
             // Close the windows if the game is in an invalid state
             MainUIManager.Instance.AppWindow.IsWindowOpen = false;
+            MainUIManager.Instance.MissionSummaryWindow.IsWindowOpen = false;
+        }
+
+        if (!GameStateManager.CanShowFlightReport())
+        {
+            MainUIManager.Instance.MissionSummaryWindow.IsWindowOpen = false;
+        }
     }
 
     private void OnVesselRecoveredMessage() { }

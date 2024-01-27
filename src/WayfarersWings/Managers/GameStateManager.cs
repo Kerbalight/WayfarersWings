@@ -4,8 +4,6 @@ namespace WayfarersWings.Managers;
 
 public class GameStateManager
 {
-    public static GameStateManager Instance { get; } = new();
-
     private static readonly int[] InvalidStates =
     {
         (int)GameState.Flag,
@@ -15,9 +13,16 @@ public class GameStateManager
         (int)GameState.Invalid
     };
 
-    public bool IsInvalidState()
+    public static bool IsInvalidState()
     {
-        var gameState = GameManager.Instance.Game?.GlobalGameState?.GetGameState()?.GameState;
+        var gameState = GameManager.Instance.Game.GlobalGameState.GetGameState()?.GameState;
         return gameState == null || InvalidStates.Contains((int)gameState);
+    }
+
+    public static bool CanShowFlightReport()
+    {
+        var gameState = GameManager.Instance.Game.GlobalGameState.GetGameState().GameState;
+        // ReSharper disable once Unity.NoNullPropagation
+        return GameManager.Instance.Game.FlightReport?.CanShowFlightReport(gameState!) ?? false;
     }
 }

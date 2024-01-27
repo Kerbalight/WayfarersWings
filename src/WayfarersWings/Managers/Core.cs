@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using BepInEx.Logging;
 using KSP.Game;
+using KSP.Messages;
 using KSP.Sim.impl;
 using UnityEngine;
 using WayfarersWings.Managers.Observer;
@@ -17,7 +18,11 @@ public class Core
 
     public static Core Instance { get; } = new();
 
+    public static VesselComponent? ActiveVessel => GameManager.Instance.Game.ViewController.GetActiveSimVessel();
+
     public static UniverseModel? UniverseModel => GameManager.Instance?.Game?.UniverseModel;
+
+    public static MessageCenter Messages => GameManager.Instance.Game.Messages;
 
     public string SessionGuidString { get; set; } = null!;
 
