@@ -22,10 +22,26 @@
     --led-green: rgb(0, 255, 102);
 }
 
+/* Root window */
 #root {
     width: 800px;
     height: 400px;
 }
+
+#root.root-kerbal {
+    width: 600px;
+    height: 600px;
+    max-height: 600px;
+    min-height: 600px;
+}
+
+#root.root-kerbal.root--expanded {
+    height: 700px;
+    max-height: 700px;
+    min-height: 700px;
+}
+
+/** Ribbons */
 
 .ribbon-layer {
     position: absolute;
@@ -86,6 +102,8 @@
     flex-shrink: 0;
 }
 
+/** Window UI */
+
 #app-icon {
     -unity-background-image-tint-color: var(--background-lightgray-4);
 }
@@ -128,6 +146,8 @@
 #title-bar {
     margin: 0 2px 6px 0;
 }
+
+/** Tooltips */
 
 #tooltip {
 }
@@ -188,6 +208,8 @@
     color: rgb(223, 232, 248);
 }
 
+/** Tabs */
+
 .tabs-menu {
     flex-grow: 1;
     flex-direction: row;
@@ -222,6 +244,8 @@
 .tabs-menu .tabs-menu__item--selected {
     background-color: var(--blue-5);
 }
+
+/** Wing row */
 
 .wing-row__container {
     background-color: var(--gray-3);
@@ -261,6 +285,7 @@
     margin-right: 16px;
 }
 
+/** Common UI (buttons, text fields) */
 .button--default {
     border-width: 1px;
     border-color: var(--button-bg);
@@ -297,6 +322,12 @@
     flex-shrink: 0;
     flex-grow: 0;
     background-size: 14px 14px;
+}
+
+.text-field.unity-text-field > .unity-base-text-field__input {
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: var(--lightgray-3);
 }
 
 .ribbon--title {

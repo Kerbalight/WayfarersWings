@@ -77,7 +77,7 @@ public class KerbalWingEntryRowController
 
     public void SetEllipsis(bool value)
     {
-        _description.style.whiteSpace = value ? WhiteSpace.Normal : WhiteSpace.NoWrap;
+        _description.style.whiteSpace = value ? WhiteSpace.NoWrap : WhiteSpace.Normal;
         _description.style.textOverflow = value ? TextOverflow.Ellipsis : TextOverflow.Clip;
     }
 

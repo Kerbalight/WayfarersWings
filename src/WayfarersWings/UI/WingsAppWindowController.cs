@@ -43,7 +43,8 @@ public class WingsAppWindowController : MonoBehaviour
     public VisualElement Root => _root;
 
     // private ScrollView _content;
-    private string _selectedTab = "ribbons";
+    private static string _defaultTab = "kerbals";
+    private string _selectedTab = _defaultTab;
     private readonly Dictionary<string, ScrollView> _tabs = new();
     private readonly Dictionary<string, Button> _tabButtons = new();
 
@@ -63,7 +64,7 @@ public class WingsAppWindowController : MonoBehaviour
             _isWindowOpen = value;
 
             // if (value && !_isInitialized) BuildUI();
-            if (value && (!_isInitialized || _isDirty)) BuildUI(_selectedTab);
+            if (value && (!_isInitialized || _isDirty)) OnSelectTab(_selectedTab);
 
             if (!value && MainUIManager.Instance.KerbalWindow != null)
             {
@@ -120,6 +121,7 @@ public class WingsAppWindowController : MonoBehaviour
         closeButton.clicked += () => IsWindowOpen = false;
 
         MessageListener.Instance.Subscribe<WingAwardedMessage>(message => BuildUI("kerbals"));
+        MessageListener.Instance.Subscribe<WingRevokedMessage>(message => BuildUI("kerbals"));
     }
 
     private void OnSelectTab(string tabName)

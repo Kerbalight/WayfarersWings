@@ -1,6 +1,7 @@
 using BepInEx.Logging;
 using I2.Loc;
 using KSP.Game;
+using KSP.Messages;
 using KSP.Sim.impl;
 using KSP.UI.Binding;
 using WayfarersWings.Unity.Runtime;
@@ -65,6 +66,7 @@ public class KerbalWindowController : MonoBehaviour
     private Foldout _awardFoldout;
     private ListView _awardablesList;
     private Button _awardConfirmButton;
+    private TextField _searchAwardablesField;
     private Wing? _selectedWing;
 
     // The backing field for the IsWindowOpen property
@@ -117,6 +119,7 @@ public class KerbalWindowController : MonoBehaviour
         _awardFoldout = _root.Q<Foldout>("award-foldout");
         _awardablesList = _root.Q<ListView>("awardables-list");
         _awardConfirmButton = _root.Q<Button>("award-confirm-button");
+        _searchAwardablesField = _root.Q<TextField>("search-awardables-field");
 
         IsWindowOpen = false;
 
@@ -131,12 +134,22 @@ public class KerbalWindowController : MonoBehaviour
         var closeButton = _root.Q<Button>("close-button");
         closeButton.clicked += () => IsWindowOpen = false;
 
-        MessageListener.Instance.Subscribe<WingAwardedMessage>(message =>
-        {
-            var awardedMessage = message as WingAwardedMessage;
-            if (awardedMessage?.KerbalInfo.Id != KerbalId) return;
-            Refresh();
-        });
+        MessageListener.Instance.Subscribe<WingAwardedMessage>(OnWingAwarded);
+        MessageListener.Instance.Subscribe<WingRevokedMessage>(OnWingRevoked);
+    }
+
+    private void OnWingAwarded(MessageCenterMessage message)
+    {
+        var awardedMessage = message as WingAwardedMessage;
+        if (awardedMessage?.KerbalInfo.Id != KerbalId) return;
+        Refresh();
+    }
+
+    private void OnWingRevoked(MessageCenterMessage message)
+    {
+        var revokedMessage = message as WingRevokedMessage;
+        if (revokedMessage?.KerbalId != KerbalId) return;
+        Refresh();
     }
 
     private void SetStarText(Label label, string text)
@@ -165,7 +178,33 @@ public class KerbalWindowController : MonoBehaviour
         _isInitialized = true;
 
         // Award foldout
-        _awardablesList.fixedItemHeight = 40;
+        _awardFoldout.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue)
+            {
+                _root.AddToClassList("root--expanded");
+            }
+            else
+            {
+                _root.RemoveFromClassList("root--expanded");
+            }
+        });
+        _awardFoldout.value = false;
+
+        // Search
+        _searchAwardablesField.RegisterValueChangedCallback(evt =>
+        {
+            _awardablesList.itemsSource = string.IsNullOrEmpty(evt.newValue)
+                ? Core.Instance.WingsPool.Wings
+                : Core.Instance.WingsPool.Wings
+                    .Where(wing => wing.DisplayName.ToLower().Contains(evt.newValue?.ToLower() ?? "")).ToList();
+
+            _awardablesList.selectedIndex = -1;
+            _awardablesList.Rebuild();
+        });
+
+        // List
+        _awardablesList.fixedItemHeight = 55;
         _awardablesList.itemsSource = Core.Instance.WingsPool.Wings;
         _awardablesList.makeItem = () =>
         {
@@ -186,6 +225,7 @@ public class KerbalWindowController : MonoBehaviour
         _awardablesList.selectedIndicesChanged += selection =>
         {
             var selectionArray = selection as int[] ?? selection.ToArray();
+            if (selectionArray[0] < 0) selectionArray = Array.Empty<int>();
             _selectedWing = selectionArray.Any() ? Core.Instance.WingsPool.Wings[selectionArray[0]] : null;
 
             Logger.LogDebug($"Selected wing {_selectedWing?.DisplayName}");

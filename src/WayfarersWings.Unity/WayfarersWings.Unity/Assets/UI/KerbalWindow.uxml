@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/WayfarerWingsStyle.uss?fileID=7433441132597879392&amp;guid=da08ea5b9d5173244bc93b4727182b4b&amp;type=3#WayfarerWingsStyle" />
-    <ui:VisualElement name="root" class="root" style="flex-grow: 1; max-height: 600px; width: 600px; height: 600px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; min-height: 600px; padding-left: 12px; padding-right: 12px; padding-top: 12px; padding-bottom: 12px;">
+    <ui:VisualElement name="root" class="root root-kerbal" style="flex-grow: 1; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; padding-left: 12px; padding-right: 12px; padding-top: 12px; padding-bottom: 12px;">
         <ui:VisualElement name="title-bar" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); align-self: stretch; justify-content: space-between; flex-shrink: 0;">
             <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; align-items: center; color: rgb(255, 255, 255);">
                 <ui:Label tabindex="-1" text="Kerbal Name" display-tooltip-when-elided="true" name="name-label" class="kerbal-name-title font-pixel-title" />
@@ -33,8 +33,9 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="ribbons-view" style="display: flex; flex-shrink: 1; height: 100%;" />
-        <ui:Foldout text="#WayfarersWings/UI/AwardWingTitle" value="false" name="award-foldout" class="foldout--pixel" style="flex-shrink: 0; margin-top: 6px;">
-            <ui:ListView focusable="true" show-border="false" name="awardables-list" fixed-item-height="60" virtualization-method="FixedHeight" class="awardables-list" style="min-height: 250px; padding-top: 4px; padding-bottom: 4px; max-height: 250px; height: 250px;" />
+        <ui:Foldout text="#WayfarersWings/UI/AwardWingTitle" value="true" name="award-foldout" class="foldout--pixel" style="flex-shrink: 0; margin-top: 6px;">
+            <ui:TextField picking-mode="Ignore" label="Search wing" name="search-awardables-field" class="text-field" style="font-size: 12px; padding-top: 0;" />
+            <ui:ListView focusable="true" show-border="false" name="awardables-list" fixed-item-height="55" virtualization-method="FixedHeight" class="awardables-list" style="min-height: 270px; padding-top: 4px; padding-bottom: 4px; max-height: 270px; height: 270px;" />
             <ui:Button text="Select a wing..." display-tooltip-when-elided="true" name="award-confirm-button" focusable="true" class="button--default" />
         </ui:Foldout>
     </ui:VisualElement>
