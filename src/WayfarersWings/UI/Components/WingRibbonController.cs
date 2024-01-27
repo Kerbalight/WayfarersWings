@@ -13,6 +13,10 @@ public class WingRibbonController
     private static ManualLogSource
         Logger = BepInEx.Logging.Logger.CreateLogSource("WayfarerWings.WingRibbonController");
 
+    // Cache images
+    private static Dictionary<string, Sprite> _imageLayersCache = new();
+
+    // Elements
     private VisualElement _root;
     private VisualElement _ribbonContainer;
     private VisualElement _base;
@@ -69,21 +73,36 @@ public class WingRibbonController
             layer.AddToClassList("ribbon-layer");
             // if (!Settings.ShowAlwaysBigRibbons.Value) layer.AddToClassList("ribbon-layer__small");
 
-            GameManager.Instance.Assets.LoadAssetAsync<Sprite>(imageLayer).Completed += handle =>
+            LoadImageLayer(imageLayer, sprite =>
             {
-                var sprite = handle.Result;
-                if (sprite == null)
-                {
-                    Logger.LogError("Could not load sprite " + imageLayer);
-                    return;
-                }
-
-                // Logger.LogInfo("OK: Successfully loaded sprite " + imageLayer);
+                // Set the image layer, we cache it for performance
                 layer.style.backgroundImage = new StyleBackground(sprite);
-            };
+            });
 
             _layers.Add(layer);
             _ribbonContainer.Add(layer);
         }
+    }
+
+    private static void LoadImageLayer(string imageLayer, Action<Sprite> callback)
+    {
+        if (_imageLayersCache.TryGetValue(imageLayer, out var value))
+        {
+            callback(value);
+            return;
+        }
+
+        GameManager.Instance.Assets.LoadAssetAsync<Sprite>(imageLayer).Completed += handle =>
+        {
+            var sprite = handle.Result;
+            if (sprite == null)
+            {
+                Logger.LogError("Could not load sprite " + imageLayer);
+                return;
+            }
+
+            _imageLayersCache[imageLayer] = sprite;
+            callback(sprite);
+        };
     }
 }
