@@ -163,13 +163,18 @@ public class KerbalWindowController : MonoBehaviour
         KerbalId = kerbalId;
         WingsSessionManager.Roster.TryGetKerbalByID(kerbalId, out _kerbalInfo);
         if (IsWindowOpen) BuildUI();
-        else IsWindowOpen = true;
+        else
+        {
+            IsWindowOpen = true;
+            AlignWindowToParent();
+        }
     }
 
     private void OnConfirmAward()
     {
         if (_selectedWing == null || _kerbalInfo == null) return;
         WingsSessionManager.Instance.Award(_selectedWing, _kerbalInfo);
+        _awardablesList.ClearSelection();
         // Logger.LogDebug($"Awarding {_selectedWing.DisplayName} to {_kerbalInfo?.Attributes.GetFullName()}");
     }
 
@@ -182,19 +187,18 @@ public class KerbalWindowController : MonoBehaviour
         _awardFoldout.RegisterValueChangedCallback(evt =>
         {
             if (evt.newValue)
-            {
                 _root.AddToClassList("root--expanded");
-            }
             else
-            {
                 _root.RemoveFromClassList("root--expanded");
-            }
         });
         _awardFoldout.value = false;
 
         // Search
         _searchAwardablesField.RegisterValueChangedCallback(evt =>
         {
+            // We need to reset the selected index before refreshing the list
+            _awardablesList.selectedIndex = -1;
+
             _awardableWings.Clear();
             if (string.IsNullOrWhiteSpace(evt.newValue))
             {
@@ -207,7 +211,6 @@ public class KerbalWindowController : MonoBehaviour
                     .ToList());
             }
 
-            _awardablesList.selectedIndex = -1;
             _awardablesList.RefreshItems();
         });
 
@@ -234,13 +237,11 @@ public class KerbalWindowController : MonoBehaviour
         _awardablesList.itemsChosen += items => { };
         _awardablesList.selectedIndicesChanged += selection =>
         {
-            var selectionArray = selection as int[] ?? selection.ToArray();
-            if (selectionArray[0] < 0) selectionArray = Array.Empty<int>();
-            _selectedWing = selectionArray.Any() ? Core.Instance.WingsPool.Wings[selectionArray[0]] : null;
+            _selectedWing = _awardablesList.selectedItem as Wing;
 
-            Logger.LogDebug($"Selected wing {_selectedWing?.DisplayName}");
             if (_selectedWing != null)
             {
+                Logger.LogDebug($"Selected wing {_selectedWing?.DisplayName}");
                 _awardConfirmButton.style.display = DisplayStyle.Flex;
                 _awardConfirmButton.text = LocalizedStrings.AwardToKerbal;
             }
@@ -251,6 +252,14 @@ public class KerbalWindowController : MonoBehaviour
         };
         _awardConfirmButton.style.display = DisplayStyle.None;
         _awardConfirmButton.clicked += OnConfirmAward;
+    }
+
+    private void AlignWindowToParent()
+    {
+        var appWindow = MainUIManager.Instance.AppWindow;
+        var appWindowPosition = appWindow.Root.transform.position;
+        _root.transform.position = new Vector3(appWindowPosition.x + 10 + appWindow.Width,
+            appWindowPosition.y, appWindowPosition.z);
     }
 
     private void BuildUI()
@@ -265,12 +274,6 @@ public class KerbalWindowController : MonoBehaviour
             Logger.LogWarning("Kerbal not found in roster, not opening");
             return;
         }
-
-        // Align window
-        var appWindow = MainUIManager.Instance.AppWindow;
-        var appWindowPosition = appWindow.Root.transform.position;
-        _root.transform.position = new Vector3(appWindowPosition.x + 10 + appWindow.Width,
-            appWindowPosition.y, appWindowPosition.z);
 
         var profile = WingsSessionManager.Instance.GetKerbalProfile(kerbalId.Value);
 

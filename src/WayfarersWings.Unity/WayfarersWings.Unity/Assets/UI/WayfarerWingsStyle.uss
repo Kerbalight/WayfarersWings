@@ -1,7 +1,7 @@
 :root {
-    --red: #ff5b48;
+    --red: rgb(255, 91, 72);
     --dark-red: rgb(133, 13, 0);
-    --orange: #E76F54;
+    --orange: rgb(231, 111, 84);
     --background-lightgray-4: rgb(122, 133, 153);
     --blue-3-translucent: rgba(105, 109, 255, 0.5);
     --blue-5-translucent: rgba(83, 86, 204, 0.5);
@@ -18,11 +18,12 @@
     --blue-3: rgb(105, 109, 255);
     --blue-4: rgb(92, 96, 222);
     --blue-5: rgb(83, 86, 204);
+    --darkblue-3: rgb(0, 22, 50);
+    --hover-bg: var(--darkblue-3);
     --darkblue-4: rgb(13, 13, 22);
     --led-green: rgb(0, 255, 102);
 }
 
-/* Root window */
 #root {
     width: 800px;
     height: 400px;
@@ -40,8 +41,6 @@
     max-height: 700px;
     min-height: 700px;
 }
-
-/** Ribbons */
 
 .ribbon-layer {
     position: absolute;
@@ -102,8 +101,6 @@
     flex-shrink: 0;
 }
 
-/** Window UI */
-
 #app-icon {
     -unity-background-image-tint-color: var(--background-lightgray-4);
 }
@@ -146,8 +143,6 @@
 #title-bar {
     margin: 0 2px 6px 0;
 }
-
-/** Tooltips */
 
 #tooltip {
 }
@@ -208,8 +203,6 @@
     color: rgb(223, 232, 248);
 }
 
-/** Tabs */
-
 .tabs-menu {
     flex-grow: 1;
     flex-direction: row;
@@ -244,8 +237,6 @@
 .tabs-menu .tabs-menu__item--selected {
     background-color: var(--blue-5);
 }
-
-/** Wing row */
 
 .wing-row__container {
     background-color: var(--gray-3);
@@ -285,7 +276,6 @@
     margin-right: 16px;
 }
 
-/** Common UI (buttons, text fields) */
 .button--default {
     border-width: 1px;
     border-color: var(--button-bg);
@@ -329,6 +319,49 @@
     border-width: 1px;
     border-color: var(--lightgray-3);
 }
+
+.text-field.unity-text-field.text-field--inline > .unity-text-field__input {
+    margin-top: 0;
+    padding-top: 7px;
+    padding-bottom: 7px
+}
+
+/** Dropdown field */
+
+.unity-popup-field.dropdown-field {
+    height: 32px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.unity-popup-field.dropdown-field .unity-base-popup-field__input {
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: var(--lightgray-3);
+}
+
+.unity-popup-field.dropdown-field.dropdown-field--inline .unity-popup-field__label {
+    display: none;
+}
+
+.unity-popup-field.dropdown-field .unity-popup-field__label {
+    width: 80px;
+    min-width: 80px;
+}
+
+.unity-popup-field.dropdown-field:hover .unity-base-popup-field__input {
+    background-color: var(--hover-bg);
+}
+
+.unity-popup-field.dropdown-field .unity-base-popup-field__arrow {
+    -unity-background-image-tint-color: var(--lightgray-3);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-image: url('project://database/Assets/Images/ArrowIcon.png?fileID=21300000&guid=4a506aed588797846a24861c8c87047c&type=3#ArrowIcon');
+}
+
+/** Ribbon details */
 
 .ribbon--title {
     color: rgb(179, 185, 245);
@@ -386,7 +419,7 @@
 }
 
 .kerbal-status.kerbal-status--assigned {
-    -unity-background-image-tint-color: var(--red); /* rgb(146, 58, 202); */
+    -unity-background-image-tint-color: var(--red);
     color: var(--red);
 }
 
@@ -479,7 +512,6 @@
     background-color: var(--dark-red);
 }
 
-/* Wings List */
 .awardables-list .unity-list-view__item {
     border-radius: 6px;
 }
@@ -490,4 +522,24 @@
 
 .awardables-list .unity-list-view__item:checked {
     background-color: var(--blue-5);
+}
+
+.button-sort-direction {
+    height: 32px;
+    width: 32px;
+    background-size: 16px 16px;
+    background-position: center center;
+    border-width: 1px;
+    border-color: var(--lightgray-3);
+    rotate: 0deg;
+    background-image: url('project://database/Assets/Images/ArrowIcon.png?fileID=21300000&guid=4a506aed588797846a24861c8c87047c&type=3#ArrowIcon');
+}
+
+.button-sort-direction--asc {
+    rotate: 180deg;
+}
+
+.search-icon {
+    background-size: 16px 16px;
+    background-position: center center;
 }

@@ -10,6 +10,7 @@ using WayfarersWings.Managers.Messages;
 using WayfarersWings.Models.Session;
 using WayfarersWings.UI.Components;
 using WayfarersWings.UI.Localization;
+using WayfarersWings.UI.Logic;
 using Logger = UnityEngine.Logger;
 
 namespace WayfarersWings.UI;
@@ -47,6 +48,11 @@ public class WingsAppWindowController : MonoBehaviour
     private string _selectedTab = _defaultTab;
     private readonly Dictionary<string, ScrollView> _tabs = new();
     private readonly Dictionary<string, Button> _tabButtons = new();
+    private VisualElement _kerbalsTabMenu;
+    private DropdownField _sortDropdown;
+    private Button _sortDirectionButton;
+    private TextField _nameSearchField;
+    private KerbalProfileQuery.Query _kerbalQuery = new();
 
     // The backing field for the IsWindowOpen property
     private bool _isWindowOpen;
@@ -111,6 +117,18 @@ public class WingsAppWindowController : MonoBehaviour
         _tabButtons["kerbals"] = _root.Q<Button>("kerbals-button");
         _tabButtons["kerbals"].clicked += () => OnSelectTab("kerbals");
 
+        // Kerbals Menu
+        _kerbalsTabMenu = _root.Q<VisualElement>("kerbals-tab-menu");
+        _sortDropdown = _kerbalsTabMenu.Q<DropdownField>("sort-by-dropdown");
+        _sortDropdown.choices = KerbalProfileQuery.SortOptions;
+        _sortDropdown.value = _kerbalQuery.GetSortChoice();
+        _sortDropdown.RegisterValueChangedCallback(OnKerbalsSortChanged);
+        _sortDirectionButton = _kerbalsTabMenu.Q<Button>("sort-by-direction");
+        _sortDirectionButton.clicked += OnKerbalsDirectionChanged;
+        AlignButtonSortDirection();
+        _nameSearchField = _kerbalsTabMenu.Q<TextField>("search-name-field");
+        _nameSearchField.RegisterValueChangedCallback(OnKerbalsNameSearchChanged);
+
         // Center the window by default
         _root.CenterByDefault();
 
@@ -149,6 +167,7 @@ public class WingsAppWindowController : MonoBehaviour
         _isInitialized = true;
         _isDirty = false;
         _tabs[tabName].Clear();
+        _kerbalsTabMenu.style.display = tabName == "kerbals" ? DisplayStyle.Flex : DisplayStyle.None;
 
         switch (tabName)
         {
@@ -174,13 +193,44 @@ public class WingsAppWindowController : MonoBehaviour
 
     private void BuildKerbalsTab()
     {
-        foreach (var kerbalInfo in WingsSessionManager.Roster.GetAllKerbals())
+        var kerbalProfiles = WingsSessionManager.Instance.GetAllKerbalsProfiles();
+        _kerbalQuery.Apply(kerbalProfiles);
+
+        foreach (var kerbalProfile in kerbalProfiles)
         {
-            var kerbalWings = WingsSessionManager.Instance.GetKerbalProfile(kerbalInfo.Id);
             var row = KerbalProfileRowController.Create();
             _tabs["kerbals"].Add(row.Root);
-            row.Bind(kerbalWings);
+            row.Bind(kerbalProfile);
         }
+    }
+
+    // Search & Sort
+    private void OnKerbalsSortChanged(ChangeEvent<string> sortOption)
+    {
+        _kerbalQuery.SetSort(sortOption.newValue);
+        Refresh();
+    }
+
+    private void OnKerbalsDirectionChanged()
+    {
+        _kerbalQuery.direction = _kerbalQuery.direction == KerbalProfileQuery.Direction.Ascending
+            ? KerbalProfileQuery.Direction.Descending
+            : KerbalProfileQuery.Direction.Ascending;
+        AlignButtonSortDirection();
+        Refresh();
+    }
+
+    private void AlignButtonSortDirection()
+    {
+        _sortDirectionButton.style.rotate = _kerbalQuery.direction == KerbalProfileQuery.Direction.Ascending
+            ? new StyleRotate(new UnityEngine.UIElements.Rotate(180))
+            : new StyleRotate(new UnityEngine.UIElements.Rotate(0));
+    }
+
+    private void OnKerbalsNameSearchChanged(ChangeEvent<string> evt)
+    {
+        _kerbalQuery.nameSearch = evt.newValue;
+        Refresh();
     }
 
     public void Refresh()

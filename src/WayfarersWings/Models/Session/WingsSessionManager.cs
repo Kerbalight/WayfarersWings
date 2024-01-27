@@ -82,4 +82,16 @@ public class WingsSessionManager
         Logger.LogInfo("Revoked " + entry.Wing.config.name + " from " + kerbalId);
         MessageListener.Instance.MessageCenter.Publish(new WingRevokedMessage(kerbalId, entry.Wing));
     }
+
+    public List<KerbalProfile> GetAllKerbalsProfiles()
+    {
+        var kerbals = Roster.GetAllKerbals();
+        var profiles = new List<KerbalProfile>();
+        foreach (var kerbalInfo in kerbals)
+        {
+            profiles.Add(GetKerbalProfile(kerbalInfo.Id));
+        }
+
+        return profiles;
+    }
 }

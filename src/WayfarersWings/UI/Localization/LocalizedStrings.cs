@@ -18,6 +18,10 @@ public static class LocalizedStrings
 
     // public static LocalizedString OnEva = "WayfarersWings/UI/OnEva";
 
+    // Sorting
+    public static LocalizedString SortByName = "WayfarersWings/UI/SortByName";
+    public static LocalizedString SortByPoints = "WayfarersWings/UI/SortByPoints";
+
     // Ribbons
     public static LocalizedString FirstTime = "WayfarersWings/Ribbons/FirstTime";
 

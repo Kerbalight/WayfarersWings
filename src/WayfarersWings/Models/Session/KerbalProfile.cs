@@ -51,6 +51,9 @@ public class KerbalProfile : IJsonSaved
     [JsonIgnore]
     public IEnumerable<KerbalWingEntry> Entries => _entries.AsReadOnly();
 
+    [JsonIgnore]
+    public int totalPoints = 0;
+
     /// <summary>
     /// Missions completed by the Kerbal
     /// </summary>
@@ -106,7 +109,11 @@ public class KerbalProfile : IJsonSaved
             {
                 if (awarded.Wing.config.chain == wing.config.chain &&
                     awarded.Wing.config.points >= wing.config.points)
+                {
+                    Logger.LogDebug("Wing " + wing.config.name + " is superseded by " + awarded.Wing.config.name +
+                                    ", will not award");
                     return false;
+                }
             }
         }
 
@@ -144,6 +151,9 @@ public class KerbalProfile : IJsonSaved
                     awarded.Wing.config.points < wing.config.points)
                 {
                     awarded.isSuperseeded = true;
+                    totalPoints -= awarded.Wing.config.points;
+                    Logger.LogDebug("Wing " + awarded.Wing.config.name + " is superseded by " + wing.config.name +
+                                    ", will be replaced");
                 }
             }
         }
@@ -151,12 +161,17 @@ public class KerbalProfile : IJsonSaved
 
         UpdateUnlockedWingCodes(wing);
         _entries.Add(entry);
+        totalPoints += wing.config.points;
+        Logger.LogDebug($"Added wing {wing.config.name} to {KerbalInfo.Attributes.GetFullName()}");
+
+        SortEntriesByPoints();
     }
 
     public void RevokeWing(KerbalWingEntry entry)
     {
         var wing = entry.Wing;
         _entries.Remove(entry);
+        totalPoints -= wing.config.points;
 
         _unlockedWingsCodes.Remove(wing.config.name);
         if (wing.config.isFirst)
@@ -181,9 +196,24 @@ public class KerbalProfile : IJsonSaved
             // now that we removed the one that superseded it
             if (maxPointsEntry != null)
             {
+                Logger.LogDebug("Wing " + maxPointsEntry.Wing.config.name + " is no longer superseded");
                 maxPointsEntry.isSuperseeded = false;
+                totalPoints += maxPointsEntry.Wing.config.points;
             }
         }
+
+        SortEntriesByPoints();
+        Logger.LogDebug($"Revoked wing {wing.config.name} to {KerbalInfo.Attributes.GetFullName()}");
+    }
+
+    /// <summary>
+    /// We do it here to avoid having to sort the list every time we
+    /// need to render the UI.
+    /// The entries are sorted by points, descending.
+    /// </summary>
+    private void SortEntriesByPoints()
+    {
+        _entries.Sort((a, b) => b.Wing.config.points.CompareTo(a.Wing.config.points));
     }
 
     private void UpdateUnlockedWingCodes(Wing wing)
@@ -242,11 +272,13 @@ public class KerbalProfile : IJsonSaved
     /// </summary>
     public void OnAfterGameLoad()
     {
+        var kerbalInfo = KerbalInfo;
         foreach (var entry in _entries)
         {
             if (!Core.Instance.WingsPool.TryGetWingByCode(entry.wingCode, out entry.Wing))
             {
-                Logger.LogWarning($"[kerbal={kerbalId}] Failed to find wing with code '{entry.wingCode}'");
+                Logger.LogWarning(
+                    $"[kerbal={kerbalInfo.Attributes.GetFullName()}] Failed to find wing with code '{entry.wingCode}'");
                 _errored.Add(entry);
                 continue;
             }
@@ -254,12 +286,18 @@ public class KerbalProfile : IJsonSaved
             entry.KerbalId = kerbalId;
             entry.OnAfterGameLoad();
             UpdateUnlockedWingCodes(entry.Wing);
+            totalPoints += entry.Wing.config.points;
         }
+
+        SortEntriesByPoints();
 
         foreach (var entry in _errored)
         {
             _entries.Remove(entry);
         }
+
+        Logger.LogInfo(
+            $"[kerbal={kerbalInfo.Attributes.GetFullName()}] Loaded {Entries.Count()} wings for a total of {totalPoints} points");
     }
 
     public void OnBeforeGameSave()
