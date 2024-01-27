@@ -14,11 +14,11 @@
                 <ui:Button text="Ribbons" display-tooltip-when-elided="true" name="ribbons-button" class="tabs-menu__item tabs-menu__item--last" />
             </ui:VisualElement>
             <ui:VisualElement name="kerbals-tab-menu" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; align-items: center;">
-                <ui:DropdownField label="&#10;" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="sort-by-dropdown" class="dropdown-field dropdown-field--inline" style="font-size: 12px; align-items: center; width: 200px;" />
+                <ui:DropdownField label="&#10;" name="sort-by-dropdown" class="dropdown-field dropdown-field--inline" style="font-size: 12px; align-items: stretch; width: 200px;" />
                 <ui:Button text="&#10;" display-tooltip-when-elided="true" name="sort-by-direction" class="button--default button--menu button-sort-direction" />
                 <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
-                    <ui:TextField picking-mode="Ignore" hide-mobile-input="false" name="search-name-field" value="test" class="text-field text-field--inline" style="padding-left: 4px; padding-right: 0; padding-top: 0; padding-bottom: 0; flex-grow: 1; font-size: 12px;" />
-                    <ui:VisualElement class="search-icon" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; right: 0; height: 32px; width: 32px; background-image: url(&apos;project://database/Assets/Images/SearchIcon.png?fileID=21300000&amp;guid=95a0ee476e975594097f6622ec618d8d&amp;type=3#SearchIcon&apos;); -unity-background-image-tint-color: rgb(98, 108, 128);" />
+                    <ui:TextField picking-mode="Ignore" hide-mobile-input="false" name="search-name-field" class="text-field text-field--inline" style="padding-left: 4px; padding-right: 0; padding-top: 0; padding-bottom: 0; flex-grow: 1; font-size: 12px;" />
+                    <ui:VisualElement class="search-icon" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; right: 2px; height: 32px; width: 32px; background-image: url(&apos;project://database/Assets/Images/SearchIcon.png?fileID=21300000&amp;guid=95a0ee476e975594097f6622ec618d8d&amp;type=3#SearchIcon&apos;); -unity-background-image-tint-color: rgb(98, 108, 128);" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

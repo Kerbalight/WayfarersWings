@@ -34,9 +34,11 @@
         </ui:VisualElement>
         <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="ribbons-view" style="display: flex; flex-shrink: 1; height: 100%;" />
         <ui:Foldout text="#WayfarersWings/UI/AwardWingTitle" value="true" name="award-foldout" class="foldout--pixel" style="flex-shrink: 0; margin-top: 6px;">
-            <ui:TextField picking-mode="Ignore" label="Search wing" name="search-awardables-field" class="text-field" style="font-size: 12px; padding-top: 0;" />
-            <ui:ListView focusable="true" show-border="false" name="awardables-list" fixed-item-height="55" virtualization-method="FixedHeight" class="awardables-list" style="min-height: 270px; padding-top: 4px; padding-bottom: 4px; max-height: 270px; height: 270px;" />
-            <ui:Button text="Select a wing..." display-tooltip-when-elided="true" name="award-confirm-button" focusable="true" class="button--default" />
+            <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+                <ui:TextField picking-mode="Ignore" label="Search wing" name="search-awardables-field" class="text-field" style="font-size: 12px; padding-top: 0; flex-grow: 1;" />
+                <ui:Button text="Select a wing..." display-tooltip-when-elided="true" name="award-confirm-button" focusable="true" class="button--default" style="visibility: visible; display: flex; margin-left: 6px;" />
+            </ui:VisualElement>
+            <ui:ListView focusable="true" show-border="false" name="awardables-list" fixed-item-height="55" virtualization-method="FixedHeight" class="awardables-list" style="min-height: 270px; padding-top: 4px; padding-bottom: 0; max-height: 270px; height: 270px;" />
         </ui:Foldout>
     </ui:VisualElement>
 </ui:UXML>

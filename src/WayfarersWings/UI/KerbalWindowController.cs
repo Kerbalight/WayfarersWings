@@ -25,10 +25,10 @@ namespace WayfarersWings.UI;
 /// </summary>
 public class KerbalWindowController : MonoBehaviour
 {
-    private static ManualLogSource Logger =
+    private static readonly ManualLogSource Logger =
         BepInEx.Logging.Logger.CreateLogSource("WayfarerWings.KerbalWindowController");
 
-    private UIDocument _window;
+    private UIDocument _window = null!;
 
     public static WindowOptions WindowOptions = new()
     {
@@ -44,31 +44,31 @@ public class KerbalWindowController : MonoBehaviour
     };
 
     // The elements of the window that we need to access
-    private VisualElement _root;
+    private VisualElement _root = null!;
 
     // private ScrollView _content;
-    private Label _nameLabel;
-    private ScrollView _ribbonsView;
+    private Label _nameLabel = null!;
+    private ScrollView _ribbonsView = null!;
 
     // Summary
-    private Label _totalMissionTimeLabel;
-    private Label _totalMissionTimeValueLabel;
-    private Label _missionsLabel;
-    private Label _missionsValueLabel;
-    private Label _totalEvaTimeLabel;
-    private Label _totalEvaTimeValueLabel;
-    private Label _statusLabel;
-    private Label _statusValueLabel;
+    private Label _totalMissionTimeLabel = null!;
+    private Label _totalMissionTimeValueLabel = null!;
+    private Label _missionsLabel = null!;
+    private Label _missionsValueLabel = null!;
+    private Label _totalEvaTimeLabel = null!;
+    private Label _totalEvaTimeValueLabel = null!;
+    private Label _statusLabel = null!;
+    private Label _statusValueLabel = null!;
 
-    private VisualElement _statusIcon;
+    private VisualElement _statusIcon = null!;
 
     // Award
-    private Foldout _awardFoldout;
-    private List<Wing> _awardableWings = [];
-    private ListView _awardablesList;
-    private Button _awardConfirmButton;
-    private TextField _searchAwardablesField;
-    private Wing? _selectedWing;
+    private Foldout _awardFoldout = null!;
+    private readonly List<Wing> _awardableWings = [];
+    private ListView _awardablesList = null!;
+    private Button _awardConfirmButton = null!;
+    private TextField _searchAwardablesField = null!;
+    private Wing? _selectedWing = null!;
 
     // The backing field for the IsWindowOpen property
     private bool _isWindowOpen;
@@ -83,8 +83,10 @@ public class KerbalWindowController : MonoBehaviour
         get => _isWindowOpen;
         set
         {
-            if (value) BuildUI();
+            if (value || _isDirty) BuildUI();
             else KerbalId = null;
+
+            _isWindowOpen = value;
 
             _root.style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
         }
@@ -158,6 +160,10 @@ public class KerbalWindowController : MonoBehaviour
         label.text = "<color=#595DD5>*</color> " + text;
     }
 
+    /// <summary>
+    /// Public API used by the main window to open the window and display
+    /// Kerbal information.
+    /// </summary>
     public void SelectKerbal(IGGuid kerbalId)
     {
         KerbalId = kerbalId;
@@ -175,22 +181,17 @@ public class KerbalWindowController : MonoBehaviour
         if (_selectedWing == null || _kerbalInfo == null) return;
         WingsSessionManager.Instance.Award(_selectedWing, _kerbalInfo);
         _awardablesList.ClearSelection();
-        // Logger.LogDebug($"Awarding {_selectedWing.DisplayName} to {_kerbalInfo?.Attributes.GetFullName()}");
     }
 
+    /// <summary>
+    /// Setups the UI elements bound to the Award foldout.
+    /// </summary>
     private void Initialize()
     {
         if (_isInitialized) return;
         _isInitialized = true;
 
         // Award foldout
-        _awardFoldout.RegisterValueChangedCallback(evt =>
-        {
-            if (evt.newValue)
-                _root.AddToClassList("root--expanded");
-            else
-                _root.RemoveFromClassList("root--expanded");
-        });
         _awardFoldout.value = false;
 
         // Search
@@ -254,6 +255,24 @@ public class KerbalWindowController : MonoBehaviour
         _awardConfirmButton.clicked += OnConfirmAward;
     }
 
+    /// <summary>
+    /// Actually I don't like UI behaviors that changes the window size, so
+    /// this is currently unused.
+    /// </summary>
+    private void InitializeWindowExpandedOnFoldout()
+    {
+        _awardFoldout.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue)
+                _root.AddToClassList("root--expanded");
+            else
+                _root.RemoveFromClassList("root--expanded");
+        });
+    }
+
+    /// <summary>
+    /// When the window is opened, we align it to the right of the main window.
+    /// </summary>
     private void AlignWindowToParent()
     {
         var appWindow = MainUIManager.Instance.AppWindow;
@@ -298,6 +317,7 @@ public class KerbalWindowController : MonoBehaviour
 
     public void Refresh()
     {
-        BuildUI();
+        if (_isWindowOpen) BuildUI();
+        else _isDirty = true;
     }
 }
