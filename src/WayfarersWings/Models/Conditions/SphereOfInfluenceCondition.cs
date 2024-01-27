@@ -29,6 +29,8 @@ public class SphereOfInfluenceCondition : CelestialBodyCondition
                 return false;
             }
 
+            if (!soiEnteredMessage.bodyEntered.Equals(CelestialBody)) return false;
+
             return true;
         }
 
