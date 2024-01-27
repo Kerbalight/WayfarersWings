@@ -1,4 +1,5 @@
 ﻿using BepInEx.Logging;
+using JetBrains.Annotations;
 using KSP.Game;
 using KSP.Sim.impl;
 using WayfarersWings.Managers;
@@ -14,7 +15,7 @@ public class WingsSessionManager
 
     public static WingsSessionManager Instance { get; private set; } = new();
 
-    public string SessionGuidString;
+    // public string SessionGuidString;
 
     public static KerbalRosterManager Roster => GameManager.Instance!.Game!.SessionManager!.KerbalRosterManager;
 
@@ -40,20 +41,22 @@ public class WingsSessionManager
         }
     }
 
-    public bool IsFirstAlreadyUnlocked(Wing wing)
+    /// <summary>
+    /// Check if the first wing is already unlocked by another kerbal. 
+    /// </summary>
+    private bool IsFirstAlreadyUnlocked(Wing wing)
     {
         return wing.config.isFirst && _firstWingsAlreadyUnlocked.Contains(wing.config.name);
     }
 
     public KerbalProfile GetKerbalProfile(IGGuid kerbalId)
     {
-        if (!KerbalProfiles.TryGetValue(kerbalId, out KerbalProfile kerbalWings))
-        {
-            kerbalWings = new KerbalProfile(kerbalId);
-            KerbalProfiles.Add(kerbalId, kerbalWings);
-        }
+        if (KerbalProfiles.TryGetValue(kerbalId, out var kerbalProfile)) return kerbalProfile;
 
-        return kerbalWings;
+        kerbalProfile = new KerbalProfile(kerbalId);
+        KerbalProfiles.Add(kerbalId, kerbalProfile);
+
+        return kerbalProfile;
     }
 
     /// <summary>
