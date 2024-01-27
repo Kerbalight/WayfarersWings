@@ -56,20 +56,59 @@ public class WingsSessionManager
         return kerbalWings;
     }
 
-    public void Award(Wing wing, KerbalInfo kerbalInfo)
+    /// <summary>
+    /// Award a wing to all provided kerbals. This handles automatically
+    /// the `AwardingInstant` so the first wings are unlocked to all kerbals
+    /// in the same instant.
+    /// </summary>
+    public void AwardAll(Wing wing, IEnumerable<KerbalInfo> kerbals)
+    {
+        var instant = new AwardingInstant();
+        foreach (var kerbal in kerbals)
+        {
+            Award(wing, kerbal, instant);
+        }
+
+        FinalizeInstant(instant);
+    }
+
+    /// <summary>
+    /// Award a wing to a kerbal, only if it's not already unlocked.
+    /// Furthermore, if the wing is a first wing, it will be marked as unlocked
+    /// so no other kerbal will be able to unlock it.
+    /// </summary>
+    public void Award(Wing wing, KerbalInfo kerbalInfo, AwardingInstant? instant = null)
     {
         var config = wing.config;
         if (IsFirstAlreadyUnlocked(wing)) return;
 
         var profile = GetKerbalProfile(kerbalInfo.Id);
 
-        if (profile.HasWing(wing)) return;
+        if (profile.HasWing(wing))
+        {
+            Logger.LogDebug($"-> Kerbal {kerbalInfo.Attributes.GetFullName()} already has {config.name}");
+            return;
+        }
 
         profile.AddWing(wing);
-        if (wing.config.isFirst) _firstWingsAlreadyUnlocked.Add(wing.config.name);
+        if (wing.config.isFirst)
+        {
+            // If we are in an instant, we need to add the first wing there so 
+            // the `_firstWingsAlreadyUnlocked` is not modified.
+            if (instant == null) _firstWingsAlreadyUnlocked.Add(wing.config.name);
+            else instant.FirstWingsUnlocked.Add(wing.config.name);
+        }
 
-        Logger.LogInfo("Awarded " + config.name + " to " + kerbalInfo.Attributes.GetFullName());
+        Logger.LogInfo($"-> Awarded {config.name} to {kerbalInfo.Attributes.GetFullName()}");
         Core.Messages.Publish(new WingAwardedMessage(kerbalInfo, wing));
+    }
+
+    public void FinalizeInstant(AwardingInstant instant)
+    {
+        foreach (var wingCode in instant.FirstWingsUnlocked)
+        {
+            _firstWingsAlreadyUnlocked.Add(wingCode);
+        }
     }
 
     public void Revoke(KerbalWingEntry entry, IGGuid kerbalId)
@@ -79,10 +118,13 @@ public class WingsSessionManager
         profile.RevokeWing(entry);
         if (entry.Wing.config.isFirst) _firstWingsAlreadyUnlocked.Remove(entry.Wing.config.name);
 
-        Logger.LogInfo("Revoked " + entry.Wing.config.name + " from " + kerbalId);
+        Logger.LogInfo($"-> Revoked {entry.Wing.config.name} from {kerbalId}");
         Core.Messages.Publish(new WingRevokedMessage(kerbalId, entry.Wing));
     }
 
+    /// <summary>
+    /// Get all kerbals profiles based on the current roster.
+    /// </summary>
     public List<KerbalProfile> GetAllKerbalsProfiles()
     {
         var kerbals = Roster.GetAllKerbals();

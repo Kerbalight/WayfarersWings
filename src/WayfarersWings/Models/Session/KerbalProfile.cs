@@ -153,14 +153,13 @@ public class KerbalProfile : IJsonSaved
         {
             foreach (var awarded in _entries)
             {
-                if (awarded.Wing.config.chain == wing.config.chain &&
-                    awarded.Wing.config.points < wing.config.points)
-                {
-                    awarded.isSuperseeded = true;
-                    totalPoints -= awarded.Wing.config.points;
-                    Logger.LogDebug("Wing " + awarded.Wing.config.name + " is superseded by " + wing.config.name +
-                                    ", will be replaced");
-                }
+                if (awarded.Wing.config.chain != wing.config.chain ||
+                    awarded.Wing.config.points >= wing.config.points) continue;
+
+                awarded.isSuperseeded = true;
+                totalPoints -= awarded.Wing.config.points;
+                Logger.LogDebug(
+                    $"Wing {awarded.Wing.config.name} is superseded by {wing.config.name}, will be replaced");
             }
         }
 
@@ -202,7 +201,7 @@ public class KerbalProfile : IJsonSaved
             // now that we removed the one that superseded it
             if (maxPointsEntry != null)
             {
-                Logger.LogDebug("Wing " + maxPointsEntry.Wing.config.name + " is no longer superseded");
+                Logger.LogDebug($"Wing {maxPointsEntry.Wing.config.name} is no longer superseded");
                 maxPointsEntry.isSuperseeded = false;
                 totalPoints += maxPointsEntry.Wing.config.points;
             }
@@ -272,6 +271,11 @@ public class KerbalProfile : IJsonSaved
         lastLaunchedAt = null;
 
         Logger.LogDebug("Added " + lastMissionTime + "s mission time to " + KerbalInfo.Attributes.GetFullName());
+    }
+
+    public void StartEVA(VesselComponent kerbalVessel)
+    {
+        lastEvaEnteredAt = Core.GetUniverseTime();
     }
 
     /// <summary>

@@ -13,16 +13,29 @@ namespace WayfarersWings.Models.Wings;
 
 public class WingsPool
 {
-    private static ManualLogSource _logger = BepInEx.Logging.Logger.CreateLogSource("WayfarersWings.WingsPool");
+    public const int PlanetPointsStart = 0;
+    public const string FirstSuffix = "_first";
+
+    private static readonly ManualLogSource Logger = BepInEx.Logging.Logger.CreateLogSource("WayfarersWings.WingsPool");
+
+    /// <summary>
+    /// Configs to be loaded in the pool 
+    /// </summary>
+    private readonly List<WingsConfig> _wingsConfigs = [];
+
+    /// <summary>
+    /// List of all the wings in the pool, which are loaded on game load.
+    /// </summary>
     public List<Wing> Wings { get; set; } = [];
 
-    private Dictionary<string, Wing> _wingsMap = [];
+    private readonly Dictionary<string, Wing> _wingsMap = [];
 
-    private List<WingsConfig> _wingsConfigs = [];
+    public bool IsInitialized { get; private set; } = false;
 
-    public const int PlanetPointsStart = 0;
-
-    private static List<string[]> _rankedImageLayers =
+    /// <summary>
+    /// Default image layers for ranked wings.
+    /// </summary>
+    private static readonly List<string[]> RankedImageLayers =
     [
         [],
         ["Assets/Wings/Layers/rank1.png"],
@@ -45,24 +58,32 @@ public class WingsPool
         ["Assets/Wings/Layers/bands_superior.png", "Assets/Wings/Layers/first.png", "Assets/Wings/Layers/rank6.png"],
     ];
 
-    public const string FirstSuffix = "_first";
 
     /// <summary>
     /// Maps a trigger type (event) to a list of wings that are triggered by that type.
     /// </summary>
     public Dictionary<Type, List<Wing>> TriggersMap { get; set; } = [];
 
+    /// <summary>
+    /// First step. Load all the configs in the pool, ready to be loaded
+    /// </summary>
     public void RegisterConfig(WingsConfig wingsConfig)
     {
         _wingsConfigs.Add(wingsConfig);
     }
 
+    /// <summary>
+    /// Second step. Load all the registered configs in the pool
+    /// </summary>
     public void LoadRegisteredConfigs()
     {
         foreach (var wingsConfig in _wingsConfigs)
         {
             LoadRegisteredConfig(wingsConfig);
         }
+
+        IsInitialized = true;
+        Logger.LogInfo($"Loaded {Wings.Count} wings");
     }
 
     private void LoadRegisteredConfig(WingsConfig wingsConfig)
@@ -108,13 +129,13 @@ public class WingsPool
 
     private void AddTemplateForBodies(WingTemplateConfig templateConfig)
     {
-        _logger.LogDebug($"Adding template {templateConfig.name} for celestial bodies");
+        Logger.LogDebug($"Adding template {templateConfig.name} for celestial bodies");
         foreach (var bodyConfig in Core.Instance.PlanetsPool)
         {
             var body = GameManager.Instance.Game.UniverseModel.FindCelestialBodyByName(bodyConfig.name);
             if (body == null)
             {
-                _logger.LogWarning($"Could not find celestial body '{bodyConfig.name}'");
+                Logger.LogWarning($"Could not find celestial body '{bodyConfig.name}'");
                 continue;
             }
 
@@ -140,12 +161,11 @@ public class WingsPool
     }
 
     /// <summary>
-    /// Should be working, not tested.
+    /// Used for templates that have a rank, so chained wings are created.
     /// </summary>
-    /// <param name="templateConfig"></param>
     private void AddTemplateRanked(WingTemplateConfig templateConfig)
     {
-        _logger.LogInfo("Adding template " + templateConfig.name + " for ranked wings");
+        Logger.LogInfo("Adding template " + templateConfig.name + " for ranked wings");
         for (int i = 0; i < templateConfig.ranked!.partials.Count; i++)
         {
             var partialConfig = templateConfig.ranked.partials[i];
@@ -155,16 +175,16 @@ public class WingsPool
             wingConfig.name = partialConfig.name ?? $"{templateConfig.name}_{i + 1}";
             wingConfig.points += i;
 
-            if (i < _rankedImageLayers.Count)
+            if (i < RankedImageLayers.Count)
             {
-                foreach (var rankImageLayer in _rankedImageLayers.ElementAt(i))
+                foreach (var rankImageLayer in RankedImageLayers.ElementAt(i))
                 {
                     wingConfig.imageLayers.Add(rankImageLayer);
                 }
             }
             else
             {
-                _logger.LogWarning("Not enough rank images for template " + templateConfig.name);
+                Logger.LogWarning("Not enough rank images for template " + templateConfig.name);
             }
 
             if (partialConfig.description != null)
@@ -180,11 +200,11 @@ public class WingsPool
 
     private void AddWing(WingConfig wingConfig, Dictionary<string, string>? localizationParams = null)
     {
-        _logger.LogDebug($"Adding wing {wingConfig.name}");
+        Logger.LogDebug($"Adding wing {wingConfig.name}");
         var wing = new Wing(wingConfig);
         if (wing.config.description == null)
         {
-            _logger.LogWarning("Wing " + wing.config.name + " has no description!");
+            Logger.LogWarning("Wing " + wing.config.name + " has no description!");
             wing.config.description = wing.config.name;
         }
 

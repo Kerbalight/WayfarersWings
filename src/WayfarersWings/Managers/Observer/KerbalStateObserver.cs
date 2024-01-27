@@ -66,7 +66,7 @@ public class KerbalStateObserver
             profile.StartMission(vesselComponent);
 
             var transaction = new Transaction(message, kerbal);
-            AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+            AchievementsOrchestrator.DispatchTransaction(transaction);
         }
     }
 
@@ -80,7 +80,7 @@ public class KerbalStateObserver
             profile.CompleteMission(vesselComponent);
 
             var transaction = new Transaction(message, kerbal);
-            AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+            AchievementsOrchestrator.DispatchTransaction(transaction);
         }
     }
 
@@ -100,10 +100,10 @@ public class KerbalStateObserver
         }
 
         var profile = WingsSessionManager.Instance.GetKerbalProfile(kerbalInfo.Id);
-        profile.lastEvaEnteredAt = Core.GetUniverseTime();
+        profile.StartEVA(kerbalVessel);
 
         var transaction = new Transaction(message, kerbalInfo);
-        AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+        AchievementsOrchestrator.DispatchTransaction(transaction);
     }
 
     public static void OnEVALeftMessage(EVALeftMessage message, VesselComponent? kerbalVessel)
@@ -114,7 +114,7 @@ public class KerbalStateObserver
         profile.CompleteEVA(kerbalVessel);
 
         var transaction = new Transaction(message, kerbalInfo);
-        AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+        AchievementsOrchestrator.DispatchTransaction(transaction);
     }
 
     #endregion

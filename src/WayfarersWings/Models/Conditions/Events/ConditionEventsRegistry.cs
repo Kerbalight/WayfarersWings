@@ -48,7 +48,7 @@ public class ConditionEventsRegistry
     {
         var soiMessage = (SOIEnteredMessage)message;
         var transaction = new Transaction(soiMessage, soiMessage.vessel);
-        AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+        AchievementsOrchestrator.DispatchTransaction(transaction);
     }
 
     /// <summary>
@@ -59,7 +59,7 @@ public class ConditionEventsRegistry
     {
         var stableOrbitMessage = (StableOrbitCreatedMessage)message;
         var transaction = ActiveVesselTransaction(stableOrbitMessage);
-        AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+        AchievementsOrchestrator.DispatchTransaction(transaction);
     }
 
     public void OnVesselSituationChangedMessage(MessageCenterMessage message)
@@ -70,21 +70,21 @@ public class ConditionEventsRegistry
             situationMessage.OldSituation;
 
         var transaction = new Transaction(situationMessage, situationMessage.Vessel);
-        AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+        AchievementsOrchestrator.DispatchTransaction(transaction);
     }
 
     public void OnVesselLandedGroundAtRestMessage(MessageCenterMessage message)
     {
         var landedMessage = (VesselLandedGroundAtRestMessage)message;
         var transaction = new Transaction(landedMessage, landedMessage.Vessel);
-        AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+        AchievementsOrchestrator.DispatchTransaction(transaction);
     }
 
     public void OnVesselLandedWaterAtRestMessage(MessageCenterMessage message)
     {
         var landedMessage = (VesselLandedWaterAtRestMessage)message;
         var transaction = new Transaction(landedMessage, landedMessage.Vessel);
-        AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+        AchievementsOrchestrator.DispatchTransaction(transaction);
     }
 
     private static void OnEVAEnteredMessage(MessageCenterMessage message)
@@ -96,7 +96,7 @@ public class ConditionEventsRegistry
         // Start tracking kerbal eva time
         KerbalStateObserver.OnEVAEnterMessage(evaMessage, transaction.Vessel);
 
-        AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+        AchievementsOrchestrator.DispatchTransaction(transaction);
     }
 
     private static void OnEVALeftMessage(MessageCenterMessage message)
@@ -109,14 +109,14 @@ public class ConditionEventsRegistry
         // Update kerbal eva time
         KerbalStateObserver.OnEVALeftMessage(evaMessage, transaction.Vessel);
 
-        AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+        AchievementsOrchestrator.DispatchTransaction(transaction);
     }
 
     private static void OnVesselGeeForceUpdatedMessage(MessageCenterMessage message)
     {
         var geeForceMessage = (WingVesselGeeForceUpdatedMessage)message;
         var transaction = new Transaction(geeForceMessage, geeForceMessage.Vessel);
-        AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+        AchievementsOrchestrator.DispatchTransaction(transaction);
     }
 
     private static void OnFlagPlantedMessage(MessageCenterMessage message)
@@ -127,7 +127,7 @@ public class ConditionEventsRegistry
         // Flag planting is a special case, we want to trigger the wing for
         // all nearby kerbals
         transaction.NearbyKerbals.AddRange(kerbals);
-        AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+        AchievementsOrchestrator.DispatchTransaction(transaction);
     }
 
     #region Vessel
@@ -139,7 +139,7 @@ public class ConditionEventsRegistry
         KerbalStateObserver.OnVesselLaunched(launchedMessage, launchedMessage.Vessel);
 
         var transaction = new Transaction(launchedMessage, launchedMessage.Vessel);
-        AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+        AchievementsOrchestrator.DispatchTransaction(transaction);
     }
 
 
@@ -152,7 +152,7 @@ public class ConditionEventsRegistry
         KerbalStateObserver.OnVesselRecovered(recoveredMessage, vessel);
 
         var transaction = new Transaction(recoveredMessage, vessel);
-        AchievementsOrchestrator.Instance.DispatchTransaction(transaction);
+        AchievementsOrchestrator.DispatchTransaction(transaction);
 
         // Show flight report summary
         Messages.Publish(new WingMissionCompletedMessage(vessel));

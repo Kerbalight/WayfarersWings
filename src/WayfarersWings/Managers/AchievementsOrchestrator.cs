@@ -1,4 +1,5 @@
-﻿using BepInEx.Logging;
+﻿using System.Diagnostics;
+using BepInEx.Logging;
 using WayfarersWings.Models.Session;
 using WayfarersWings.Models.Wings;
 
@@ -12,8 +13,10 @@ public class AchievementsOrchestrator
     public static AchievementsOrchestrator Instance { get; } = new();
 
 
-    public void DispatchTransaction(Transaction transaction)
+    public static void DispatchTransaction(Transaction transaction)
     {
+        if (!Core.Instance.WingsPool.IsInitialized) return;
+
         var triggeredWings = Core.Instance.WingsPool.Wings;
         if (transaction.Message != null)
         {
@@ -21,22 +24,21 @@ public class AchievementsOrchestrator
             {
                 Logger.LogDebug("No wings triggered by " + transaction.Message.GetType().Name);
                 triggeredWings = Core.Instance.WingsPool.Wings;
-                // TODO The dictionary doesn't work
             }
         }
 
+        var stopwatch = new Stopwatch();
         foreach (var wing in triggeredWings)
         {
             if (!wing.Check(transaction)) continue;
 
-            Logger.LogDebug("Triggered wing " + wing.config.name + " for " + transaction.Message?.GetType().Name);
+            Logger.LogDebug($"Triggered wing {wing.config.name} for {transaction.Message?.GetType().Name}");
+
             var kerbals = transaction.GetKerbals();
-            foreach (var kerbal in kerbals)
-            {
-                Logger.LogDebug(" -> Will award " + wing.config.name + " to kerbal " + kerbal.Attributes.GetFullName());
-                // wing.Trigger(kerbal);
-                WingsSessionManager.Instance.Award(wing, kerbal);
-            }
+            WingsSessionManager.Instance.AwardAll(wing, kerbals);
         }
+
+        stopwatch.Stop();
+        Logger.LogDebug($"[batch] Triggered all wings in {stopwatch.ElapsedMilliseconds}ms");
     }
 }
