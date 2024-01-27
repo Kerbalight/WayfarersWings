@@ -126,19 +126,13 @@ public class KerbalWindowController : MonoBehaviour
 
         IsWindowOpen = false;
 
-        // Localization
-        SetStarText(_missionsLabel, LocalizedStrings.MissionsCompleted);
-        SetStarText(_totalEvaTimeLabel, LocalizedStrings.TotalEvaTime);
-        SetStarText(_totalMissionTimeLabel, LocalizedStrings.TotalMissionTime);
-        SetStarText(_statusLabel, LocalizedStrings.Status);
-        _window.EnableLocalization();
 
         // Get the close button from the window
         var closeButton = _root.Q<Button>("close-button");
         closeButton.clicked += () => IsWindowOpen = false;
 
-        MessageListener.Instance.Subscribe<WingAwardedMessage>(OnWingAwarded);
-        MessageListener.Instance.Subscribe<WingRevokedMessage>(OnWingRevoked);
+        MessageListener.Subscribe<WingAwardedMessage>(OnWingAwarded);
+        MessageListener.Subscribe<WingRevokedMessage>(OnWingRevoked);
     }
 
     private void OnWingAwarded(MessageCenterMessage message)
@@ -285,6 +279,14 @@ public class KerbalWindowController : MonoBehaviour
     {
         Initialize();
 
+        // Localization
+        SetStarText(_missionsLabel, LocalizedStrings.MissionsCompleted);
+        SetStarText(_totalEvaTimeLabel, LocalizedStrings.TotalEvaTime);
+        SetStarText(_totalMissionTimeLabel, LocalizedStrings.TotalMissionTime);
+        SetStarText(_statusLabel, LocalizedStrings.Status);
+        _window.EnableLocalization();
+
+        // Profile
         var kerbalId = KerbalId;
         if (!kerbalId.HasValue) return;
 

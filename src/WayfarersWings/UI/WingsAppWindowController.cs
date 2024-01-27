@@ -105,8 +105,6 @@ public class WingsAppWindowController : MonoBehaviour
         _root = _window.rootVisualElement[0];
         _root.StopMouseEventsPropagation();
 
-        _root.Q<Label>("title").text = LocalizedStrings.AchievementsTitle.ToString().ToUpper();
-
         // Tab buttons
         _tabs["ribbons"] = _root.Q<ScrollView>("ribbons-tab");
         _tabs["kerbals"] = _root.Q<ScrollView>("kerbals-tab");
@@ -121,6 +119,7 @@ public class WingsAppWindowController : MonoBehaviour
         _kerbalsTabMenu = _root.Q<VisualElement>("kerbals-tab-menu");
         _sortDropdown = _kerbalsTabMenu.Q<DropdownField>("sort-by-dropdown");
         _sortDropdown.choices = KerbalProfileQuery.SortOptions;
+        // Done even in `Localize()` because
         _sortDropdown.value = _kerbalQuery.GetSortChoice();
         _sortDropdown.RegisterValueChangedCallback(OnKerbalsSortChanged);
         _sortDirectionButton = _kerbalsTabMenu.Q<Button>("sort-by-direction");
@@ -132,14 +131,16 @@ public class WingsAppWindowController : MonoBehaviour
         // Center the window by default
         _root.CenterByDefault();
 
+        Localize();
+
         IsWindowOpen = false;
 
         // Get the close button from the window
         var closeButton = _root.Q<Button>("close-button");
         closeButton.clicked += () => IsWindowOpen = false;
 
-        MessageListener.Instance.Subscribe<WingAwardedMessage>(message => BuildUI("kerbals"));
-        MessageListener.Instance.Subscribe<WingRevokedMessage>(message => BuildUI("kerbals"));
+        MessageListener.Subscribe<WingAwardedMessage>(message => BuildUI("kerbals"));
+        MessageListener.Subscribe<WingRevokedMessage>(message => BuildUI("kerbals"));
     }
 
     private void OnSelectTab(string tabName)
@@ -154,6 +155,17 @@ public class WingsAppWindowController : MonoBehaviour
         }
 
         _tabButtons[tabName].AddToClassList("tabs-menu__item--selected");
+    }
+
+    private void Localize()
+    {
+        _root.Q<Label>("title").text = LocalizedStrings.AchievementsTitle.ToString().ToUpper();
+
+        _tabButtons["ribbons"].text = LocalizedStrings.AchievementsTabRibbons;
+        _tabButtons["kerbals"].text = LocalizedStrings.AchievementsTabKerbals;
+
+        _sortDropdown.choices = KerbalProfileQuery.SortOptions;
+        _sortDropdown.value = _kerbalQuery.GetSortChoice();
     }
 
     private void BuildUI(string tabName)
@@ -203,13 +215,17 @@ public class WingsAppWindowController : MonoBehaviour
             row.Bind(kerbalProfile);
         }
 
+        // Refresh localizations
+        Localize();
+
         Logger.LogInfo($"Refreshed Kerbals tab with {kerbalProfiles.Count} kerbals.");
     }
 
     // Search & Sort
     private void OnKerbalsSortChanged(ChangeEvent<string> sortOption)
     {
-        _kerbalQuery.SetSort(sortOption.newValue);
+        var index = _sortDropdown.choices.IndexOf(sortOption.newValue);
+        _kerbalQuery.SetSort(index);
         Refresh();
     }
 

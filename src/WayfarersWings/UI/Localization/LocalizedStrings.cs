@@ -17,6 +17,9 @@ public static class LocalizedStrings
     public static LocalizedString AwardWingTitle = "WayfarersWings/UI/AwardWingTitle";
     public static LocalizedString AwardToKerbal = "WayfarersWings/UI/AwardToKerbal";
     public static LocalizedString ConfirmRevokeButton = "WayfarersWings/UI/ConfirmRevokeButton";
+    public static LocalizedString AchievementsTabRibbons = "WayfarersWings/UI/Ribbons";
+    public static LocalizedString AchievementsTabKerbals = "WayfarersWings/UI/Kerbals";
+
 
     public const string KerbalMissionsCount = "WayfarersWings/UI/KerbalMissionsCount";
 
@@ -25,8 +28,8 @@ public static class LocalizedStrings
     public static LocalizedString SortByPoints = "WayfarersWings/UI/SortByPoints";
 
     // Ribbons
-    public const string FirstTimeName = "WayfarersWings/UI/FirstTimeName";
-    public const string FirstTime = "WayfarersWings/UI/FirstTime";
+    public const string FirstTimeName = "WayfarersWings/Ribbons/FirstTimeName";
+    public const string FirstTime = "WayfarersWings/Ribbons/FirstTime";
 
     public static string GetTranslationWithParams(string localizationKey, Dictionary<string, string>? parameters)
     {

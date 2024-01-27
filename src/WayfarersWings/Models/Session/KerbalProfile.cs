@@ -250,6 +250,7 @@ public class KerbalProfile : IJsonSaved
         lastLaunchedAt = Core.GetUniverseTime();
         lastMissionLaunchedAt = lastLaunchedAt;
         lastEvaEnteredAt = null;
+        Logger.LogDebug($"Started mission for {KerbalInfo.Attributes.GetFullName()}");
     }
 
     /// <summary>
@@ -276,6 +277,7 @@ public class KerbalProfile : IJsonSaved
     public void StartEVA(VesselComponent kerbalVessel)
     {
         lastEvaEnteredAt = Core.GetUniverseTime();
+        Logger.LogDebug($"Started EVA for {KerbalInfo.Attributes.GetFullName()}");
     }
 
     /// <summary>

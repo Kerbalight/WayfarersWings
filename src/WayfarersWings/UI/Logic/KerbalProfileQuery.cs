@@ -30,15 +30,10 @@ public static class KerbalProfileQuery
             this.sort = Functions[index].Item1;
         }
 
-        public void SetSort(string localizedName)
-        {
-            this.sort = Functions.Find(fn => fn.Item2 == localizedName).Item1;
-        }
-
         public string GetSortChoice()
         {
             var selectedSort = sort;
-            return Functions.Find(fn => fn.Item1 == selectedSort).Item2;
+            return Functions.Find(fn => fn.Item1 == selectedSort).Item2();
         }
 
         /// <summary>
@@ -70,13 +65,13 @@ public static class KerbalProfileQuery
     /// <summary>
     /// All the functions available for sorting kerbal profiles.
     /// </summary>
-    public static List<(Sort, string, Func<KerbalProfile, KerbalProfile, int>)> Functions =
+    private static List<(Sort, Func<string>, Func<KerbalProfile, KerbalProfile, int>)> Functions =
     [
-        (Sort.ByName, LocalizedStrings.SortByName,
+        (Sort.ByName, () => LocalizedStrings.SortByName,
             (a, b) => string.Compare(a.KerbalInfo.Attributes.GetFullName(), b.KerbalInfo.Attributes.GetFullName(),
                 StringComparison.OrdinalIgnoreCase)),
-        (Sort.ByPoints, LocalizedStrings.SortByPoints, (a, b) => a.totalPoints.CompareTo(b.totalPoints)),
+        (Sort.ByPoints, () => LocalizedStrings.SortByPoints, (a, b) => a.totalPoints.CompareTo(b.totalPoints)),
     ];
 
-    public static List<string> SortOptions => Functions.Select(fn => fn.Item2).ToList();
+    public static List<string> SortOptions => Functions.Select(fn => fn.Item2()).ToList();
 }

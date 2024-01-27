@@ -66,9 +66,9 @@ public class VesselsStateObserver : MonoBehaviour
     {
         Instance = this;
 
-        MessageListener.Instance.Subscribe<GameStateChangedMessage>(OnGameStateChangedMessage);
-        MessageListener.Instance.Subscribe<VesselChangingMessage>(OnVesselChangingMessage);
-        MessageListener.Instance.Subscribe<VesselChangedMessage>(OnVesselChangedMessage);
+        MessageListener.Subscribe<GameStateChangedMessage>(OnGameStateChangedMessage);
+        MessageListener.Subscribe<VesselChangingMessage>(OnVesselChangingMessage);
+        MessageListener.Subscribe<VesselChangedMessage>(OnVesselChangedMessage);
     }
 
     private void OnGameStateChangedMessage(MessageCenterMessage message)

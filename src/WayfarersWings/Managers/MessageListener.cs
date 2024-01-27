@@ -30,7 +30,7 @@ public class MessageListener
         Core.Instance.EventsRegistry.SetupListeners();
     }
 
-    public SubscriptionHandle Subscribe<TMessage>(Action<MessageCenterMessage> callback)
+    public static SubscriptionHandle Subscribe<TMessage>(Action<MessageCenterMessage> callback)
         where TMessage : MessageCenterMessage
     {
         return MessageCenter.PersistentSubscribe<TMessage>(callback);
