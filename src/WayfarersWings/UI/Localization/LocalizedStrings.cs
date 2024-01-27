@@ -1,4 +1,5 @@
 ﻿using I2.Loc;
+using JetBrains.Annotations;
 
 namespace WayfarersWings.UI.Localization;
 
@@ -17,7 +18,8 @@ public static class LocalizedStrings
     public static LocalizedString AwardToKerbal = "WayfarersWings/UI/AwardToKerbal";
     public static LocalizedString ConfirmRevokeButton = "WayfarersWings/UI/ConfirmRevokeButton";
 
-    // public static LocalizedString OnEva = "WayfarersWings/UI/OnEva";
+    public const string KerbalMissionsCount = "WayfarersWings/UI/KerbalMissionsCount";
+    
 
     // Sorting
     public static LocalizedString SortByName = "WayfarersWings/UI/SortByName";

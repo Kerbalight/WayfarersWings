@@ -1,8 +1,10 @@
 ﻿using BepInEx.Logging;
+using I2.Loc;
 using KSP.Game;
 using UnityEngine;
 using UnityEngine.UIElements;
 using WayfarersWings.Models.Session;
+using WayfarersWings.UI.Localization;
 using WayfarersWings.Utility;
 
 namespace WayfarersWings.UI.Components;
@@ -83,7 +85,9 @@ public class KerbalProfileRowController
 
         _portrait.style.backgroundImage = new StyleBackground(kerbalInfo.Portrait.texture);
         _name.text = kerbalInfo.Attributes.GetFullName();
-        _missionsLabel.text = kerbalProfile.missionsCount + " missions"; // TODO i18n
+        _missionsLabel.text = LocalizationManager.GetTranslation(LocalizedStrings.KerbalMissionsCount,
+            new object[] { kerbalProfile.missionsCount });
+
         _starButton.style.unityBackgroundImageTintColor =
             _kerbalProfile.isStarred ? Colors.LedGreen : Color.white;
 
