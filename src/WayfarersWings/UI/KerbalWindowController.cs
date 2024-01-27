@@ -64,6 +64,7 @@ public class KerbalWindowController : MonoBehaviour
 
     // Award
     private Foldout _awardFoldout;
+    private List<Wing> _awardableWings = [];
     private ListView _awardablesList;
     private Button _awardConfirmButton;
     private TextField _searchAwardablesField;
@@ -194,18 +195,26 @@ public class KerbalWindowController : MonoBehaviour
         // Search
         _searchAwardablesField.RegisterValueChangedCallback(evt =>
         {
-            _awardablesList.itemsSource = string.IsNullOrEmpty(evt.newValue)
-                ? Core.Instance.WingsPool.Wings
-                : Core.Instance.WingsPool.Wings
-                    .Where(wing => wing.DisplayName.ToLower().Contains(evt.newValue?.ToLower() ?? "")).ToList();
+            _awardableWings.Clear();
+            if (string.IsNullOrWhiteSpace(evt.newValue))
+            {
+                _awardableWings.AddRange(Core.Instance.WingsPool.Wings);
+            }
+            else
+            {
+                _awardableWings.AddRange(Core.Instance.WingsPool.Wings
+                    .Where(wing => wing.DisplayName.ToLower().Contains(evt.newValue?.ToLower() ?? ""))
+                    .ToList());
+            }
 
             _awardablesList.selectedIndex = -1;
-            _awardablesList.Rebuild();
+            _awardablesList.RefreshItems();
         });
 
         // List
         _awardablesList.fixedItemHeight = 55;
-        _awardablesList.itemsSource = Core.Instance.WingsPool.Wings;
+        _awardableWings.AddRange(Core.Instance.WingsPool.Wings);
+        _awardablesList.itemsSource = _awardableWings;
         _awardablesList.makeItem = () =>
         {
             var controller = KerbalWingEntryRowController.Create();
@@ -216,7 +225,8 @@ public class KerbalWindowController : MonoBehaviour
         _awardablesList.bindItem = (visualElement, i) =>
         {
             var row = visualElement.userData as KerbalWingEntryRowController;
-            row?.Bind(Core.Instance.WingsPool.Wings[i]);
+            if (_awardablesList.itemsSource[i] is not Wing wing) return;
+            row?.Bind(wing);
         };
 
         // See:
