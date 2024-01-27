@@ -19,14 +19,14 @@ public static class LocalizedStrings
     public static LocalizedString ConfirmRevokeButton = "WayfarersWings/UI/ConfirmRevokeButton";
 
     public const string KerbalMissionsCount = "WayfarersWings/UI/KerbalMissionsCount";
-    
 
     // Sorting
     public static LocalizedString SortByName = "WayfarersWings/UI/SortByName";
     public static LocalizedString SortByPoints = "WayfarersWings/UI/SortByPoints";
 
     // Ribbons
-    public static LocalizedString FirstTime = "WayfarersWings/Ribbons/FirstTime";
+    public const string FirstTimeName = "WayfarersWings/UI/FirstTimeName";
+    public const string FirstTime = "WayfarersWings/UI/FirstTime";
 
     public static string GetTranslationWithParams(string localizationKey, Dictionary<string, string>? parameters)
     {

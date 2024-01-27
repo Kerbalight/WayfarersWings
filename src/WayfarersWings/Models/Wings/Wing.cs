@@ -16,7 +16,7 @@ public class Wing
     public Wing(WingConfig config)
     {
         this.config = config;
-        VerifyConfig(); // Todo find a better place to do this
+        VerifyConfig();
 
         foreach (var condition in this.config.conditions)
         {
@@ -52,6 +52,5 @@ public class Wing
         }
 
         return true;
-        // TODO: Add wing to vessel
     }
 }
