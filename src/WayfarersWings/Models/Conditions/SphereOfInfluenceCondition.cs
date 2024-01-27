@@ -14,7 +14,7 @@ public class SphereOfInfluenceCondition : CelestialBodyCondition
     /// Whether the condition should be triggered right after the SOI change
     /// or it's enough to be in the SOI
     /// </summary>
-    public bool? isRightAfterSOIChange;
+    public bool? isRightAfterSOIChange = null;
 
     public override bool IsValid(Transaction transaction)
     {

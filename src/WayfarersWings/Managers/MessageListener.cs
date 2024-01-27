@@ -20,16 +20,12 @@ public class MessageListener
         _ = Subscribe();
     }
 
-    private async Task Subscribe()
+    private static async Task Subscribe()
     {
         await Task.Delay(100);
+
         MessageCenter.PersistentSubscribe<GameLoadFinishedMessage>(OnGameLoadFinishedMessage);
-        // MessageCenter.PersistentSubscribe<SOIEnteredMessage>()
-        // MessageCenter.PersistentSubscribe<ResearchReportScoredMessage>(OnResearchReportScoredMessage);
-        // MessageCenter.PersistentSubscribe<VesselScienceSituationChangedMessage>(OnVesselScienceSituationChangedMessage);
         MessageCenter.PersistentSubscribe<GameStateChangedMessage>(HideWindowOnInvalidState);
-        // MessageCenter.PersistentSubscribe<TechTierUnlockedMessage>(OnTechTierUnlockedMessage);
-        // MessageCenter.PersistentSubscribe<VesselRecoveredMessage>(OnVesselRecoveredMessage);
 
         Core.Instance.EventsRegistry.SetupListeners();
     }
@@ -40,35 +36,13 @@ public class MessageListener
         return MessageCenter.PersistentSubscribe<TMessage>(callback);
     }
 
-    private void OnGameLoadFinishedMessage(MessageCenterMessage message)
+    private static void OnGameLoadFinishedMessage(MessageCenterMessage message)
     {
         // Load Wings from WingsConfig
-        // TODO Only load them if they're not already loaded
         Core.Instance.WingsPool.LoadRegisteredConfigs();
         // Load GameData
         SaveManager.Instance.LoadGameDataInSession();
     }
-
-    // private static void OnResearchReportScoredMessage(MessageCenterMessage message)
-    // {
-    //     MainUIManager.Instance.ArchiveWindowController.IsDirty = true;
-    // }
-    //
-    // private static void OnVesselScienceSituationChangedMessage(MessageCenterMessage message)
-    // {
-    //     // Beware, this message is sent for every vessel, not just the active one.
-    //     MainUIManager.Instance.ArchiveWindowController.IsDirty = true;
-    // }
-    //
-    // /// <summary>
-    // /// Reload the available experiments when a new tech tier is unlocked.
-    // /// </summary>
-    // /// <param name="message"></param>
-    // private static void OnTechTierUnlockedMessage(MessageCenterMessage message)
-    // {
-    //     ArchiveManager.Instance.InitializeUnlockedExperiments();
-    //     MainUIManager.Instance.ArchiveWindowController.IsDirty = true;
-    // }
 
     private static void HideWindowOnInvalidState(MessageCenterMessage message)
     {
@@ -84,6 +58,4 @@ public class MessageListener
             MainUIManager.Instance.MissionSummaryWindow.IsWindowOpen = false;
         }
     }
-
-    private void OnVesselRecoveredMessage() { }
 }

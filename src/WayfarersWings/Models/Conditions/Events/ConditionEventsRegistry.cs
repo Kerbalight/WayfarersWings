@@ -36,6 +36,10 @@ public class ConditionEventsRegistry
         Messages.PersistentSubscribe<EVAEnteredMessage>(OnEVAEnteredMessage);
         Messages.PersistentSubscribe<EVALeftMessage>(OnEVALeftMessage);
         Messages.PersistentSubscribe<FlagPlantedMessage>(OnFlagPlantedMessage);
+
+        // Science
+        // TODO implement this
+        // Messages.PersistentSubscribe<ResearchReportScoredMessage>(OnResearchReportScoredMessage);
     }
 
     private static Transaction ActiveVesselTransaction(MessageCenterMessage message)
@@ -55,14 +59,14 @@ public class ConditionEventsRegistry
     /// Message does not contain the vessel, we assume it's the active vessel
     /// because the orbit changed right now
     /// </summary>
-    public void OnStableOrbitCreatedMessage(MessageCenterMessage message)
+    private static void OnStableOrbitCreatedMessage(MessageCenterMessage message)
     {
         var stableOrbitMessage = (StableOrbitCreatedMessage)message;
         var transaction = ActiveVesselTransaction(stableOrbitMessage);
         AchievementsOrchestrator.DispatchTransaction(transaction);
     }
 
-    public void OnVesselSituationChangedMessage(MessageCenterMessage message)
+    public static void OnVesselSituationChangedMessage(MessageCenterMessage message)
     {
         var situationMessage = (VesselSituationChangedMessage)message;
 
@@ -73,14 +77,14 @@ public class ConditionEventsRegistry
         AchievementsOrchestrator.DispatchTransaction(transaction);
     }
 
-    public void OnVesselLandedGroundAtRestMessage(MessageCenterMessage message)
+    public static void OnVesselLandedGroundAtRestMessage(MessageCenterMessage message)
     {
         var landedMessage = (VesselLandedGroundAtRestMessage)message;
         var transaction = new Transaction(landedMessage, landedMessage.Vessel);
         AchievementsOrchestrator.DispatchTransaction(transaction);
     }
 
-    public void OnVesselLandedWaterAtRestMessage(MessageCenterMessage message)
+    public static void OnVesselLandedWaterAtRestMessage(MessageCenterMessage message)
     {
         var landedMessage = (VesselLandedWaterAtRestMessage)message;
         var transaction = new Transaction(landedMessage, landedMessage.Vessel);
@@ -143,7 +147,7 @@ public class ConditionEventsRegistry
     }
 
 
-    private void OnVesselRecovered(MessageCenterMessage message)
+    private static void OnVesselRecovered(MessageCenterMessage message)
     {
         var recoveredMessage = (VesselRecoveredMessage)message;
         var vessel = Core.UniverseModel?.FindVesselComponent(recoveredMessage.VesselID);
@@ -157,6 +161,16 @@ public class ConditionEventsRegistry
         // Show flight report summary
         Messages.Publish(new WingMissionCompletedMessage(vessel));
     }
+
+    #endregion
+
+    #region Science
+
+    // private static void OnResearchReportScoredMessage(MessageCenterMessage message)
+    // {
+    //     var scoredMessage = (ResearchReportScoredMessage)message;
+    //     scoredMessage.ResearchReportKey;
+    // }
 
     #endregion
 }
