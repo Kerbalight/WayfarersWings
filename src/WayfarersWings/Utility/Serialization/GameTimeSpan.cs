@@ -29,6 +29,30 @@ public struct GameTimeSpan
         }
     }
 
+    public string Format()
+    {
+        var totalSeconds = Seconds;
+        var days = (int)(totalSeconds / PhysicsSettings.HoursInDay / PhysicsSettings.MinutesInHour / 60);
+        var hours = (int)(totalSeconds / PhysicsSettings.MinutesInHour / 60 % PhysicsSettings.HoursInDay);
+        var minutes = (int)(totalSeconds / PhysicsSettings.MinutesInHour % 60);
+        var seconds = (totalSeconds % 60);
+
+        var formatted = "";
+        if (days > 0) formatted += $"{days}d ";
+        if (hours > 0) formatted += $"{hours}h ";
+        if (minutes > 0) formatted += $"{minutes}m ";
+        if (seconds > 0) formatted += $"{seconds:F2}s";
+        if (formatted == "") formatted = "N/A";
+        return formatted.Trim();
+    }
+
+    public static GameTimeSpan FromSeconds(double seconds)
+    {
+        return new GameTimeSpan()
+        {
+            _cachedSeconds = seconds
+        };
+    }
 
     public GameTimeSpan(double days = 0, double hours = 0, double minutes = 0, double seconds = 0)
     {

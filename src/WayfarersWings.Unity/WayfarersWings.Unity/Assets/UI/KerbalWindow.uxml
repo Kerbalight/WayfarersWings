@@ -1,14 +1,41 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/WayfarerWingsStyle.uss?fileID=7433441132597879392&amp;guid=da08ea5b9d5173244bc93b4727182b4b&amp;type=3#WayfarerWingsStyle" />
-    <ui:VisualElement name="root" class="root" style="flex-grow: 1; max-height: 600px; width: 600px; height: 600px;">
-        <ui:VisualElement name="title-bar" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-self: stretch; justify-content: space-between;">
-            <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; align-items: center;">
-                <ui:Label tabindex="-1" text="DETAIL" display-tooltip-when-elided="true" name="title" style="padding-bottom: 0; margin-left: 0; font-size: 10px;" />
+    <ui:VisualElement name="root" class="root" style="flex-grow: 1; max-height: 600px; width: 600px; height: 600px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; min-height: 600px; padding-left: 12px; padding-right: 12px; padding-top: 12px; padding-bottom: 12px;">
+        <ui:VisualElement name="title-bar" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); align-self: stretch; justify-content: space-between; flex-shrink: 0;">
+            <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; align-items: center; color: rgb(255, 255, 255);">
+                <ui:Label tabindex="-1" text="Kerbal Name" display-tooltip-when-elided="true" name="name-label" class="kerbal-name-title font-pixel-title" />
             </ui:VisualElement>
             <ui:Button display-tooltip-when-elided="true" enable-rich-text="false" name="close-button" />
         </ui:VisualElement>
-        <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="name-label" />
-        <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="detail-label" style="font-size: 12px; padding-top: 0; color: rgb(137, 150, 176);" />
-        <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="ribbons-view" style="display: flex;" />
+        <ui:VisualElement name="profile" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row; margin-top: 0; margin-bottom: 8px; justify-content: space-between; flex-shrink: 0;">
+            <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-basis: 48%;">
+                <ui:VisualElement class="table-row" style="flex-grow: 1; flex-direction: row; align-items: flex-end;">
+                    <ui:Label tabindex="-1" text="&lt;color=#595dd5&gt;*&lt;/color&gt;Total mission time" display-tooltip-when-elided="true" name="total-mission-time-label" class="table-label" />
+                    <ui:Label tabindex="-1" text="&lt;color=#E7CA76&gt;1d 12h&lt;/color&gt;" display-tooltip-when-elided="true" name="total-mission-time-value" class="table-value" />
+                </ui:VisualElement>
+                <ui:VisualElement class="table-row" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+                    <ui:Label tabindex="-1" text="&lt;color=#595dd5&gt;*&lt;/color&gt;Missions completed" display-tooltip-when-elided="true" name="missions-label" class="table-label" />
+                    <ui:Label tabindex="-1" text="&lt;color=#E7CA76&gt;23&lt;/color&gt;" display-tooltip-when-elided="true" name="missions-value" class="table-value" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-basis: 48%;">
+                <ui:VisualElement class="table-row" style="flex-grow: 1; flex-direction: row; align-items: flex-end;">
+                    <ui:Label tabindex="-1" text="&lt;color=#595dd5&gt;*&lt;/color&gt;Total EVA time" display-tooltip-when-elided="true" name="total-eva-time-label" class="table-label" />
+                    <ui:Label tabindex="-1" text="&lt;color=#E7CA76&gt;1d 12h&lt;/color&gt;" display-tooltip-when-elided="true" name="total-eva-time-value" class="table-value" />
+                </ui:VisualElement>
+                <ui:VisualElement class="table-row" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-items: stretch; flex-shrink: 0;">
+                    <ui:Label tabindex="-1" text="&lt;color=#595dd5&gt;*&lt;/color&gt;Status" display-tooltip-when-elided="true" name="status-label" class="table-label" />
+                    <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row; align-self: stretch; align-items: center; justify-content: flex-start;">
+                        <ui:VisualElement name="status-icon" class="kerbal-status" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); margin-right: 4px;" />
+                        <ui:Label tabindex="-1" text="&lt;color=#E7CA76&gt;In Mission&lt;/color&gt;" display-tooltip-when-elided="true" name="status-value" class="table-value" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="ribbons-view" style="display: flex; flex-shrink: 1; height: 100%;" />
+        <ui:Foldout text="#WayfarersWings/UI/AwardWingTitle" value="false" name="award-foldout" class="foldout--pixel" style="flex-shrink: 0; margin-top: 6px;">
+            <ui:ListView focusable="true" show-border="false" name="awardables-list" fixed-item-height="60" virtualization-method="FixedHeight" class="awardables-list" style="min-height: 250px; padding-top: 4px; padding-bottom: 4px; max-height: 250px; height: 250px;" />
+            <ui:Button text="Select a wing..." display-tooltip-when-elided="true" name="award-confirm-button" focusable="true" class="button--default" />
+        </ui:Foldout>
     </ui:VisualElement>
 </ui:UXML>

@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: cb1a8e8d1a3a3c24ba346c5f775a03d0
   m_SerializeEntries:
   - m_GUID: bd020bdaa98624443934da303aeab56d
-    m_Address: Assets/Wings/Duna/planet_wings.json
+    m_Address: Assets/Wings/planet_wings.json
     m_ReadOnly: 0
     m_SerializedLabels:
     - wayfarer_wings_data

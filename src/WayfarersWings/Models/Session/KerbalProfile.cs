@@ -1,6 +1,7 @@
 ﻿using BepInEx.Logging;
 using KSP.Game;
 using KSP.Sim.impl;
+using KSP.Sim.ResourceSystem;
 using Newtonsoft.Json;
 using UnityEngine.Serialization;
 using WayfarersWings.Managers;
@@ -131,7 +132,8 @@ public class KerbalProfile : IJsonSaved
             wing,
             unlockedAt: DateTime.Now,
             universeTime: universeTime,
-            isSuperseeded: false
+            isSuperseeded: false,
+            kerbalId: kerbalId
         );
 
         if (wing.config.chain != null)
@@ -149,6 +151,39 @@ public class KerbalProfile : IJsonSaved
 
         UpdateUnlockedWingCodes(wing);
         _entries.Add(entry);
+    }
+
+    public void RevokeWing(KerbalWingEntry entry)
+    {
+        var wing = entry.Wing;
+        _entries.Remove(entry);
+
+        _unlockedWingsCodes.Remove(wing.config.name);
+        if (wing.config.isFirst)
+            _unlockedWingsCodes.Remove(WingsPool.GetNotFirstWingName(wing));
+
+
+        if (wing.config.chain != null)
+        {
+            var maxPoints = 0;
+            var maxPointsEntry = (KerbalWingEntry?)null;
+            foreach (var awarded in _entries)
+            {
+                if (awarded.Wing.config.chain == wing.config.chain &&
+                    awarded.Wing.config.points > maxPoints)
+                {
+                    maxPoints = awarded.Wing.config.points;
+                    maxPointsEntry = awarded;
+                }
+            }
+
+            // Restore the superseded status of the highest one,
+            // now that we removed the one that superseded it
+            if (maxPointsEntry != null)
+            {
+                maxPointsEntry.isSuperseeded = false;
+            }
+        }
     }
 
     private void UpdateUnlockedWingCodes(Wing wing)
@@ -216,6 +251,7 @@ public class KerbalProfile : IJsonSaved
                 continue;
             }
 
+            entry.KerbalId = kerbalId;
             entry.OnAfterGameLoad();
             UpdateUnlockedWingCodes(entry.Wing);
         }

@@ -83,18 +83,7 @@ public class KerbalProfileRowController
         _starButton.style.unityBackgroundImageTintColor =
             _kerbalProfile.isStarred ? Colors.LedGreen : Color.white;
 
-        switch (kerbalProfile.GetStatus())
-        {
-            case KerbalStatus.Assigned:
-                _status.AddToClassList("kerbal-status--assigned");
-                break;
-            case KerbalStatus.Available:
-                _status.AddToClassList("kerbal-status--available");
-                break;
-            default:
-                _status.AddToClassList("kerbal-status--default");
-                break;
-        }
+        KerbalStatusElement.SetStatus(_status, kerbalProfile);
 
         _ribbonsSpace.Clear();
         foreach (var wingEntry in kerbalProfile.Entries)

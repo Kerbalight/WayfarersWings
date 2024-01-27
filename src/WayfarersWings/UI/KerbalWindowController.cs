@@ -1,4 +1,5 @@
 using BepInEx.Logging;
+using I2.Loc;
 using KSP.Game;
 using KSP.Sim.impl;
 using KSP.UI.Binding;
@@ -10,8 +11,10 @@ using WayfarersWings.Extensions;
 using WayfarersWings.Managers;
 using WayfarersWings.Managers.Messages;
 using WayfarersWings.Models.Session;
+using WayfarersWings.Models.Wings;
 using WayfarersWings.UI.Components;
 using WayfarersWings.UI.Localization;
+using WayfarersWings.Utility.Serialization;
 using Logger = UnityEngine.Logger;
 
 namespace WayfarersWings.UI;
@@ -44,14 +47,33 @@ public class KerbalWindowController : MonoBehaviour
 
     // private ScrollView _content;
     private Label _nameLabel;
-    private Label _detailLabel;
     private ScrollView _ribbonsView;
+
+    // Summary
+    private Label _totalMissionTimeLabel;
+    private Label _totalMissionTimeValueLabel;
+    private Label _missionsLabel;
+    private Label _missionsValueLabel;
+    private Label _totalEvaTimeLabel;
+    private Label _totalEvaTimeValueLabel;
+    private Label _statusLabel;
+    private Label _statusValueLabel;
+
+    private VisualElement _statusIcon;
+
+    // Award
+    private Foldout _awardFoldout;
+    private ListView _awardablesList;
+    private Button _awardConfirmButton;
+    private Wing? _selectedWing;
 
     // The backing field for the IsWindowOpen property
     private bool _isWindowOpen;
+    private bool _isInitialized;
     private bool _isDirty;
 
     public IGGuid? KerbalId { get; private set; }
+    private KerbalInfo? _kerbalInfo;
 
     public bool IsWindowOpen
     {
@@ -78,10 +100,32 @@ public class KerbalWindowController : MonoBehaviour
         _root.StopMouseEventsPropagation();
 
         _nameLabel = _root.Q<Label>("name-label");
-        _detailLabel = _root.Q<Label>("detail-label");
+        // _detailLabel = _root.Q<Label>("detail-label");
         _ribbonsView = _root.Q<ScrollView>("ribbons-view");
 
+        // Summary
+        _missionsLabel = _root.Q<Label>("missions-label");
+        _missionsValueLabel = _root.Q<Label>("missions-value");
+        _totalEvaTimeLabel = _root.Q<Label>("total-eva-time-label");
+        _totalEvaTimeValueLabel = _root.Q<Label>("total-eva-time-value");
+        _totalMissionTimeLabel = _root.Q<Label>("total-mission-time-label");
+        _totalMissionTimeValueLabel = _root.Q<Label>("total-mission-time-value");
+        _statusLabel = _root.Q<Label>("status-label");
+        _statusValueLabel = _root.Q<Label>("status-value");
+        _statusIcon = _root.Q<VisualElement>("status-icon");
+
+        _awardFoldout = _root.Q<Foldout>("award-foldout");
+        _awardablesList = _root.Q<ListView>("awardables-list");
+        _awardConfirmButton = _root.Q<Button>("award-confirm-button");
+
         IsWindowOpen = false;
+
+        // Localization
+        SetStarText(_missionsLabel, LocalizedStrings.MissionsCompleted);
+        SetStarText(_totalEvaTimeLabel, LocalizedStrings.TotalEvaTime);
+        SetStarText(_totalMissionTimeLabel, LocalizedStrings.TotalMissionTime);
+        SetStarText(_statusLabel, LocalizedStrings.Status);
+        _window.EnableLocalization();
 
         // Get the close button from the window
         var closeButton = _root.Q<Button>("close-button");
@@ -95,21 +139,81 @@ public class KerbalWindowController : MonoBehaviour
         });
     }
 
+    private void SetStarText(Label label, string text)
+    {
+        label.text = "<color=#595DD5>*</color> " + text;
+    }
+
     public void SelectKerbal(IGGuid kerbalId)
     {
         KerbalId = kerbalId;
+        WingsSessionManager.Roster.TryGetKerbalByID(kerbalId, out _kerbalInfo);
         if (IsWindowOpen) BuildUI();
         else IsWindowOpen = true;
     }
 
+    private void OnConfirmAward()
+    {
+        if (_selectedWing == null || _kerbalInfo == null) return;
+        WingsSessionManager.Instance.Award(_selectedWing, _kerbalInfo);
+        // Logger.LogDebug($"Awarding {_selectedWing.DisplayName} to {_kerbalInfo?.Attributes.GetFullName()}");
+    }
+
+    private void Initialize()
+    {
+        if (_isInitialized) return;
+        _isInitialized = true;
+
+        // Award foldout
+        _awardablesList.fixedItemHeight = 40;
+        _awardablesList.itemsSource = Core.Instance.WingsPool.Wings;
+        _awardablesList.makeItem = () =>
+        {
+            var controller = KerbalWingEntryRowController.Create();
+            controller.SetEllipsis(true);
+            return controller.Root;
+        };
+
+        _awardablesList.bindItem = (visualElement, i) =>
+        {
+            var row = visualElement.userData as KerbalWingEntryRowController;
+            row?.Bind(Core.Instance.WingsPool.Wings[i]);
+        };
+
+        // See:
+        // https://forum.unity.com/threads/i-cant-select-listview-items-on-uielements-runtime.870013/
+        _awardablesList.itemsChosen += items => { };
+        _awardablesList.selectedIndicesChanged += selection =>
+        {
+            var selectionArray = selection as int[] ?? selection.ToArray();
+            _selectedWing = selectionArray.Any() ? Core.Instance.WingsPool.Wings[selectionArray[0]] : null;
+
+            Logger.LogDebug($"Selected wing {_selectedWing?.DisplayName}");
+            if (_selectedWing != null)
+            {
+                _awardConfirmButton.style.display = DisplayStyle.Flex;
+                _awardConfirmButton.text = LocalizedStrings.AwardToKerbal;
+            }
+            else
+            {
+                _awardConfirmButton.style.display = DisplayStyle.None;
+            }
+        };
+        _awardConfirmButton.style.display = DisplayStyle.None;
+        _awardConfirmButton.clicked += OnConfirmAward;
+    }
+
     private void BuildUI()
     {
+        Initialize();
+
         var kerbalId = KerbalId;
         if (!kerbalId.HasValue) return;
 
-        if (!WingsSessionManager.Roster.TryGetKerbalByID(kerbalId.Value, out var kerbalInfo))
+        if (_kerbalInfo == null)
         {
             Logger.LogWarning("Kerbal not found in roster, not opening");
+            return;
         }
 
         // Align window
@@ -118,14 +222,19 @@ public class KerbalWindowController : MonoBehaviour
         _root.transform.position = new Vector3(appWindowPosition.x + 10 + appWindow.Width,
             appWindowPosition.y, appWindowPosition.z);
 
-        // Set data
-        _nameLabel.text = kerbalInfo.Attributes.GetFullName();
-        _detailLabel.text = "10 Missions";
+        var profile = WingsSessionManager.Instance.GetKerbalProfile(kerbalId.Value);
 
-        var entries = WingsSessionManager.Instance.GetKerbalProfile(kerbalInfo.Id);
+        // Set data
+        _nameLabel.text = _kerbalInfo?.Attributes.GetFullName() ?? "N/A";
+        _missionsValueLabel.text = profile.missionsCount.ToString();
+        _totalEvaTimeValueLabel.text = GameTimeSpan.FromSeconds(profile.TotalEvaTime).Format();
+        _totalMissionTimeValueLabel.text = GameTimeSpan.FromSeconds(profile.totalMissionTime).Format();
+
+        KerbalStatusElement.SetText(_statusValueLabel, profile);
+        KerbalStatusElement.SetStatus(_statusIcon, profile);
 
         _ribbonsView.Clear();
-        foreach (var wingEntry in entries.Entries)
+        foreach (var wingEntry in profile.Entries)
         {
             if (wingEntry.isSuperseeded) continue;
             var row = KerbalWingEntryRowController.Create();

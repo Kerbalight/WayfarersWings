@@ -5,6 +5,18 @@ namespace WayfarersWings.UI.Localization;
 public static class LocalizedStrings
 {
     public static LocalizedString AchievementsTitle = "WayfarersWings/UI/Achievements";
+    public static LocalizedString TotalMissionTime = "WayfarersWings/UI/TotalMissionTime";
+    public static LocalizedString TotalEvaTime = "WayfarersWings/UI/TotalEvaTime";
+    public static LocalizedString MissionsCompleted = "WayfarersWings/UI/MissionsCompleted";
+    public static LocalizedString Status = "WayfarersWings/UI/Status";
+    public static LocalizedString OnMission = "WayfarersWings/UI/OnMission";
+    public static LocalizedString Available = "WayfarersWings/UI/Available";
+    public static LocalizedString Dead = "WayfarersWings/UI/Dead";
+    public static LocalizedString AwardWingTitle = "WayfarersWings/UI/AwardWingTitle";
+    public static LocalizedString AwardToKerbal = "WayfarersWings/UI/AwardToKerbal";
+    public static LocalizedString ConfirmRevokeButton = "WayfarersWings/UI/ConfirmRevokeButton";
+
+    // public static LocalizedString OnEva = "WayfarersWings/UI/OnEva";
 
     // Ribbons
     public static LocalizedString FirstTime = "WayfarersWings/Ribbons/FirstTime";

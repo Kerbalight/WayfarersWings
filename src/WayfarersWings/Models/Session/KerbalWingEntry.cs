@@ -13,6 +13,9 @@ public class KerbalWingEntry : IJsonSaved
     [JsonIgnore]
     public Wing Wing;
 
+    [JsonIgnore]
+    public IGGuid KerbalId;
+
     public string wingCode;
     public DateTime unlockedAt;
     public double universeTime;
@@ -20,9 +23,11 @@ public class KerbalWingEntry : IJsonSaved
 
     public KerbalWingEntry() { }
 
-    public KerbalWingEntry(Wing wing, DateTime unlockedAt, double universeTime, bool isSuperseeded)
+    public KerbalWingEntry(Wing wing, DateTime unlockedAt, double universeTime, bool isSuperseeded, IGGuid kerbalId)
     {
         Wing = wing;
+        KerbalId = kerbalId;
+
         wingCode = wing.config.name;
         this.unlockedAt = unlockedAt;
         this.universeTime = universeTime;

@@ -71,4 +71,15 @@ public class WingsSessionManager
         Logger.LogInfo("Awarded " + config.name + " to " + kerbalInfo.Attributes.GetFullName());
         MessageListener.Instance.MessageCenter.Publish(new WingAwardedMessage(kerbalInfo, wing));
     }
+
+    public void Revoke(KerbalWingEntry entry, IGGuid kerbalId)
+    {
+        var profile = GetKerbalProfile(kerbalId);
+
+        profile.RevokeWing(entry);
+        if (entry.Wing.config.isFirst) _firstWingsAlreadyUnlocked.Remove(entry.Wing.config.name);
+
+        Logger.LogInfo("Revoked " + entry.Wing.config.name + " from " + kerbalId);
+        MessageListener.Instance.MessageCenter.Publish(new WingRevokedMessage(kerbalId, entry.Wing));
+    }
 }

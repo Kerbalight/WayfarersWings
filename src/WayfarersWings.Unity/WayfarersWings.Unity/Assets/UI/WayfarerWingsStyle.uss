@@ -1,5 +1,7 @@
 :root {
+    --red: #ff5b48;
     --dark-red: rgb(133, 13, 0);
+    --orange: #E76F54;
     --background-lightgray-4: rgb(122, 133, 153);
     --blue-3-translucent: rgba(105, 109, 255, 0.5);
     --blue-5-translucent: rgba(83, 86, 204, 0.5);
@@ -14,6 +16,7 @@
     --button-bg: var(--gray-6);
     --blue-1: rgb(134, 144, 255);
     --blue-3: rgb(105, 109, 255);
+    --blue-4: rgb(92, 96, 222);
     --blue-5: rgb(83, 86, 204);
     --darkblue-4: rgb(13, 13, 22);
     --led-green: rgb(0, 255, 102);
@@ -348,8 +351,112 @@
 
 .kerbal-status.kerbal-status--available {
     -unity-background-image-tint-color: var(--led-green);
+    color: var(--led-green);
 }
 
 .kerbal-status.kerbal-status--assigned {
-    -unity-background-image-tint-color: rgb(146, 58, 202);
+    -unity-background-image-tint-color: var(--red); /* rgb(146, 58, 202); */
+    color: var(--red);
+}
+
+.secondary-label {
+    font-size: 12px;
+    padding-top: 0;
+    color: rgb(137, 150, 176);
+}
+
+.table-label {
+    font-size: 12px;
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+}
+
+.table-row {
+    justify-content: space-between;
+    border-bottom-width: 1px;
+    border-left-color: rgb(28, 32, 41);
+    border-right-color: rgb(28, 32, 41);
+    border-top-color: rgb(28, 32, 41);
+    border-bottom-color: rgb(28, 32, 41);
+    padding-bottom: 6px;
+    padding-top: 4px;
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.table-value {
+    font-size: 12px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    color: rgb(231, 202, 118);
+}
+
+.font-mono-label {
+    -unity-font-definition: var(--font-medium);
+}
+
+.font-normal {
+    -unity-font-style: normal;
+}
+
+.font-pixel-title {
+    -unity-font-definition: var(--font-title-big);
+}
+
+.font-pixel-subtitle {
+    -unity-font-definition: var(--font-title-small);
+}
+
+.kerbal-name-title {
+}
+
+.kerbal-name-title {
+    font-size: 24px;
+    color: rgb(255, 255, 255);
+}
+
+.table-label-prefix {
+    font-size: 12px;
+    -unity-font-definition: var(--font-title-big);
+    -unity-font-style: bold;
+    color: var(--blue-4);
+}
+
+.select-wing-title {
+    -unity-font-definition: var(--font-title-big);
+}
+
+#delete-button {
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    transition-property: background-color;
+    transition-duration: 0.12s;
+    background-size: 10px 10px;
+    height: 18px;
+    width: 18px;
+}
+
+#delete-button:hover {
+    background-color: var(--dark-red);
+}
+
+/* Wings List */
+.awardables-list .unity-list-view__item {
+    border-radius: 6px;
+}
+
+.awardables-list .unity-list-view__item:hover {
+    background-color: var(--blue-3);
+}
+
+.awardables-list .unity-list-view__item:checked {
+    background-color: var(--blue-5);
 }

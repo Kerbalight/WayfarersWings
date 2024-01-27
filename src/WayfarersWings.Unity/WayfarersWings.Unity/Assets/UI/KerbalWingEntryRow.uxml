@@ -1,14 +1,20 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/WayfarerWingsStyle.uss?fileID=7433441132597879392&amp;guid=da08ea5b9d5173244bc93b4727182b4b&amp;type=3#WayfarerWingsStyle" />
-    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); padding-left: 4px; padding-right: 4px; padding-top: 2px; padding-bottom: 2px;">
-        <ui:VisualElement class="wing-row__container" style="flex-grow: 1; flex-direction: row;">
-            <ui:VisualElement name="ribbons-space" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); width: 130px;" />
-            <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column; margin-left: 10px; -unity-text-align: middle-left;">
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); padding-left: 4px; padding-right: 4px; padding-top: 2px; padding-bottom: 2px; flex-shrink: 0;">
+        <ui:VisualElement class="wing-row__container" style="flex-grow: 1; flex-direction: row; flex-shrink: 1;">
+            <ui:VisualElement name="ribbons-space" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); width: 130px; flex-shrink: 0;" />
+            <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column; margin-left: 10px; -unity-text-align: middle-left; flex-shrink: 1; overflow: hidden;">
                 <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row; justify-content: space-between;">
                     <ui:Label tabindex="-1" text="Ribbon I" display-tooltip-when-elided="true" name="name" class="ribbon--title" style="font-size: 13px; padding-right: 0; padding-left: 0; padding-top: 0; padding-bottom: 0; margin-top: 0; text-overflow: clip; white-space: normal;" />
-                    <ui:Label tabindex="-1" text="12Y 4D 11:00:12.000" display-tooltip-when-elided="true" name="date" class="ribbon--date" />
+                    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; align-self: center; justify-content: flex-end;">
+                        <ui:Label tabindex="-1" text="12Y 4D 11:00:12.000" display-tooltip-when-elided="true" name="date" class="ribbon--date" />
+                        <ui:Button display-tooltip-when-elided="true" name="delete-button" class="button--default button--icon button--invisble" style="background-image: url(&apos;project://database/Assets/UI/Icons/ICO-Close-med.png?fileID=21300000&amp;guid=ad733da383d8ee14693a95dbbf0ba8ac&amp;type=3#ICO-Close-med&apos;); display: flex;" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:Label tabindex="-1" text="This is the ribbon description" display-tooltip-when-elided="true" name="description" class="ribbon--description" />
+                <ui:Label tabindex="-1" text="Executed EVA in space around Kerbin for the first time" display-tooltip-when-elided="true" name="description" class="ribbon--description" style="white-space: normal; flex-shrink: 0; flex-wrap: nowrap; text-overflow: clip; -unity-text-align: upper-left;" />
+                <ui:VisualElement name="delete-confirm-popover" style="flex-grow: 1; background-color: rgb(67, 75, 87); position: absolute; right: 0; bottom: 0; padding-left: 4px; padding-right: 4px; padding-top: 4px; padding-bottom: 4px; border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px;">
+                    <ui:Button text="Confirm to revoke wing" display-tooltip-when-elided="true" name="delete-confirm-button" />
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
