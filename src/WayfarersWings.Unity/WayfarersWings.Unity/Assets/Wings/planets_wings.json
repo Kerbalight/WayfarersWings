@@ -109,7 +109,8 @@
           },
           {
             "type": "Kerbal",
-            "isEva": true
+            "isEva": true,
+            "isInAtmosphere": false
           }
         ]
       }
