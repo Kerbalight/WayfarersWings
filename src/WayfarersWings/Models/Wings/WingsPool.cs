@@ -77,6 +77,10 @@ public class WingsPool
     /// </summary>
     public void LoadRegisteredConfigs()
     {
+        Wings.Clear();
+        _wingsMap.Clear();
+        TriggersMap.Clear();
+
         foreach (var wingsConfig in _wingsConfigs)
         {
             LoadRegisteredConfig(wingsConfig);
