@@ -258,13 +258,13 @@ public class KerbalProfile : IJsonSaved
     /// </summary>
     public void CompleteMission(VesselComponent vessel)
     {
-        missionsCount++;
-
         if (!lastLaunchedAt.HasValue)
         {
             Logger.LogWarning("lastLaunchedAt is null, cannot CompleteMission. Discarding.");
             return;
         }
+
+        missionsCount++;
 
         lastMissionTime = Core.GetUniverseTime() - lastLaunchedAt.Value;
         totalMissionTime += lastMissionTime;
