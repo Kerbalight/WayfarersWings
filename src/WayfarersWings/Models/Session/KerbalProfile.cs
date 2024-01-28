@@ -235,7 +235,7 @@ public class KerbalProfile : IJsonSaved
         List<KerbalWingEntry> missionEntries = [];
         foreach (var entry in _entries)
         {
-            if (entry.universeTime > lastMissionLaunchedAt) continue;
+            if (entry.universeTime < lastMissionLaunchedAt) continue;
             if (entry.isSuperseeded) continue;
             missionEntries.Add(entry);
         }
