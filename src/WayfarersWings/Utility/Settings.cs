@@ -17,7 +17,7 @@ public static class Settings
         ShowAlwaysBigRibbons = Plugin.Config.Bind(
             "UI",
             "Show always big ribbons",
-            true,
+            false,
             "If true, ribbons will always be shown at full size."
         );
         ShowAlwaysBigRibbons.SettingChanged += OnSettingChanged;
