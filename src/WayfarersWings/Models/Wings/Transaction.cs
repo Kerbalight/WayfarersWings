@@ -5,6 +5,7 @@ using KSP.Sim.impl;
 using UnityEngine;
 using WayfarersWings.Managers.Observer;
 using WayfarersWings.Models.Session;
+using WayfarersWings.Utility;
 
 namespace WayfarersWings.Models.Wings;
 
@@ -30,17 +31,32 @@ public class Transaction
 
     public Transaction(MessageCenterMessage? message, VesselComponent? vessel)
     {
+        Message = message;
         VesselID = vessel?.GlobalId;
         SimulationObject = vessel?.SimulationObject;
-        Message = message;
         Vessel = vessel;
         ObservedState = VesselsStateObserver.Instance.GetVesselObservedState(VesselID);
+
+        // If the vessel is a kerbal (EVA), we can get the KerbalInfo and KerbalProfile
+        // in order to process the transaction.
+        if (vessel?.SimulationObject?.Kerbal != null)
+        {
+            KerbalInfo = vessel.SimulationObject.Kerbal.GetAndAssignIfNeededKerbalInfo();
+            if (KerbalInfo != null)
+                KerbalProfile = WingsSessionManager.Instance.GetKerbalProfile(KerbalInfo.Id);
+            else
+                Logger.LogWarning($"KerbalInfo is null for KerbalComponent vessel: {vessel}");
+        }
     }
 
+    /// <summary>
+    /// This constructor is used when the transaction is not related to a vessel,
+    /// but only to a kerbal profile.
+    /// </summary>
     public Transaction(MessageCenterMessage? message, KerbalInfo kerbalInfo)
     {
-        KerbalInfo = kerbalInfo;
         Message = message;
+        KerbalInfo = kerbalInfo;
         KerbalProfile = WingsSessionManager.Instance.GetKerbalProfile(kerbalInfo.Id);
     }
 
@@ -50,7 +66,7 @@ public class Transaction
     public IEnumerable<KerbalInfo> GetKerbals()
     {
         var kerbals = new List<KerbalInfo>();
-        
+
         if (VesselID != null)
             kerbals.AddRange(WingsSessionManager.Roster.GetAllKerbalsInVessel(VesselID.Value));
         if (KerbalInfo != null)
@@ -59,7 +75,7 @@ public class Transaction
             kerbals.AddRange(NearbyKerbals);
 
         if (kerbals.Count == 0)
-            Logger.LogWarning("No kerbal in this transaction" + Message?.GetType().Name);
+            Logger.LogWarning($"No kerbal in this transaction {Message?.GetType().Name}");
 
         return kerbals;
     }

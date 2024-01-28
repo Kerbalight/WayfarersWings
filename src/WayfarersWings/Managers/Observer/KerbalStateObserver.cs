@@ -13,129 +13,88 @@ public class KerbalStateObserver
     private readonly static ManualLogSource Logger =
         BepInEx.Logging.Logger.CreateLogSource("WayfarersWings.KerbalStateObserver");
 
-    public static IEnumerable<KerbalInfo> GetKerbalsInRange()
-    {
-        var kerbals = new List<KerbalInfo>();
-        var vesselsInRange = GameManager.Instance.Game.ViewController.VesselsInRange;
-        foreach (var vessel in vesselsInRange)
-        {
-            if (vessel.IsKerbalEVA) kerbals.Add(vessel.SimulationObject.Kerbal.KerbalInfo);
-            else if (vessel.IsVesselAtRest() && vessel.LandedOrSplashed)
-                kerbals.AddRange(WingsSessionManager.Roster.GetAllKerbalsInVessel(vessel.GlobalId));
-        }
-
-        return kerbals;
-    }
-
-    /// <summary>
-    /// When an "EVA entered" message is dispatched, we are not sure if
-    /// the _active_ vessel is the kerbal or it's the _pending_ vessel.
-    /// </summary>
-    /// <returns></returns>
-    public static VesselComponent? GetActiveOrPendingKerbalVessel()
-    {
-        var pendingVessel = GameManager.Instance.Game.ViewController.GetPendingActiveVessel();
-        if (pendingVessel?.IsKerbalEVA == true) return pendingVessel;
-
-        return GameManager.Instance.Game.ViewController.GetActiveSimVessel();
-    }
-
-    /// <summary>
-    /// KerbalInfo may be null when EVA is started (EVAEnteredMessage)
-    /// </summary>
-    /// <param name="kerbal"></param>
-    /// <returns></returns>
-    private static KerbalInfo? GetKerbalInfo(KerbalComponent kerbal)
-    {
-        if (kerbal.KerbalInfo == null)
-        {
-            kerbal.AssignKerbalInfo();
-        }
-
-        return kerbal.KerbalInfo;
-    }
 
     #region Vessel
 
-    public static void OnLaunchFromVABMessage(LaunchFromVABMessage message, VesselComponent? vesselComponent)
+    /// <summary>
+    /// For each kerbal in the vessel, run the given action on their profile and then
+    /// dispatch a <see cref="WingKerbalProfileUpdatedMessage"/> to notify the UI.
+    /// Furthermore, dispatch a <see cref="Transaction"/> to the Orchestrator so that
+    /// any wing that depends on the kerbal profile can be triggered.
+    /// </summary>
+    private static void RunAndDispatchForKerbalsInVessel(MessageCenterMessage message, VesselComponent? vesselComponent,
+        Action<KerbalProfile> runOnProfile)
     {
         if (vesselComponent == null) return;
         var kerbals = WingsSessionManager.Roster.GetAllKerbalsInVessel(vesselComponent.GlobalId);
         foreach (var kerbal in kerbals)
         {
             var profile = WingsSessionManager.Instance.GetKerbalProfile(kerbal.Id);
-            profile.StartMission(vesselComponent);
+            runOnProfile(profile);
             Core.Messages.Publish(new WingKerbalProfileUpdatedMessage(profile));
 
             var transaction = new Transaction(message, kerbal);
             AchievementsOrchestrator.DispatchTransaction(transaction);
         }
+    }
+
+    public static void OnLaunchFromVABMessage(LaunchFromVABMessage message, VesselComponent? vesselComponent)
+    {
+        RunAndDispatchForKerbalsInVessel(
+            message,
+            vesselComponent,
+            profile => profile.StartMission(vesselComponent!)
+        );
     }
 
     public static void OnVesselLaunched(VesselLaunchedMessage message, VesselComponent? vesselComponent)
     {
-        if (vesselComponent == null) return;
-        var kerbals = WingsSessionManager.Roster.GetAllKerbalsInVessel(vesselComponent.GlobalId);
-        foreach (var kerbal in kerbals)
-        {
-            var profile = WingsSessionManager.Instance.GetKerbalProfile(kerbal.Id);
-            profile.LaunchMission(vesselComponent);
-            Core.Messages.Publish(new WingKerbalProfileUpdatedMessage(profile));
-
-            var transaction = new Transaction(message, kerbal);
-            AchievementsOrchestrator.DispatchTransaction(transaction);
-        }
+        RunAndDispatchForKerbalsInVessel(
+            message,
+            vesselComponent,
+            profile => profile.LaunchMission(vesselComponent!)
+        );
     }
 
     public static void OnVesselRecovered(VesselRecoveredMessage message, VesselComponent? vesselComponent)
     {
-        if (vesselComponent == null) return;
-        var kerbals = WingsSessionManager.Roster.GetAllKerbalsInVessel(vesselComponent.GlobalId);
-        foreach (var kerbal in kerbals)
-        {
-            var profile = WingsSessionManager.Instance.GetKerbalProfile(kerbal.Id);
-            profile.CompleteMission(vesselComponent);
-            Core.Messages.Publish(new WingKerbalProfileUpdatedMessage(profile));
-
-            var transaction = new Transaction(message, kerbal);
-            AchievementsOrchestrator.DispatchTransaction(transaction);
-        }
+        RunAndDispatchForKerbalsInVessel(
+            message,
+            vesselComponent,
+            profile => profile.CompleteMission(vesselComponent!)
+        );
     }
 
     #endregion
 
+    // For the following events, we don't need to dispatch a transaction to the Orchestrator,
+    // since they are already KerbalComponent, so they are processed in the main
+    // transaction (triggered in ConditionEventsRegistry.cs)
+
     #region EVA
 
-    public static void OnEVAEnterMessage(EVAEnteredMessage message, VesselComponent? kerbalVessel)
+    public static void OnEVAEnterMessage(EVAEnteredMessage message, Transaction transaction)
     {
-        if (kerbalVessel == null) return;
-
-        var kerbalInfo = GetKerbalInfo(kerbalVessel.SimulationObject.Kerbal);
-        if (kerbalInfo == null)
+        if (transaction.KerbalProfile == null || transaction.Vessel == null)
         {
-            Logger.LogError("Could not get KerbalInfo from KerbalComponent OnEVAEnter. Aborting transaction");
+            Logger.LogWarning($"KerbalProfile or Vessel is null for EVAEnteredMessage, transaction: {transaction}");
             return;
         }
 
-        var profile = WingsSessionManager.Instance.GetKerbalProfile(kerbalInfo.Id);
-        profile.StartEVA(kerbalVessel);
-        Core.Messages.Publish(new WingKerbalProfileUpdatedMessage(profile));
-
-        var transaction = new Transaction(message, kerbalInfo);
-        AchievementsOrchestrator.DispatchTransaction(transaction);
+        transaction.KerbalProfile.StartEVA(transaction.Vessel);
+        Core.Messages.Publish(new WingKerbalProfileUpdatedMessage(transaction.KerbalProfile));
     }
 
-    public static void OnEVALeftMessage(EVALeftMessage message, VesselComponent? kerbalVessel)
+    public static void OnEVALeftMessage(EVALeftMessage message, Transaction transaction)
     {
-        if (kerbalVessel == null) return;
-        var kerbalInfo = kerbalVessel.SimulationObject.Kerbal.KerbalInfo;
+        if (transaction.KerbalProfile == null || transaction.Vessel == null)
+        {
+            Logger.LogWarning($"KerbalProfile or Vessel is null for EVALeftMessage, transaction: {transaction}");
+            return;
+        }
 
-        var profile = WingsSessionManager.Instance.GetKerbalProfile(kerbalInfo.Id);
-        profile.CompleteEVA(kerbalVessel);
-        Core.Messages.Publish(new WingKerbalProfileUpdatedMessage(profile));
-
-        var transaction = new Transaction(message, kerbalInfo);
-        AchievementsOrchestrator.DispatchTransaction(transaction);
+        transaction.KerbalProfile.CompleteEVA(transaction.Vessel);
+        Core.Messages.Publish(new WingKerbalProfileUpdatedMessage(transaction.KerbalProfile));
     }
 
     #endregion

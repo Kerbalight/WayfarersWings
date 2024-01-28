@@ -7,6 +7,7 @@ using WayfarersWings.Managers;
 using WayfarersWings.Managers.Messages;
 using WayfarersWings.Managers.Observer;
 using WayfarersWings.Models.Wings;
+using WayfarersWings.Utility;
 
 namespace WayfarersWings.Models.Conditions.Events;
 
@@ -95,11 +96,11 @@ public class ConditionEventsRegistry
     private static void OnEVAEnteredMessage(MessageCenterMessage message)
     {
         var evaMessage = (EVAEnteredMessage)message;
-        var kerbalVessel = KerbalStateObserver.GetActiveOrPendingKerbalVessel();
+        var kerbalVessel = KerbalUtils.GetActiveOrPendingKerbalVessel();
         var transaction = new Transaction(evaMessage, kerbalVessel);
 
         // Start tracking kerbal eva time
-        KerbalStateObserver.OnEVAEnterMessage(evaMessage, transaction.Vessel);
+        KerbalStateObserver.OnEVAEnterMessage(evaMessage, transaction);
 
         AchievementsOrchestrator.DispatchTransaction(transaction);
     }
@@ -108,11 +109,12 @@ public class ConditionEventsRegistry
     {
         var evaMessage = (EVALeftMessage)message;
 
-        // We need to get the previous vessel because the boarded vessel is the active one
+        // We need to get the previous vessel (the Kerbal) because the
+        // boarded vessel is the Active one
         var transaction = new Transaction(evaMessage, VesselsStateObserver.Instance.PreviousVessel);
 
         // Update kerbal eva time
-        KerbalStateObserver.OnEVALeftMessage(evaMessage, transaction.Vessel);
+        KerbalStateObserver.OnEVALeftMessage(evaMessage, transaction);
 
         AchievementsOrchestrator.DispatchTransaction(transaction);
     }
@@ -127,7 +129,7 @@ public class ConditionEventsRegistry
     private static void OnFlagPlantedMessage(MessageCenterMessage message)
     {
         var flagPlantedMessage = (FlagPlantedMessage)message;
-        var kerbals = KerbalStateObserver.GetKerbalsInRange();
+        var kerbals = KerbalUtils.GetKerbalsInRange();
         var transaction = ActiveVesselTransaction(flagPlantedMessage);
         // Flag planting is a special case, we want to trigger the wing for
         // all nearby kerbals
@@ -140,7 +142,7 @@ public class ConditionEventsRegistry
     private static void OnLaunchFromVABMessage(MessageCenterMessage message)
     {
         var launchedMessage = (LaunchFromVABMessage)message;
-        var vessel = launchedMessage.vehicle.GetSimVessel();
+        var vessel = GameManager.Instance.Game.ViewController.GetPendingActiveVessel();
 
         KerbalStateObserver.OnLaunchFromVABMessage(launchedMessage, vessel);
 
