@@ -133,6 +133,7 @@ public class KerbalWindowController : MonoBehaviour
 
         MessageListener.Subscribe<WingAwardedMessage>(OnWingAwarded);
         MessageListener.Subscribe<WingRevokedMessage>(OnWingRevoked);
+        MessageListener.Subscribe<WingKerbalProfileUpdatedMessage>(OnKerbalProfileUpdated);
     }
 
     private void OnWingAwarded(MessageCenterMessage message)
@@ -146,6 +147,13 @@ public class KerbalWindowController : MonoBehaviour
     {
         var revokedMessage = message as WingRevokedMessage;
         if (revokedMessage?.KerbalId != KerbalId) return;
+        Refresh();
+    }
+
+    private void OnKerbalProfileUpdated(MessageCenterMessage message)
+    {
+        var updatedMessage = message as WingKerbalProfileUpdatedMessage;
+        if (updatedMessage?.KerbalProfile.kerbalId != KerbalId) return;
         Refresh();
     }
 

@@ -2,6 +2,7 @@
 using KSP.Game;
 using KSP.Messages;
 using KSP.Sim.impl;
+using WayfarersWings.Managers.Messages;
 using WayfarersWings.Models.Session;
 using WayfarersWings.Models.Wings;
 
@@ -64,6 +65,7 @@ public class KerbalStateObserver
         {
             var profile = WingsSessionManager.Instance.GetKerbalProfile(kerbal.Id);
             profile.StartMission(vesselComponent);
+            Core.Messages.Publish(new WingKerbalProfileUpdatedMessage(profile));
 
             var transaction = new Transaction(message, kerbal);
             AchievementsOrchestrator.DispatchTransaction(transaction);
@@ -78,6 +80,7 @@ public class KerbalStateObserver
         {
             var profile = WingsSessionManager.Instance.GetKerbalProfile(kerbal.Id);
             profile.LaunchMission(vesselComponent);
+            Core.Messages.Publish(new WingKerbalProfileUpdatedMessage(profile));
 
             var transaction = new Transaction(message, kerbal);
             AchievementsOrchestrator.DispatchTransaction(transaction);
@@ -92,6 +95,7 @@ public class KerbalStateObserver
         {
             var profile = WingsSessionManager.Instance.GetKerbalProfile(kerbal.Id);
             profile.CompleteMission(vesselComponent);
+            Core.Messages.Publish(new WingKerbalProfileUpdatedMessage(profile));
 
             var transaction = new Transaction(message, kerbal);
             AchievementsOrchestrator.DispatchTransaction(transaction);
@@ -115,6 +119,7 @@ public class KerbalStateObserver
 
         var profile = WingsSessionManager.Instance.GetKerbalProfile(kerbalInfo.Id);
         profile.StartEVA(kerbalVessel);
+        Core.Messages.Publish(new WingKerbalProfileUpdatedMessage(profile));
 
         var transaction = new Transaction(message, kerbalInfo);
         AchievementsOrchestrator.DispatchTransaction(transaction);
@@ -124,8 +129,10 @@ public class KerbalStateObserver
     {
         if (kerbalVessel == null) return;
         var kerbalInfo = kerbalVessel.SimulationObject.Kerbal.KerbalInfo;
+
         var profile = WingsSessionManager.Instance.GetKerbalProfile(kerbalInfo.Id);
         profile.CompleteEVA(kerbalVessel);
+        Core.Messages.Publish(new WingKerbalProfileUpdatedMessage(profile));
 
         var transaction = new Transaction(message, kerbalInfo);
         AchievementsOrchestrator.DispatchTransaction(transaction);

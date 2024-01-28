@@ -141,6 +141,7 @@ public class WingsAppWindowController : MonoBehaviour
 
         MessageListener.Subscribe<WingAwardedMessage>(message => BuildUI("kerbals"));
         MessageListener.Subscribe<WingRevokedMessage>(message => BuildUI("kerbals"));
+        MessageListener.Subscribe<WingKerbalProfileUpdatedMessage>(message => BuildUI("kerbals"));
     }
 
     private void OnSelectTab(string tabName)
