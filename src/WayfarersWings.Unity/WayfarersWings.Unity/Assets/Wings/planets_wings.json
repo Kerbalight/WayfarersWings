@@ -173,8 +173,9 @@
           },
           {
             "type": "Vessel",
-            "situation": "Landed",
-            "isAtRest": true
+            // Both landed and splashed down are considered "landed"
+            "isRightAfterLandingAtRest": true,
+            "skipPreviousSituation": "PreLaunch"
           }
         ]
       }
