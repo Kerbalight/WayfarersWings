@@ -81,7 +81,7 @@
     {
       "name": "kerbal_in_space_first",
       "isFirst": true,
-      "hasDisplayNameAlreadyFirst": true,
+      "hasDisplayNameFirstAlready": true,
       "displayName": "WayfarersWings/Ribbons/KerbalInSpaceFirstName",
       "description": "WayfarersWings/Ribbons/KerbalInSpaceFirst",
       "localizationParams": {},
@@ -100,7 +100,7 @@
     {
       "name": "kerbal_eva_in_space_first",
       "isFirst": true,
-      "hasDisplayNameAlreadyFirst": true,
+      "hasDisplayNameFirstAlready": true,
       "displayName": "WayfarersWings/Ribbons/KerbalEVAInSpaceFirstName",
       "description": "WayfarersWings/Ribbons/KerbalEVAInSpaceFirst",
       "localizationParams": {},
