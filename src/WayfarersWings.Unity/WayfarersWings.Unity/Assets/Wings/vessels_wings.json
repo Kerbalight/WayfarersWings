@@ -54,6 +54,45 @@
                 "minSolidFuelMassPercentage": 0.3
               }
             ]
+          },
+          {
+            "name": "solid_fuel_booster_40",
+            "localizationParams": {
+              "percentage": "40"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "previousSituation": "PreLaunch",
+                "minSolidFuelMassPercentage": 0.4
+              }
+            ]
+          },
+          {
+            "name": "solid_fuel_booster_50",
+            "localizationParams": {
+              "percentage": "50"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "previousSituation": "PreLaunch",
+                "minSolidFuelMassPercentage": 0.5
+              }
+            ]
+          },
+          {
+            "name": "solid_fuel_booster_60",
+            "localizationParams": {
+              "percentage": "60"
+            },
+            "conditions": [
+              {
+                "type": "Vessel",
+                "previousSituation": "PreLaunch",
+                "minSolidFuelMassPercentage": 0.6
+              }
+            ]
           }
         ]
       }
@@ -82,19 +121,7 @@
             "conditions": [
               {
                 "type": "Vessel",
-                "minMass": 10 // TODO Debug (was 250)
-              }
-            ]
-          },
-          {
-            "name": "heavy_vehicle_250",
-            "localizationParams": {
-              "mass": "250"
-            },
-            "conditions": [
-              {
-                "type": "Vessel",
-                "minMass": 10
+                "minMass": 250
               }
             ]
           },
@@ -189,7 +216,7 @@
                 "situation": "Landed",
                 "skipPreviousSituation": "PreLaunch",
                 "isAtRest": true,
-                "minMass": 250 // TODO Debug (set 1)
+                "minMass": 250
               }
             ]
           },

@@ -19,15 +19,15 @@
       "ranked": {
         "partials": [
           {
-            "name": "eva_total_time__test",
+            "name": "eva_total_time_30min",
             "localizationParams": {
-              "time": "3",
+              "time": "30",
               "unit": "#Unit/Text/Minutes"
             },
             "conditions": [
               {
                 "type": "KerbalProfile",
-                "minTotalEvaTime": "3 minutes"
+                "minTotalEvaSpaceTime": "30 minutes"
               }
             ]
           },
@@ -40,7 +40,7 @@
             "conditions": [
               {
                 "type": "KerbalProfile",
-                "minTotalEvaTime": "60 minutes"
+                "minTotalEvaSpaceTime": "60 minutes"
               }
             ]
           },
@@ -53,7 +53,7 @@
             "conditions": [
               {
                 "type": "KerbalProfile",
-                "minTotalEvaTime": "2 hours"
+                "minTotalEvaSpaceTime": "2 hours"
               }
             ]
           },
@@ -66,7 +66,7 @@
             "conditions": [
               {
                 "type": "KerbalProfile",
-                "minTotalEvaTime": "6 hours"
+                "minTotalEvaSpaceTime": "6 hours"
               }
             ]
           },
@@ -79,7 +79,7 @@
             "conditions": [
               {
                 "type": "KerbalProfile",
-                "minTotalEvaTime": "12 hours"
+                "minTotalEvaSpaceTime": "12 hours"
               }
             ]
           },
@@ -92,7 +92,7 @@
             "conditions": [
               {
                 "type": "KerbalProfile",
-                "minTotalEvaTime": "4 days"
+                "minTotalEvaSpaceTime": "4 days"
               }
             ]
           },
@@ -105,7 +105,7 @@
             "conditions": [
               {
                 "type": "KerbalProfile",
-                "minTotalEvaTime": "8 days"
+                "minTotalEvaSpaceTime": "8 days"
               }
             ]
           },
@@ -118,7 +118,7 @@
             "conditions": [
               {
                 "type": "KerbalProfile",
-                "minTotalEvaTime": "16 days"
+                "minTotalEvaSpaceTime": "16 days"
               }
             ]
           },
@@ -131,7 +131,7 @@
             "conditions": [
               {
                 "type": "KerbalProfile",
-                "minTotalEvaTime": "32 days"
+                "minTotalEvaSpaceTime": "32 days"
               }
             ]
           }
@@ -156,15 +156,15 @@
       "ranked": {
         "partials": [
           {
-            "name": "eva_time__test",
+            "name": "eva_time_10min",
             "localizationParams": {
-              "time": "2",
+              "time": "10",
               "unit": "#Unit/Text/Minutes"
             },
             "conditions": [
               {
                 "type": "KerbalProfile",
-                "minEvaTime": "2 minutes"
+                "minEvaSpaceTime": "10 minutes"
               }
             ]
           },
@@ -177,7 +177,7 @@
             "conditions": [
               {
                 "type": "KerbalProfile",
-                "minEvaTime": "20 minutes"
+                "minEvaSpaceTime": "20 minutes"
               }
             ]
           },
@@ -190,7 +190,7 @@
             "conditions": [
               {
                 "type": "KerbalProfile",
-                "minEvaTime": "30 minutes"
+                "minEvaSpaceTime": "30 minutes"
               }
             ]
           },
@@ -203,7 +203,7 @@
             "conditions": [
               {
                 "type": "KerbalProfile",
-                "minEvaTime": "40 minutes"
+                "minEvaSpaceTime": "40 minutes"
               }
             ]
           },
@@ -216,7 +216,7 @@
             "conditions": [
               {
                 "type": "KerbalProfile",
-                "minEvaTime": "50 minutes"
+                "minEvaSpaceTime": "50 minutes"
               }
             ]
           },
@@ -229,7 +229,7 @@
             "conditions": [
               {
                 "type": "KerbalProfile",
-                "minEvaTime": "60 minutes"
+                "minEvaSpaceTime": "60 minutes"
               }
             ]
           },
@@ -242,7 +242,7 @@
             "conditions": [
               {
                 "type": "KerbalProfile",
-                "minEvaTime": "90 minutes"
+                "minEvaSpaceTime": "90 minutes"
               }
             ]
           },
@@ -255,7 +255,7 @@
             "conditions": [
               {
                 "type": "KerbalProfile",
-                "minEvaTime": "2 hours"
+                "minEvaSpaceTime": "2 hours"
               }
             ]
           },
@@ -268,7 +268,7 @@
             "conditions": [
               {
                 "type": "KerbalProfile",
-                "minEvaTime": "3 hours"
+                "minEvaSpaceTime": "3 hours"
               }
             ]
           },
@@ -281,7 +281,7 @@
             "conditions": [
               {
                 "type": "KerbalProfile",
-                "minEvaTime": "4 hours"
+                "minEvaSpaceTime": "4 hours"
               }
             ]
           },
@@ -294,7 +294,7 @@
             "conditions": [
               {
                 "type": "KerbalProfile",
-                "minEvaTime": "5 hours"
+                "minEvaSpaceTime": "5 hours"
               }
             ]
           }

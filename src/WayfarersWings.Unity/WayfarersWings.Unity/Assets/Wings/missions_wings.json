@@ -108,15 +108,15 @@
       "ranked": {
         "partials": [
           {
-            "name": "single_mission_time__test",
+            "name": "single_mission_time_5d",
             "localizationParams": {
-              "time": "1",
-              "unit": "#Unit/Text/Minutes"
+              "time": "5",
+              "unit": "#Unit/Text/Days"
             },
             "conditions": [
               {
                 "type": "KerbalProfile",
-                "minMissionTime": "1 minutes"
+                "minMissionTime": "5 days"
               }
             ]
           },
@@ -205,19 +205,6 @@
       },
       "ranked": {
         "partials": [
-          {
-            "name": "total_missions_time__test",
-            "localizationParams": {
-              "time": "2",
-              "unit": "#Unit/Text/Minutes"
-            },
-            "conditions": [
-              {
-                "type": "KerbalProfile",
-                "minMissionTime": "2 minutes"
-              }
-            ]
-          },
           {
             "name": "total_missions_time_5d",
             "localizationParams": {
