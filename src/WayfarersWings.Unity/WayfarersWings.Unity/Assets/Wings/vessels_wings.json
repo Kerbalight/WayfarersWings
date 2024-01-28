@@ -382,7 +382,12 @@
           "Assets/Wings/Layers/mountain.png",
           "Assets/Wings/Layers/landed.png"
         ],
-        "conditions": []
+        "conditions": [
+          {
+            "type": "SphereOfInfluence",
+            "isHomeWorld": true
+          }
+        ]
       },
       "ranked": {
         "partials": [
