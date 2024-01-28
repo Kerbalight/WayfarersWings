@@ -271,7 +271,7 @@ public class KerbalProfile : IJsonSaved
 
         lastLaunchedAt = null;
 
-        Logger.LogDebug("Added " + lastMissionTime + "s mission time to " + KerbalInfo.Attributes.GetFullName());
+        Logger.LogDebug($"Added {lastMissionTime}s mission time to {KerbalInfo.Attributes.GetFullName()}");
     }
 
     public void StartEVA(VesselComponent kerbalVessel)
@@ -302,7 +302,7 @@ public class KerbalProfile : IJsonSaved
         lastEvaTime = evaTime;
         lastEvaEnteredAt = null;
 
-        Logger.LogDebug("Added " + evaTime + "s EVA time to " + KerbalInfo.Attributes.GetFullName());
+        Logger.LogDebug($"Added {evaTime}s EVA time to {KerbalInfo.Attributes.GetFullName()}");
     }
 
     #endregion
