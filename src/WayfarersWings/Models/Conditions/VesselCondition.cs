@@ -70,7 +70,8 @@ public class VesselCondition : BaseCondition
 
     public double? minAltitudeSeaLevel;
     public double? maxAltitudeSeaLevel;
-    public double? minAltitudeTerrain;
+    public double? minAltitudeSurface;
+    public double? maxAltitudeSurface;
 
     // public double? didUseParachutes;
 
@@ -113,7 +114,7 @@ public class VesselCondition : BaseCondition
 
         if (situation != null && transaction.Vessel?.Situation != situation)
             return false;
-        if (RequiresLandedOrSplashed() && (transaction.Vessel.AltitudeFromTerrain > 100))
+        if (RequiresLandedOrSplashed() && (transaction.Vessel.AltitudeFromSurface > 100))
             return false;
         if (isAtRest.HasValue && transaction.Vessel.IsVesselAtRest() != isAtRest)
             return false;
@@ -128,7 +129,9 @@ public class VesselCondition : BaseCondition
             return false;
         if (maxAltitudeSeaLevel.HasValue && !(transaction.Vessel.AltitudeFromSeaLevel < maxAltitudeSeaLevel.Value))
             return false;
-        if (minAltitudeTerrain.HasValue && !(transaction.Vessel.AltitudeFromTerrain > minAltitudeTerrain.Value))
+        if (minAltitudeSurface.HasValue && !(transaction.Vessel.AltitudeFromSurface > minAltitudeSurface.Value))
+            return false;
+        if (maxAltitudeSurface.HasValue && !(transaction.Vessel.AltitudeFromSurface < maxAltitudeSurface.Value))
             return false;
 
         // Mass

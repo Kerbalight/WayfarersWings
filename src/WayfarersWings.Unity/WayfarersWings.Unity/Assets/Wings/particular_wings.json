@@ -85,7 +85,7 @@
       "displayName": "WayfarersWings/Ribbons/KerbalInSpaceFirstName",
       "description": "WayfarersWings/Ribbons/KerbalInSpaceFirst",
       "localizationParams": {},
-      "points": 901000,
+      "points": 10100,
       "imageLayers": [
         "Assets/Wings/Layers/kerbal_in_space_first.png"
       ],
@@ -104,7 +104,7 @@
       "displayName": "WayfarersWings/Ribbons/KerbalEVAInSpaceFirstName",
       "description": "WayfarersWings/Ribbons/KerbalEVAInSpaceFirst",
       "localizationParams": {},
-      "points": 900900,
+      "points": 10090,
       "imageLayers": [
         "Assets/Wings/Layers/kerbal_eva_in_space_first.png"
       ],

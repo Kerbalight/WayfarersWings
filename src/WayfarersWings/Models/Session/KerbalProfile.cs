@@ -332,12 +332,12 @@ public class KerbalProfile : IJsonSaved
             totalPoints += entry.Wing.config.points;
         }
 
-        SortEntriesByPoints();
-
         foreach (var entry in _errored)
         {
             _entries.Remove(entry);
         }
+
+        SortEntriesByPoints();
 
         Logger.LogInfo(
             $"[kerbal={kerbalInfo.Attributes.GetFullName()}] Loaded {Entries.Count()} wings for a total of {totalPoints} points");

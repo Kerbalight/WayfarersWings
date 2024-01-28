@@ -23,9 +23,14 @@ namespace WayfarersWings;
 public class WayfarersWingsPlugin : BaseSpaceWarpPlugin
 {
     // Useful in case some other mod wants to use this mod a dependency
-    [PublicAPI] public const string ModGuid = MyPluginInfo.PLUGIN_GUID;
-    [PublicAPI] public const string ModName = MyPluginInfo.PLUGIN_NAME;
-    [PublicAPI] public const string ModVer = MyPluginInfo.PLUGIN_VERSION;
+    [PublicAPI]
+    public const string ModGuid = MyPluginInfo.PLUGIN_GUID;
+
+    [PublicAPI]
+    public const string ModName = MyPluginInfo.PLUGIN_NAME;
+
+    [PublicAPI]
+    public const string ModVer = MyPluginInfo.PLUGIN_VERSION;
 
     /// Singleton instance of the plugin class
     [PublicAPI]
@@ -109,7 +114,7 @@ public class WayfarersWingsPlugin : BaseSpaceWarpPlugin
         Settings.SetupConfig();
 
         // Providers
-        var providers = new GameObject("OrbitalSurvey_Providers");
+        var providers = new GameObject("WayfarerWings_Providers");
         providers.transform.parent = this.transform;
         providers.AddComponent<VesselsStateObserver>();
     }
