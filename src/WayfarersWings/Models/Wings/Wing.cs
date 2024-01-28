@@ -1,10 +1,13 @@
-﻿using WayfarersWings.Models.Conditions;
+﻿using BepInEx.Logging;
+using WayfarersWings.Models.Conditions;
 using WayfarersWings.Models.Configs;
 
 namespace WayfarersWings.Models.Wings;
 
 public class Wing
 {
+    private readonly static ManualLogSource Logger = BepInEx.Logging.Logger.CreateLogSource("WayfarersWings.Wing");
+
     // ReSharper disable once InconsistentNaming
     public WingConfig config { get; set; }
 
@@ -32,9 +35,7 @@ public class Wing
     private void VerifyConfig()
     {
         if (config.conditions.Count == 0)
-        {
-            WayfarersWingsPlugin.Instance.SWLogger.LogError($"Wing '{config.name}' has no conditions");
-        }
+            Logger.LogWarning($"Wing '{config.name}' has no conditions");
 
         if (config.name == null)
             throw new InvalidOperationException("Wing name is null");
