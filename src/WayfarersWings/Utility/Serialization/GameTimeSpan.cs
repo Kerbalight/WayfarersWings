@@ -41,7 +41,8 @@ public struct GameTimeSpan
         if (days > 0) formatted += $"{days}d ";
         if (hours > 0) formatted += $"{hours}h ";
         if (minutes > 0) formatted += $"{minutes}m ";
-        if (seconds > 0) formatted += $"{seconds:F2}s";
+        // Skip seconds if we have days or hours, too long
+        if (seconds > 0 && days == 0 && hours == 0) formatted += $"{seconds:F2}s";
         if (formatted == "") formatted = "N/A";
         return formatted.Trim();
     }
