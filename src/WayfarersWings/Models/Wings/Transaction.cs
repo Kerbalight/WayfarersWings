@@ -50,8 +50,7 @@ public class Transaction
     public IEnumerable<KerbalInfo> GetKerbals()
     {
         var kerbals = new List<KerbalInfo>();
-
-
+        
         if (VesselID != null)
             kerbals.AddRange(WingsSessionManager.Roster.GetAllKerbalsInVessel(VesselID.Value));
         if (KerbalInfo != null)

@@ -17,12 +17,14 @@ public class AchievementsOrchestrator
     {
         if (!Core.Instance.WingsPool.IsInitialized) return;
 
+        var messageName = transaction.Message?.GetType().Name ?? "null";
+
         var triggeredWings = Core.Instance.WingsPool.Wings;
         if (transaction.Message != null)
         {
             if (!Core.Instance.WingsPool.TriggersMap.TryGetValue(transaction.Message.GetType(), out triggeredWings))
             {
-                Logger.LogDebug("No wings triggered by " + transaction.Message.GetType().Name);
+                Logger.LogDebug($"No wings triggered by {messageName}");
                 triggeredWings = Core.Instance.WingsPool.Wings;
             }
         }
@@ -32,13 +34,13 @@ public class AchievementsOrchestrator
         {
             if (!wing.Check(transaction)) continue;
 
-            Logger.LogDebug($"Triggered wing {wing.config.name} for {transaction.Message?.GetType().Name}");
+            Logger.LogDebug($"Triggered wing {wing.config.name} for {messageName}");
 
             var kerbals = transaction.GetKerbals();
             WingsSessionManager.Instance.AwardAll(wing, kerbals);
         }
 
         stopwatch.Stop();
-        Logger.LogDebug($"[batch] Triggered all wings in {stopwatch.ElapsedMilliseconds}ms");
+        Logger.LogDebug($"[batch] Triggered all wings in {stopwatch.ElapsedMilliseconds}ms for {messageName}");
     }
 }
