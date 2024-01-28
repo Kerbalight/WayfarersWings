@@ -23,6 +23,7 @@ public class ConditionEventsRegistry
         Messages.PersistentSubscribe<StableOrbitCreatedMessage>(OnStableOrbitCreatedMessage);
 
         // Vessel
+        Messages.PersistentSubscribe<LaunchFromVABMessage>(OnLaunchFromVABMessage);
         Messages.PersistentSubscribe<VesselLaunchedMessage>(OnVesselLaunched);
         Messages.PersistentSubscribe<VesselSituationChangedMessage>(OnVesselSituationChangedMessage);
         Messages.PersistentSubscribe<VesselLandedGroundAtRestMessage>(OnVesselLandedGroundAtRestMessage);
@@ -136,6 +137,17 @@ public class ConditionEventsRegistry
 
     #region Vessel
 
+    private static void OnLaunchFromVABMessage(MessageCenterMessage message)
+    {
+        var launchedMessage = (LaunchFromVABMessage)message;
+        var vessel = launchedMessage.vehicle.GetSimVessel();
+
+        KerbalStateObserver.OnLaunchFromVABMessage(launchedMessage, vessel);
+
+        var transaction = new Transaction(launchedMessage, vessel);
+        AchievementsOrchestrator.DispatchTransaction(transaction);
+    }
+
     private static void OnVesselLaunched(MessageCenterMessage message)
     {
         var launchedMessage = (VesselLaunchedMessage)message;
@@ -145,7 +157,6 @@ public class ConditionEventsRegistry
         var transaction = new Transaction(launchedMessage, launchedMessage.Vessel);
         AchievementsOrchestrator.DispatchTransaction(transaction);
     }
-
 
     private static void OnVesselRecovered(MessageCenterMessage message)
     {

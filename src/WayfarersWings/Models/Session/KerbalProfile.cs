@@ -69,6 +69,8 @@ public class KerbalProfile : IJsonSaved
     /// </summary>
     public double? lastMissionLaunchedAt;
 
+    public double? lastMissionStartedAt;
+
     public double? lastEvaEnteredAt;
     public double lastEvaTime = 0;
     public double totalEvaSpaceTime = 0;
@@ -233,9 +235,11 @@ public class KerbalProfile : IJsonSaved
     public List<KerbalWingEntry> GetLastMissionEntries()
     {
         List<KerbalWingEntry> missionEntries = [];
+        if (!lastMissionStartedAt.HasValue) return missionEntries;
+
         foreach (var entry in _entries)
         {
-            if (entry.universeTime < lastMissionLaunchedAt) continue;
+            if (entry.universeTime < lastMissionStartedAt) continue;
             if (entry.isSuperseeded) continue;
             missionEntries.Add(entry);
         }
@@ -245,12 +249,24 @@ public class KerbalProfile : IJsonSaved
 
     #region Lifetime
 
+    /// <summary>
+    /// Called when vessel is placed on the launchpad.
+    /// </summary>
     public void StartMission(VesselComponent vessel)
+    {
+        lastMissionStartedAt = Core.GetUniverseTime();
+
+        // Cleanup
+        lastEvaEnteredAt = null;
+        lastLaunchedAt = null;
+        Logger.LogDebug($"Started mission for {KerbalInfo.Attributes.GetFullName()}");
+    }
+
+    public void LaunchMission(VesselComponent vessel)
     {
         lastLaunchedAt = Core.GetUniverseTime();
         lastMissionLaunchedAt = lastLaunchedAt;
-        lastEvaEnteredAt = null;
-        Logger.LogDebug($"Started mission for {KerbalInfo.Attributes.GetFullName()}");
+        Logger.LogDebug($"Launched mission for {KerbalInfo.Attributes.GetFullName()}");
     }
 
     /// <summary>

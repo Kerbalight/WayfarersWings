@@ -56,7 +56,7 @@ public class KerbalStateObserver
 
     #region Vessel
 
-    public static void OnVesselLaunched(VesselLaunchedMessage message, VesselComponent? vesselComponent)
+    public static void OnLaunchFromVABMessage(LaunchFromVABMessage message, VesselComponent? vesselComponent)
     {
         if (vesselComponent == null) return;
         var kerbals = WingsSessionManager.Roster.GetAllKerbalsInVessel(vesselComponent.GlobalId);
@@ -64,6 +64,20 @@ public class KerbalStateObserver
         {
             var profile = WingsSessionManager.Instance.GetKerbalProfile(kerbal.Id);
             profile.StartMission(vesselComponent);
+
+            var transaction = new Transaction(message, kerbal);
+            AchievementsOrchestrator.DispatchTransaction(transaction);
+        }
+    }
+
+    public static void OnVesselLaunched(VesselLaunchedMessage message, VesselComponent? vesselComponent)
+    {
+        if (vesselComponent == null) return;
+        var kerbals = WingsSessionManager.Roster.GetAllKerbalsInVessel(vesselComponent.GlobalId);
+        foreach (var kerbal in kerbals)
+        {
+            var profile = WingsSessionManager.Instance.GetKerbalProfile(kerbal.Id);
+            profile.LaunchMission(vesselComponent);
 
             var transaction = new Transaction(message, kerbal);
             AchievementsOrchestrator.DispatchTransaction(transaction);
