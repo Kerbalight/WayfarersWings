@@ -110,7 +110,7 @@
       ],
       "conditions": [
         {
-          "type": "Kerbal",
+          "type": "KerbalEVA",
           "isEva": true,
           "isInAtmosphere": false
         }
