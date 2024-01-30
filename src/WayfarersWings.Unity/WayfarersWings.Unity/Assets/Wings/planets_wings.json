@@ -189,7 +189,7 @@
         "imageLayer": "Assets/Wings/Layers/first.png"
       },
       "template": {
-        "name": "landed",
+        "name": "docked",
         "displayName": "WayfarersWings/Ribbons/DockedName",
         "imageLayers": [
           "Assets/Wings/Layers/vessel.png",
@@ -248,6 +248,40 @@
             "type": "Vessel",
             "isEva": true,
             "situation": "Landed"
+          }
+        ]
+      }
+    },
+    {
+      "name": "rover",
+      "celestialBody": {
+        "requires": [
+          "HasSurface"
+        ]
+      },
+      "hasFirst": {
+        "imageLayer": "Assets/Wings/Layers/first.png"
+      },
+      "template": {
+        "name": "rover",
+        "displayName": "WayfarersWings/Ribbons/RoverName",
+        "imageLayers": [
+          "Assets/Wings/Layers/rover.png"
+        ],
+        "description": "WayfarersWings/Ribbons/Rover",
+        "localizationParams": {
+          "distance": "3"
+        },
+        "triggers": [],
+        "points": 65,
+        "conditions": [
+          {
+            "type": "SphereOfInfluence",
+            "celestialBody": null
+          },
+          {
+            "type": "Travel",
+            "hasRoverMovedOnSurface": true
           }
         ]
       }

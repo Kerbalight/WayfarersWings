@@ -11,7 +11,7 @@ public class VesselObservedGeeForce : VesselObservedProperty<int>
         return (int)vessel.geeForce;
     }
 
-    public override WingVesselUpdatedMessage CreateTriggeredMessage(VesselComponent vessel)
+    protected override WingVesselUpdatedMessage CreateTriggeredMessage(VesselComponent vessel)
     {
         return new WingVesselGeeForceUpdatedMessage(vessel, Value);
     }

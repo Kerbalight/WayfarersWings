@@ -24,11 +24,15 @@ public class VesselsStateObserver : MonoBehaviour
     public VesselObservedState? GetVesselObservedState(IGGuid? vesselId)
     {
         if (!vesselId.HasValue) return null;
+        return GetVesselObservedState(vesselId.Value);
+    }
 
-        if (!_vesselsState.TryGetValue(vesselId.Value, out var state))
+    public VesselObservedState GetVesselObservedState(IGGuid vesselId)
+    {
+        if (!_vesselsState.TryGetValue(vesselId, out var state))
         {
             state = new VesselObservedState();
-            _vesselsState.Add(vesselId.Value, state);
+            _vesselsState.Add(vesselId, state);
         }
 
         return state;
@@ -36,18 +40,19 @@ public class VesselsStateObserver : MonoBehaviour
 
     public VesselObservedState GetVesselObservedState(VesselComponent vessel)
     {
-        return GetVesselObservedState(vessel.GlobalId)!;
+        return GetVesselObservedState(vessel.GlobalId);
     }
 
-    public void UpdateVessel(VesselComponent vessel)
+    private void StartObservingVessel(VesselComponent vessel)
+    {
+        var state = GetVesselObservedState(vessel);
+        state.Start(vessel);
+    }
+
+    private void UpdateVessel(VesselComponent vessel)
     {
         var vesselId = vessel.GlobalId;
-        if (!_vesselsState.TryGetValue(vesselId, out var state))
-        {
-            state = new VesselObservedState();
-            _vesselsState.Add(vesselId, state);
-            return;
-        }
+        var state = GetVesselObservedState(vesselId);
 
         var triggeredMessages = state.Update(vessel, out var hasChanged);
         if (!hasChanged) return;
@@ -107,6 +112,7 @@ public class VesselsStateObserver : MonoBehaviour
         var vessel = vesselChangedMessage?.Vessel;
         if (vessel == null) return;
         Logger.LogInfo("Vessel changed to: " + vessel.Name);
+        StartObservingVessel(vessel);
         UpdateVessel(vessel);
     }
 

@@ -12,6 +12,12 @@ public abstract class VesselObservedProperty<T>
 
     public abstract T GetValue(VesselComponent vessel);
 
+    /// <summary>
+    /// Can be used to initialize the property, called when the vessel is first
+    /// observed or when it's changed.
+    /// </summary>
+    public virtual void Start(VesselComponent vessel) { }
+
     public bool Update(VesselComponent vessel, out WingVesselUpdatedMessage? message)
     {
         PreviousValue = Value;
@@ -28,5 +34,5 @@ public abstract class VesselObservedProperty<T>
         return false;
     }
 
-    public abstract WingVesselUpdatedMessage CreateTriggeredMessage(VesselComponent vessel);
+    protected abstract WingVesselUpdatedMessage CreateTriggeredMessage(VesselComponent vessel);
 }

@@ -91,4 +91,21 @@ public static class VesselPartsAnalyzer
 
         return state;
     }
+
+    public static List<Data_WheelBase> GetRoverWheels(VesselComponent vessel)
+    {
+        var parts = vessel.SimulationObject.PartOwner.Parts;
+        List<Data_WheelBase> wheels = [];
+
+        foreach (var part in parts)
+        {
+            if (!part.TryGetModuleData<PartComponentModule_WheelBase, Data_WheelBase>(out var dataWheel)) continue;
+            // I'd like to check for `IsGrounded` but here we can't do that,
+            // since this is called just OnStart, and the vessel may not yet be
+            // on the ground.
+            if (dataWheel.WheelType == WheelType.MOTORIZED) wheels.Add(dataWheel);
+        }
+
+        return wheels;
+    }
 }
