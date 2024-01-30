@@ -4,6 +4,7 @@ using KSP.Sim.impl;
 using Unity.Mathematics;
 using WayfarersWings.Managers.Analyzers;
 using WayfarersWings.Managers.Messages;
+using WayfarersWings.Managers.Observer.Properties.Events;
 
 namespace WayfarersWings.Managers.Observer.Properties;
 

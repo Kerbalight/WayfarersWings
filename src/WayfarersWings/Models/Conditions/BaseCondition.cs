@@ -5,6 +5,7 @@ namespace WayfarersWings.Models.Conditions;
 
 [Serializable]
 [ConditionType("Vessel", typeof(VesselCondition))]
+[ConditionType("Atmosphere", typeof(AtmosphereCondition))]
 [ConditionType("Docking", typeof(DockingCondition))]
 [ConditionType("Orbit", typeof(OrbitCondition))]
 [ConditionType("KerbalEVA", typeof(KerbalEVACondition))]

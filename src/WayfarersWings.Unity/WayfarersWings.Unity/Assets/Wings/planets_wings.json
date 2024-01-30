@@ -52,6 +52,42 @@
       }
     },
     {
+      "name": "deep_atmosphere",
+      "celestialBody": {
+        "requires": [
+          "IsGasGiant"
+        ]
+      },
+      "hasFirst": {
+        "imageLayer": "Assets/Wings/Layers/first.png"
+      },
+      "template": {
+        "name": "orbit",
+        "displayName": "WayfarersWings/Ribbons/DeepAtmosphereName",
+        "imageLayers": [
+          "Assets/Wings/Layers/deep_atmo.png"
+        ],
+        "description": "WayfarersWings/Ribbons/DeepAtmosphere",
+        "triggers": [],
+        "points": 90,
+        "conditions": [
+          {
+            "type": "SphereOfInfluence",
+            "celestialBody": null
+          },
+          {
+            "type": "Vessel",
+            "situation": "Flying",
+            "minAltitudeSurface": 10
+          },
+          {
+            "type": "Atmosphere",
+            "minAtmDensity": 10
+          }
+        ]
+      }
+    },
+    {
       "name": "eva_orbit",
       "celestialBody": {
         "requires": []

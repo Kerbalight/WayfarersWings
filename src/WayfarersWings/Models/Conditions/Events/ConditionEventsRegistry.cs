@@ -6,6 +6,7 @@ using KSP.Sim.impl;
 using WayfarersWings.Managers;
 using WayfarersWings.Managers.Messages;
 using WayfarersWings.Managers.Observer;
+using WayfarersWings.Managers.Observer.Properties.Events;
 using WayfarersWings.Models.Session;
 using WayfarersWings.Models.Wings;
 using WayfarersWings.Utility;
@@ -34,7 +35,9 @@ public class ConditionEventsRegistry
         Messages.PersistentSubscribe<VesselDockedMessage>(OnVesselDocked);
 
         // Vessel Observer
-        Messages.PersistentSubscribe<WingVesselGeeForceUpdatedMessage>(OnVesselGeeForceUpdatedMessage);
+        Messages.PersistentSubscribe<WingVesselGeeForceUpdatedMessage>(OnWingVesselUpdatedMessage);
+        Messages.PersistentSubscribe<WingVesselHasMovedOnSurfaceUpdatedMessage>(OnWingVesselUpdatedMessage);
+        Messages.PersistentSubscribe<WingVesselAtmDensityUpdatedMessage>(OnWingVesselUpdatedMessage);
 
         // EVA
         Messages.PersistentSubscribe<EVAEnteredMessage>(OnEVAEnteredMessage);
@@ -121,10 +124,10 @@ public class ConditionEventsRegistry
         AchievementsOrchestrator.DispatchTransaction(transaction);
     }
 
-    private static void OnVesselGeeForceUpdatedMessage(MessageCenterMessage message)
+    private static void OnWingVesselUpdatedMessage(MessageCenterMessage message)
     {
-        var geeForceMessage = (WingVesselGeeForceUpdatedMessage)message;
-        var transaction = new Transaction(geeForceMessage, geeForceMessage.Vessel);
+        var updatedMessage = (WingVesselUpdatedMessage)message;
+        var transaction = new Transaction(updatedMessage, updatedMessage.Vessel);
         AchievementsOrchestrator.DispatchTransaction(transaction);
     }
 

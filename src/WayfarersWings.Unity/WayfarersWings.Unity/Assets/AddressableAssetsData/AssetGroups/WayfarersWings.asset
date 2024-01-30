@@ -395,6 +395,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - wayfarer_wings_images
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 505426fe1b4cd3049b14a0781053fb60
+    m_Address: Assets/Wings/Layers/rover.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e97fd7e07571e374ebcd59410389de0c
+    m_Address: Assets/Wings/Layers/deep_atmo.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 7acedfa7dee9c3b488422ff7becd6a57, type: 2}
   m_SchemaSet:

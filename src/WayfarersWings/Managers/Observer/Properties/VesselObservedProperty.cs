@@ -1,5 +1,6 @@
 ﻿using KSP.Sim.impl;
 using WayfarersWings.Managers.Messages;
+using WayfarersWings.Managers.Observer.Properties.Events;
 
 namespace WayfarersWings.Managers.Observer.Properties;
 

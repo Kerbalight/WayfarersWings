@@ -1,5 +1,6 @@
 ﻿using KSP.Messages;
 using WayfarersWings.Managers.Messages;
+using WayfarersWings.Managers.Observer.Properties.Events;
 using WayfarersWings.Models.Conditions.Events;
 using WayfarersWings.Models.Wings;
 

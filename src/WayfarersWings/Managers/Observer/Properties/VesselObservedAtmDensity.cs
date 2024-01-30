@@ -1,19 +1,21 @@
-﻿using KSP.Game;
-using KSP.Sim.impl;
+﻿using KSP.Sim.impl;
 using WayfarersWings.Managers.Messages;
 using WayfarersWings.Managers.Observer.Properties.Events;
 
 namespace WayfarersWings.Managers.Observer.Properties;
 
-public class VesselObservedGeeForce : VesselObservedProperty<int>
+/// <summary>
+/// Atmospheric density, rounded to int
+/// </summary>
+public class VesselObservedAtmDensity : VesselObservedProperty<int>
 {
     public override int GetValue(VesselComponent vessel)
     {
-        return (int)vessel.geeForce;
+        return (int)vessel.AtmDensity;
     }
 
     protected override WingVesselUpdatedMessage CreateTriggeredMessage(VesselComponent vessel)
     {
-        return new WingVesselGeeForceUpdatedMessage(vessel, Value);
+        return new WingVesselAtmDensityUpdatedMessage(vessel, Value);
     }
 }

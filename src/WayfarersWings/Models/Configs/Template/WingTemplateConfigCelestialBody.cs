@@ -14,6 +14,7 @@ public enum CelestialBodyVariantFlag
     IsMoon,
     IsPlanet,
     IsStar,
+    IsGasGiant,
 }
 
 [Serializable]
@@ -37,6 +38,7 @@ public class WingTemplateConfigCelestialBody
                 CelestialBodyVariantFlag.IsMoon => celestialBody.referenceBody?.IsStar == false,
                 CelestialBodyVariantFlag.IsPlanet => celestialBody.referenceBody?.IsStar == true,
                 CelestialBodyVariantFlag.IsStar => celestialBody.IsStar,
+                CelestialBodyVariantFlag.IsGasGiant => celestialBody is { hasSolidSurface: false, IsStar: false },
                 _ => throw new ArgumentOutOfRangeException()
             };
 
