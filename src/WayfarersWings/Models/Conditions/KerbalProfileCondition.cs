@@ -65,7 +65,7 @@ public class KerbalProfileCondition : BaseCondition
 
         if (minEvaTime.HasValue && !(profile.lastEvaTime >= minEvaTime.Value.Seconds))
             return false;
-        if (minEvaSpaceTime.HasValue && !(profile.lastEvaEnteredAt >= minEvaSpaceTime.Value.Seconds))
+        if (minEvaSpaceTime.HasValue && !(profile.lastEvaSpaceTime >= minEvaSpaceTime.Value.Seconds))
             return false;
         if (minTotalEvaTime.HasValue && !(profile.TotalEvaTime >= minTotalEvaTime.Value.Seconds))
             return false;

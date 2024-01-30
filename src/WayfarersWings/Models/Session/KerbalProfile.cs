@@ -73,6 +73,8 @@ public class KerbalProfile : IJsonSaved
 
     public double? lastEvaEnteredAt;
     public double lastEvaTime = 0;
+    public double lastEvaSpaceTime = 0;
+    public double lastEvaAtmosphereTime = 0;
     public double totalEvaSpaceTime = 0;
     public double totalEvaAtmosphereTime = 0;
 
@@ -314,9 +316,15 @@ public class KerbalProfile : IJsonSaved
         var evaTime = Core.GetUniverseTime() - lastEvaEnteredAt.Value;
 
         if (kerbalVessel.IsInAtmosphere)
+        {
+            lastEvaAtmosphereTime = evaTime;
             totalEvaAtmosphereTime += evaTime;
+        }
         else
+        {
+            lastEvaSpaceTime = evaTime;
             totalEvaSpaceTime += evaTime;
+        }
 
         lastEvaTime = evaTime;
         lastEvaEnteredAt = null;
