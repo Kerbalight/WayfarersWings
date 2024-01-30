@@ -156,7 +156,8 @@ public class KerbalProfile : IJsonSaved
             foreach (var awarded in _entries)
             {
                 if (awarded.Wing.config.chain != wing.config.chain ||
-                    awarded.Wing.config.points >= wing.config.points) continue;
+                    awarded.Wing.config.points >= wing.config.points ||
+                    awarded.isSuperseeded) continue;
 
                 awarded.isSuperseeded = true;
                 totalPoints -= awarded.Wing.config.points;
