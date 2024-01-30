@@ -297,6 +297,8 @@ public class KerbalProfile : IJsonSaved
         Logger.LogDebug($"Started EVA for {KerbalInfo.Attributes.GetFullName()}");
     }
 
+    public bool IsInEVA => lastEvaEnteredAt.HasValue;
+
     /// <summary>
     /// Updates EVA times
     /// </summary>

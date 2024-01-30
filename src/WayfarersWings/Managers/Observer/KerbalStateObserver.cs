@@ -61,8 +61,11 @@ public class KerbalStateObserver
         RunAndDispatchForKerbalsInVessel(
             message,
             vesselComponent,
-            profile => profile.CompleteMission(vesselComponent!)
-        );
+            profile =>
+            {
+                if (profile.IsInEVA) profile.CompleteEVA(vesselComponent!);
+                profile.CompleteMission(vesselComponent!);
+            });
     }
 
     #endregion
