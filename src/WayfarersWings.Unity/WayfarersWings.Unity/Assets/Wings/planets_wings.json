@@ -181,6 +181,41 @@
       }
     },
     {
+      "name": "docked",
+      "celestialBody": {
+        "requires": []
+      },
+      "hasFirst": {
+        "imageLayer": "Assets/Wings/Layers/first.png"
+      },
+      "template": {
+        "name": "landed",
+        "displayName": "WayfarersWings/Ribbons/DockedName",
+        "imageLayers": [
+          "Assets/Wings/Layers/vessel.png",
+          "Assets/Wings/Layers/orbit.png",
+          "Assets/Wings/Layers/docking.png"
+        ],
+        "description": "WayfarersWings/Ribbons/Docked",
+        "triggers": [],
+        "points": 55,
+        "conditions": [
+          {
+            "type": "SphereOfInfluence",
+            "celestialBody": null
+          },
+          {
+            "type": "Orbit",
+            "isStable": true
+          },
+          {
+            "type": "Docking",
+            "isRightAfterDocking": true
+          }
+        ]
+      }
+    },
+    {
       "name": "eva_ground",
       "celestialBody": {
         "requires": [

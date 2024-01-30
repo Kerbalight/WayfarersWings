@@ -6,6 +6,7 @@ using KSP.Sim.impl;
 using WayfarersWings.Managers;
 using WayfarersWings.Managers.Messages;
 using WayfarersWings.Managers.Observer;
+using WayfarersWings.Models.Session;
 using WayfarersWings.Models.Wings;
 using WayfarersWings.Utility;
 
@@ -30,6 +31,7 @@ public class ConditionEventsRegistry
         Messages.PersistentSubscribe<VesselLandedGroundAtRestMessage>(OnVesselLandedGroundAtRestMessage);
         Messages.PersistentSubscribe<VesselLandedWaterAtRestMessage>(OnVesselLandedWaterAtRestMessage);
         Messages.PersistentSubscribe<VesselRecoveredMessage>(OnVesselRecovered);
+        Messages.PersistentSubscribe<VesselDockedMessage>(OnVesselDocked);
 
         // Vessel Observer
         Messages.PersistentSubscribe<WingVesselGeeForceUpdatedMessage>(OnVesselGeeForceUpdatedMessage);
@@ -173,6 +175,20 @@ public class ConditionEventsRegistry
 
         // Show flight report summary
         Messages.Publish(new WingMissionCompletedMessage(vessel));
+    }
+
+    private static void OnVesselDocked(MessageCenterMessage message)
+    {
+        var dockedMessage = (VesselDockedMessage)message;
+        var dockerVesselId = dockedMessage.VesselOne.SimObjectComponent.SimulationObject.GlobalId;
+        var dockerVessel = Core.UniverseModel?.FindVesselComponent(dockerVesselId);
+
+        var dockeeVesselId = dockedMessage.VesselTwo.SimObjectComponent.SimulationObject.GlobalId;
+        // var dockeeVessel = Core.UniverseModel?.FindVesselComponent(dockeeVesselId);
+
+        var transaction = new Transaction(dockedMessage, dockerVessel);
+        transaction.NearbyKerbals.AddRange(WingsSessionManager.Roster.GetAllKerbalsInVessel(dockeeVesselId));
+        AchievementsOrchestrator.DispatchTransaction(transaction);
     }
 
     #endregion

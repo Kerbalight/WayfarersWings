@@ -389,6 +389,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - wayfarer_wings_ui
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e58218dfa9b6bba43abff9f46c421d56
+    m_Address: Assets/Wings/Layers/docking.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 7acedfa7dee9c3b488422ff7becd6a57, type: 2}
   m_SchemaSet:
