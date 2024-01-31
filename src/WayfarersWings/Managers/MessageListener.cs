@@ -42,6 +42,9 @@ public class MessageListener
         Core.Instance.WingsPool.LoadRegisteredConfigs();
         // Load GameData
         SaveManager.Instance.LoadGameDataInSession();
+        // Rebuild the UI
+        MainUIManager.Instance.AppWindow.Refresh();
+        MainUIManager.Instance.KerbalWindow.IsWindowOpen = false;
     }
 
     private static void HideWindowOnInvalidState(MessageCenterMessage message)
