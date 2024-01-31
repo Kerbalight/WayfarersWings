@@ -1,17 +1,16 @@
 ﻿using KSP.Sim.impl;
-using WayfarersWings.Managers.Messages;
 using WayfarersWings.Managers.Observer.Properties.Events;
 
-namespace WayfarersWings.Managers.Observer.Properties;
+namespace WayfarersWings.Managers.Observer.Properties.Types;
 
 public abstract class VesselObservedProperty<T>
 {
-    public T Value { get; private set; }
-    public T PreviousValue { get; private set; }
+    public T? Value { get; private set; }
+    public T? PreviousValue { get; private set; }
 
-    public bool HasChanged => !Value?.Equals(PreviousValue) ?? false;
+    public virtual bool HasChanged => !Value?.Equals(PreviousValue) ?? false;
 
-    public abstract T GetValue(VesselComponent vessel);
+    protected abstract T GetValue(VesselComponent vessel);
 
     /// <summary>
     /// Can be used to initialize the property, called when the vessel is first

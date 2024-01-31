@@ -1,4 +1,7 @@
-﻿using WayfarersWings.Managers.Observer.Properties.Events;
+﻿using WayfarersWings.Managers.Observer;
+using WayfarersWings.Managers.Observer.Properties;
+using WayfarersWings.Managers.Observer.Properties.Events;
+using WayfarersWings.Managers.Observer.Properties.Types;
 using WayfarersWings.Models.Conditions.Events;
 using WayfarersWings.Models.Wings;
 
@@ -18,5 +21,13 @@ public class AtmosphereCondition : BaseCondition
             return false;
 
         return true;
+    }
+
+    public override void Configure()
+    {
+        if (minAtmDensity.HasValue)
+            VesselsStateObserver.Instance.ObservePropertyAtPoint<VesselObservedAtmDensity>(minAtmDensity.Value);
+        if (maxAtmDensity.HasValue)
+            VesselsStateObserver.Instance.ObservePropertyAtPoint<VesselObservedAtmDensity>(maxAtmDensity.Value);
     }
 }

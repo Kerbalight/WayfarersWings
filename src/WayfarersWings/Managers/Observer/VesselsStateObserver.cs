@@ -4,6 +4,7 @@ using KSP.Game;
 using KSP.Messages;
 using KSP.Sim.impl;
 using UnityEngine;
+using WayfarersWings.Managers.Observer.Properties.Types;
 
 namespace WayfarersWings.Managers.Observer;
 
@@ -13,6 +14,15 @@ public class VesselsStateObserver : MonoBehaviour
         BepInEx.Logging.Logger.CreateLogSource("WayfarersWings.VesselsStateObserver");
 
     public static VesselsStateObserver Instance { get; set; } = null!;
+
+    /// <summary>
+    /// Keep track of discrete quantization of specific vessel properties.
+    /// Wing conditions requires theses properties to be quantized, e.g. > 10,
+    /// then each time the property is updated, we need to check if the condition
+    /// "crossed" the threshold.
+    /// Only if it crossed the threshold, we trigger the condition.
+    /// </summary>
+    public Dictionary<Type, List<int>> PropertiesDiscretePoints = new();
 
     /// <summary>
     /// If the vessel changed, this is the previous vessel.
@@ -43,6 +53,9 @@ public class VesselsStateObserver : MonoBehaviour
         return GetVesselObservedState(vessel.GlobalId);
     }
 
+    /// <summary>
+    /// When a vessel is first observed, we need to initialize its observed state.
+    /// </summary>
     private void StartObservingVessel(VesselComponent vessel)
     {
         var state = GetVesselObservedState(vessel);
@@ -60,7 +73,7 @@ public class VesselsStateObserver : MonoBehaviour
         foreach (var message in triggeredMessages)
         {
             Logger.LogDebug($"[vessel={message.Vessel.Name}] Found difference, triggering message: " +
-                            message.GetType().Name + ", message=" + message);
+                            message.GetType().Name);
             Core.Messages.Publish(message.GetType(), message);
         }
     }
@@ -129,4 +142,16 @@ public class VesselsStateObserver : MonoBehaviour
         }
         // ReSharper disable once IteratorNeverReturns
     }
+
+    #region Discrete quantization
+
+    // I really don't like this, but I can't think of a smarter way to do it.
+    public void ObservePropertyAtPoint<T>(int point) where T : VesselObservedDiscreteProperty
+    {
+        var type = typeof(T);
+        if (!PropertiesDiscretePoints.ContainsKey(type)) PropertiesDiscretePoints[type] = [];
+        PropertiesDiscretePoints[type].Add(point);
+    }
+
+    #endregion
 }

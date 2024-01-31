@@ -1,17 +1,18 @@
 ﻿using KSP.Sim.impl;
 using WayfarersWings.Managers.Messages;
 using WayfarersWings.Managers.Observer.Properties.Events;
+using WayfarersWings.Managers.Observer.Properties.Types;
 
 namespace WayfarersWings.Managers.Observer.Properties;
 
 /// <summary>
-/// Atmospheric density, rounded to int
+/// Atmospheric density, expressed in mg/L, rounded to int
 /// </summary>
-public class VesselObservedAtmDensity : VesselObservedProperty<int>
+public class VesselObservedAtmDensity : VesselObservedDiscreteProperty
 {
-    public override int GetValue(VesselComponent vessel)
+    protected override int GetValue(VesselComponent vessel)
     {
-        return (int)vessel.AtmDensity;
+        return (int)(vessel.AtmDensity * 1000);
     }
 
     protected override WingVesselUpdatedMessage CreateTriggeredMessage(VesselComponent vessel)
