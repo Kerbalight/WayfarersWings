@@ -31,15 +31,14 @@ public class OrbitCondition : BaseCondition
         if (minEccentricity != null && transaction.Vessel?.Orbit.eccentricity < minEccentricity)
             return false;
 
-        // Avoid triggering on orbits that are too low
-        if (transaction.Vessel?.AltitudeFromTerrain < 100 || transaction.Vessel?.Splashed == true ||
+        // Avoid triggering on orbits that are too low. We can't check for exact 0 since this mean just the telemetry isn't initialized
+        if ((transaction.Vessel?.AltitudeFromTerrain < 100 && transaction.Vessel?.AltitudeFromTerrain != 0) ||
+            transaction.Vessel?.Splashed == true ||
             transaction.Vessel?.Landed == true)
             return false;
 
         return true;
     }
 
-    public override void Configure()
-    {
-    }
+    public override void Configure() { }
 }

@@ -11,7 +11,7 @@ public class DockingCondition : BaseCondition
 
     public override bool IsValid(Transaction transaction)
     {
-        if (isRightAfterDocking.HasValue && transaction.Message is not VesselDockedMessage dockedMessage)
+        if (isRightAfterDocking.HasValue && transaction.Message is not VesselDockedMessage)
             return false;
 
         return true;
