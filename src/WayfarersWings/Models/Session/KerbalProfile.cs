@@ -87,14 +87,15 @@ public class KerbalProfile : IJsonSaved
     public double TotalEvaTime => totalEvaSpaceTime + totalEvaAtmosphereTime;
 
     [JsonIgnore]
-    public KerbalInfo KerbalInfo
+    public KerbalInfo? KerbalInfo
     {
         get
         {
-            if (!WingsSessionManager.Roster.TryGetKerbalByID(kerbalId, out var kerbalInfo))
-                throw new Exception("Failed to find KerbalInfo for " + kerbalId);
+            if (WingsSessionManager.Roster.TryGetKerbalByID(kerbalId, out var kerbalInfo))
+                return kerbalInfo;
 
-            return kerbalInfo;
+            Logger.LogInfo("Failed to find KerbalInfo for " + kerbalId + ", setting as dead");
+            return null;
         }
     }
 
@@ -133,7 +134,7 @@ public class KerbalProfile : IJsonSaved
     public KerbalStatus GetStatus()
     {
         if (!WingsSessionManager.Roster.TryGetKerbalByID(kerbalId, out var kerbalInfo))
-            return KerbalStatus.Unknown;
+            return KerbalStatus.Dead;
 
         if (kerbalInfo.Location.SimObjectId.Equals(WingsSessionManager.Roster.KSCGuid))
             return KerbalStatus.Available;
@@ -172,7 +173,7 @@ public class KerbalProfile : IJsonSaved
         UpdateUnlockedWingCodes(wing);
         _entries.Add(entry);
         totalPoints += wing.config.points;
-        Logger.LogDebug($"Added wing {wing.config.name} to {KerbalInfo.Attributes.GetFullName()}");
+        Logger.LogDebug($"Added wing {wing.config.name} to {KerbalInfo?.Attributes.GetFullName()}");
 
         SortEntriesByPoints();
     }
@@ -213,7 +214,7 @@ public class KerbalProfile : IJsonSaved
         }
 
         SortEntriesByPoints();
-        Logger.LogDebug($"Revoked wing {wing.config.name} to {KerbalInfo.Attributes.GetFullName()}");
+        Logger.LogDebug($"Revoked wing {wing.config.name} to {KerbalInfo?.Attributes.GetFullName()}");
     }
 
     /// <summary>
@@ -262,14 +263,14 @@ public class KerbalProfile : IJsonSaved
         // Cleanup
         lastEvaEnteredAt = null;
         lastLaunchedAt = null;
-        Logger.LogDebug($"Started mission for {KerbalInfo.Attributes.GetFullName()}");
+        Logger.LogDebug($"Started mission for {KerbalInfo?.Attributes.GetFullName()}");
     }
 
     public void LaunchMission(VesselComponent vessel)
     {
         lastLaunchedAt = Core.GetUniverseTime();
         lastMissionLaunchedAt = lastLaunchedAt;
-        Logger.LogDebug($"Launched mission for {KerbalInfo.Attributes.GetFullName()}");
+        Logger.LogDebug($"Launched mission for {KerbalInfo?.Attributes.GetFullName()}");
     }
 
     /// <summary>
@@ -290,13 +291,13 @@ public class KerbalProfile : IJsonSaved
 
         lastLaunchedAt = null;
 
-        Logger.LogDebug($"Added {lastMissionTime}s mission time to {KerbalInfo.Attributes.GetFullName()}");
+        Logger.LogDebug($"Added {lastMissionTime}s mission time to {KerbalInfo?.Attributes.GetFullName()}");
     }
 
     public void StartEVA(VesselComponent kerbalVessel)
     {
         lastEvaEnteredAt = Core.GetUniverseTime();
-        Logger.LogDebug($"Started EVA for {KerbalInfo.Attributes.GetFullName()}");
+        Logger.LogDebug($"Started EVA for {KerbalInfo?.Attributes.GetFullName()}");
     }
 
     public bool IsInEVA => lastEvaEnteredAt.HasValue;
@@ -329,7 +330,7 @@ public class KerbalProfile : IJsonSaved
         lastEvaTime = evaTime;
         lastEvaEnteredAt = null;
 
-        Logger.LogDebug($"Added {evaTime}s EVA time to {KerbalInfo.Attributes.GetFullName()}");
+        Logger.LogDebug($"Added {evaTime}s EVA time to {KerbalInfo?.Attributes.GetFullName()}");
     }
 
     #endregion
@@ -348,7 +349,7 @@ public class KerbalProfile : IJsonSaved
             if (!Core.Instance.WingsPool.TryGetWingByCode(entry.wingCode, out entry.Wing))
             {
                 Logger.LogWarning(
-                    $"[kerbal={kerbalInfo.Attributes.GetFullName()}] Failed to find wing with code '{entry.wingCode}'");
+                    $"[kerbal={kerbalInfo?.Attributes.GetFullName()}] Failed to find wing with code '{entry.wingCode}'");
                 _errored.Add(entry);
                 continue;
             }
