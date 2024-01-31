@@ -5,5 +5,5 @@ namespace WayfarersWings.Models.Configs.Template;
 [Serializable]
 public class WingTemplateConfigRanked
 {
-    public List<WingConfig> partials;
+    public List<WingConfig>? partials;
 }

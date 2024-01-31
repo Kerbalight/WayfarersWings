@@ -368,7 +368,7 @@ public class KerbalProfile : IJsonSaved
         SortEntriesByPoints();
 
         Logger.LogInfo(
-            $"[kerbal={kerbalInfo.Attributes.GetFullName()}] Loaded {Entries.Count()} wings for a total of {totalPoints} points");
+            $"[kerbal={kerbalInfo?.Attributes.GetFullName()}] Loaded {Entries.Count()} wings for a total of {totalPoints} points");
     }
 
     public void OnBeforeGameSave()

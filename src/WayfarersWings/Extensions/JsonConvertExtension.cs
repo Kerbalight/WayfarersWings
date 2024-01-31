@@ -26,7 +26,7 @@ public static class JsonConvertExtension
     public static T Clone<T>(this T source)
     {
         var serialized = JsonConvert.SerializeObject(source);
-        return JsonConvert.DeserializeObject<T>(serialized);
+        return JsonConvert.DeserializeObject<T>(serialized)!;
     }
 
     public static JsonReader CopyReaderForObject(JsonReader reader, JToken jToken)

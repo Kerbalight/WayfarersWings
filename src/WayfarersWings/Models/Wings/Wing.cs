@@ -6,13 +6,13 @@ namespace WayfarersWings.Models.Wings;
 
 public class Wing
 {
-    private readonly static ManualLogSource Logger = BepInEx.Logging.Logger.CreateLogSource("WayfarersWings.Wing");
+    private static readonly ManualLogSource Logger = BepInEx.Logging.Logger.CreateLogSource("WayfarersWings.Wing");
 
     // ReSharper disable once InconsistentNaming
     public WingConfig config { get; set; }
 
-    public string DisplayName { get; set; }
-    public string Description { get; set; }
+    public string DisplayName { get; set; } = null!;
+    public string Description { get; set; } = null!;
 
     private readonly List<BaseCondition> _conditions = [];
 

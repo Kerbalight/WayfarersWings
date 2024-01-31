@@ -50,7 +50,7 @@ public class UIAddressableAction<T> : FlowAction where T : UnityEngine.Object
             catch (Exception ex)
             {
                 Debug.LogError((object)ex.ToString());
-                reject((string)null);
+                reject((string)null!);
             }
         }
     }

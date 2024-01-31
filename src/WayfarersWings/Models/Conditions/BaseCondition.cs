@@ -15,7 +15,7 @@ namespace WayfarersWings.Models.Conditions;
 [ConditionType("SphereOfInfluence", typeof(SphereOfInfluenceCondition))]
 public abstract class BaseCondition
 {
-    public string type;
+    public string type = null!;
 
     public void Register() { }
 

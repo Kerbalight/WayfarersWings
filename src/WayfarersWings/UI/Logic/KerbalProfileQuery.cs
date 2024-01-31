@@ -65,10 +65,10 @@ public static class KerbalProfileQuery
     /// <summary>
     /// All the functions available for sorting kerbal profiles.
     /// </summary>
-    private static List<(Sort, Func<string>, Func<KerbalProfile, KerbalProfile, int>)> Functions =
+    private static readonly List<(Sort, Func<string>, Func<KerbalProfile, KerbalProfile, int>)> Functions =
     [
         (Sort.ByName, () => LocalizedStrings.SortByName,
-            (a, b) => string.Compare(a.KerbalInfo.Attributes.GetFullName(), b.KerbalInfo.Attributes.GetFullName(),
+            (a, b) => string.Compare(a.KerbalInfo?.Attributes.GetFullName(), b.KerbalInfo?.Attributes.GetFullName(),
                 StringComparison.OrdinalIgnoreCase)),
         (Sort.ByPoints, () => LocalizedStrings.SortByPoints, (a, b) => a.totalPoints.CompareTo(b.totalPoints)),
     ];

@@ -1,11 +1,17 @@
-﻿namespace WayfarersWings.Models.Configs.Template;
+﻿using Newtonsoft.Json;
+
+namespace WayfarersWings.Models.Configs.Template;
 
 [Serializable]
 public class WingTemplateConfig
 {
-    public string name;
+    [JsonRequired]
+    public string name = null!;
+
     public WingTemplateConfigCelestialBody? celestialBody;
     public WingTemplateConfigHasFirst? hasFirst;
     public WingTemplateConfigRanked? ranked;
-    public WingConfig template;
+
+    [JsonRequired]
+    public WingConfig template = null!;
 }

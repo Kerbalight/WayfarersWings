@@ -11,12 +11,12 @@ namespace WayfarersWings.Models.Session;
 public class KerbalWingEntry : IJsonSaved
 {
     [JsonIgnore]
-    public Wing Wing;
+    public Wing Wing = null!;
 
     [JsonIgnore]
     public IGGuid KerbalId;
 
-    public string wingCode;
+    public string wingCode = null!;
     public DateTime unlockedAt;
     public double universeTime;
     public bool isSuperseeded;

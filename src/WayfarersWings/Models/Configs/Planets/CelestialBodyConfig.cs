@@ -3,8 +3,8 @@
 [Serializable]
 public class CelestialBodyConfig
 {
-    public string name;
-    public string code;
-    public string imageLayer;
+    public string name = null!;
+    public string code = null!;
+    public string imageLayer = null!;
     public int points;
 }

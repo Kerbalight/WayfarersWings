@@ -7,8 +7,8 @@ public static class DateTimeLogic
 {
     private static int _daysInYear;
     private static int _hoursInDay;
-    private static string _dateTimeFormat = "{0}Y {1}D {2:00}:{3:00}:{4:00}.{5:0.000}";
-    private static string _dateTimeFormatLocalised;
+    private const string DateTimeFormat = "{0}Y {1}D {2:00}:{3:00}:{4:00}.{5:0.000}";
+    private static string _dateTimeFormatLocalised = null!;
     private static bool _isInitialized;
 
     private static void Initialize()
@@ -17,9 +17,9 @@ public static class DateTimeLogic
 
         _daysInYear = PhysicsSettings.DaysInYear;
         _hoursInDay = PhysicsSettings.HoursInDay;
-        if (LocalizationManager.TryGetTranslation(_dateTimeFormat, out _dateTimeFormatLocalised))
+        if (LocalizationManager.TryGetTranslation(DateTimeFormat, out _dateTimeFormatLocalised))
             return;
-        _dateTimeFormatLocalised = _dateTimeFormat;
+        _dateTimeFormatLocalised = DateTimeFormat;
     }
 
     public static string FormatUniverseTime(double ut)

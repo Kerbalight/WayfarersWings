@@ -5,6 +5,7 @@ using Unity.Mathematics;
 using WayfarersWings.Managers.Analyzers;
 using WayfarersWings.Managers.Messages;
 using WayfarersWings.Managers.Observer.Properties.Events;
+using WayfarersWings.Managers.Observer.Properties.Types;
 
 namespace WayfarersWings.Managers.Observer.Properties;
 
@@ -40,7 +41,7 @@ public class VesselObservedHasMovedOnSurface : VesselObservedProperty<bool>
         Logger.LogDebug($"Vessel {vessel.Name} has {_cachedWheels.Count} wheels");
     }
 
-    public override bool GetValue(VesselComponent vessel)
+    protected override bool GetValue(VesselComponent vessel)
     {
         if (!_hasWheels || vessel.Situation != VesselSituations.Landed) return false;
         foreach (var dataWheel in _cachedWheels)

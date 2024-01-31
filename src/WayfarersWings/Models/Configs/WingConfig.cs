@@ -20,7 +20,7 @@ public class WingConfig
 
     public bool isFirst = false;
 
-    public bool? hasDisplayNameFirstAlready;
+    public bool? hasDisplayNameFirstAlready = null;
 
     /// The name of the wing as it will be displayed in the UI. This will be translated.
     public string displayName = "";

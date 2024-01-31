@@ -34,7 +34,7 @@ public class WayfarersWingsPlugin : BaseSpaceWarpPlugin
 
     /// Singleton instance of the plugin class
     [PublicAPI]
-    public static WayfarersWingsPlugin Instance { get; set; }
+    public static WayfarersWingsPlugin Instance { get; set; } = null!;
 
     // AppBar button IDs
     internal const string ToolbarFlightButtonID = "BTN-WayfarersWingsFlight";

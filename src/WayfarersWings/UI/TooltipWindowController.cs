@@ -6,7 +6,7 @@ namespace WayfarersWings.UI;
 
 public class TooltipWindowController : MonoBehaviour
 {
-    private UIDocument _window;
+    private UIDocument _window = null!;
 
     public static WindowOptions WindowOptions = new()
     {
@@ -21,9 +21,9 @@ public class TooltipWindowController : MonoBehaviour
     };
 
     // The elements of the window that we need to access
-    private VisualElement _root;
-    private VisualElement _tooltip;
-    private Label _tooltipText;
+    private VisualElement _root = null!;
+    private VisualElement _tooltip = null!;
+    private Label _tooltipText = null!;
 
     public void OnEnable()
     {
