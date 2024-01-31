@@ -169,8 +169,14 @@ public class WingsPool
     /// </summary>
     private void AddTemplateRanked(WingTemplateConfig templateConfig)
     {
-        Logger.LogInfo("Adding template " + templateConfig.name + " for ranked wings");
-        for (int i = 0; i < templateConfig.ranked!.partials.Count; i++)
+        if (templateConfig.ranked!.partials == null)
+        {
+            Logger.LogWarning($"Template {templateConfig.name} has no partials!");
+            return;
+        }
+
+        Logger.LogInfo($"Adding template {templateConfig.name} for ranked wings");
+        for (var i = 0; i < templateConfig.ranked!.partials.Count; i++)
         {
             var partialConfig = templateConfig.ranked.partials[i];
 
@@ -225,12 +231,12 @@ public class WingsPool
         if (wing.config.isFirst && wing.config.hasDisplayNameFirstAlready != true)
         {
             wing.DisplayName = LocalizedStrings.GetTranslationWithParams(LocalizedStrings.FirstTimeName,
-                new()
+                new Dictionary<string, string>
                 {
                     { "name", wing.DisplayName }
                 });
             wing.Description = LocalizedStrings.GetTranslationWithParams(LocalizedStrings.FirstTime,
-                new()
+                new Dictionary<string, string>
                 {
                     { "name", wing.DisplayName },
                     { "description", wing.Description }

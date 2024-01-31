@@ -4,5 +4,5 @@
 public class WingTemplateConfigHasFirst
 {
     public string? description;
-    public required string imageLayer;
+    public string imageLayer = null!;
 }
