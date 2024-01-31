@@ -30,17 +30,21 @@ public class AchievementsOrchestrator
         }
 
         var stopwatch = new Stopwatch();
+        var validWingsCount = 0;
         foreach (var wing in triggeredWings)
         {
             if (!wing.Check(transaction)) continue;
 
-            Logger.LogDebug($"Triggered wing {wing.config.name} for {messageName}");
+            validWingsCount++;
+            Logger.LogDebug($"Valid wing {wing.config.name} for {messageName}");
 
             var kerbals = transaction.GetKerbals();
             WingsSessionManager.Instance.AwardAll(wing, kerbals);
         }
 
         stopwatch.Stop();
-        Logger.LogDebug($"[batch] Triggered all wings in {stopwatch.ElapsedMilliseconds}ms for {messageName}");
+        if (validWingsCount > 0)
+            Logger.LogDebug(
+                $"[batch] {validWingsCount} valid wings in {stopwatch.ElapsedMilliseconds}ms for {messageName}");
     }
 }

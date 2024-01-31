@@ -8,6 +8,9 @@ namespace WayfarersWings.Managers.Observer.Properties;
 
 public class VesselObservedGeeForce : VesselObservedProperty<int>
 {
+    // Ignore the first 2G
+    public override bool HasChanged => Value != PreviousValue && Value >= 3;
+
     protected override int GetValue(VesselComponent vessel)
     {
         return (int)vessel.geeForce;
