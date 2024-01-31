@@ -44,10 +44,16 @@ public class VesselObservedHasMovedOnSurface : VesselObservedProperty<bool>
     protected override bool GetValue(VesselComponent vessel)
     {
         if (!_hasWheels || vessel.Situation != VesselSituations.Landed) return false;
+        var isGrounded = false;
         foreach (var dataWheel in _cachedWheels)
         {
-            if (!dataWheel.IsGrounded) return false;
+            if (!dataWheel.IsGrounded) continue;
+
+            isGrounded = true;
+            break;
         }
+
+        if (!isGrounded) return false;
 
         if (_lastGroundPosition.IsZero())
         {
