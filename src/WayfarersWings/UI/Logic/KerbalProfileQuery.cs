@@ -48,8 +48,8 @@ public static class KerbalProfileQuery
             if (!string.IsNullOrEmpty(selectedNameSearch))
             {
                 profiles.RemoveAll(profile => !profile
-                    .KerbalInfo.Attributes.GetFullName()
-                    .Contains(selectedNameSearch, StringComparison.OrdinalIgnoreCase));
+                    .KerbalInfo?.Attributes.GetFullName()
+                    .Contains(selectedNameSearch, StringComparison.OrdinalIgnoreCase) ?? false);
             }
 
             var sorter = Functions.Find(fn => fn.Item1 == selectedSort);
