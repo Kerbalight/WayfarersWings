@@ -1,4 +1,5 @@
-﻿using KSP.Messages;
+﻿using KSP.Game;
+using KSP.Messages;
 using KSP.Modules;
 using KSP.Sim.DeltaV;
 using KSP.Sim.impl;
@@ -95,8 +96,15 @@ public class VesselCondition : BaseCondition
                 return false;
         }
 
-        if (isRightAfterLaunch.HasValue && transaction.Message is not VesselLaunchedMessage)
-            return false;
+        if (isRightAfterLaunch.HasValue)
+        {
+            // Check the specific message
+            if (transaction.Message is not VesselLaunchedMessage launchedMessage) return false;
+
+            // Furthermore we want to skip dockings & teleportations
+            if (!transaction.Vessel.HasLaunched || transaction.Vessel.HasTeleported) return false;
+        }
+
         if (isRightAfterLandingAtRest.HasValue && transaction.Message is not VesselLandedGroundAtRestMessage &&
             transaction.Message is not VesselLandedWaterAtRestMessage)
             return false;
@@ -118,12 +126,22 @@ public class VesselCondition : BaseCondition
             return false;
         if (isAtRest.HasValue && transaction.Vessel.IsVesselAtRest() != isAtRest)
             return false;
-        if (maxTimeFromLaunch.HasValue &&
-            !(Core.GetUniverseTime() - transaction.Vessel.launchTime < maxTimeFromLaunch.Value.Seconds))
-            return false;
-        if (minTimeFromLaunch.HasValue &&
-            !(Core.GetUniverseTime() - transaction.Vessel.launchTime > minTimeFromLaunch.Value.Seconds))
-            return false;
+
+        // For "launch" conditions, we want to check this is a true launch
+        if (maxTimeFromLaunch.HasValue || minTimeFromLaunch.HasValue)
+        {
+            // We need to check this since launchTime is reset after docking/undocking
+            if (transaction.Vessel.OriginalLaunchLocation == OABProvider.LaunchLocation.Invalid)
+                return false;
+            if (transaction.Vessel.HasTeleported) return false;
+
+            if (maxTimeFromLaunch.HasValue &&
+                !(Core.GetUniverseTime() - transaction.Vessel.launchTime < maxTimeFromLaunch.Value.Seconds))
+                return false;
+            if (minTimeFromLaunch.HasValue &&
+                !(Core.GetUniverseTime() - transaction.Vessel.launchTime > minTimeFromLaunch.Value.Seconds))
+                return false;
+        }
 
         if (minAltitudeSeaLevel.HasValue && !(transaction.Vessel.AltitudeFromSeaLevel > minAltitudeSeaLevel.Value))
             return false;

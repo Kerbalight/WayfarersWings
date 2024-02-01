@@ -87,6 +87,12 @@ public class KerbalProfile : IJsonSaved
     public double TotalEvaTime => totalEvaSpaceTime + totalEvaAtmosphereTime;
 
     [JsonIgnore]
+    public bool IsInEVA => lastEvaEnteredAt.HasValue;
+
+    [JsonIgnore]
+    public bool HasJustLaunched => lastLaunchedAt.HasValue && Core.GetUniverseTime() - lastLaunchedAt < 1;
+
+    [JsonIgnore]
     public KerbalInfo? KerbalInfo
     {
         get
@@ -266,8 +272,13 @@ public class KerbalProfile : IJsonSaved
         Logger.LogDebug($"Started mission for {KerbalInfo?.Attributes.GetFullName()}");
     }
 
-    public void LaunchMission(VesselComponent vessel)
+    public void UpdateOnVesselLaunched(VesselComponent vessel)
     {
+        // If we already launched, don't update the time. This happens when
+        // the vessel undocks from another vessel.
+        if (lastLaunchedAt.HasValue)
+            return;
+
         lastLaunchedAt = Core.GetUniverseTime();
         lastMissionLaunchedAt = lastLaunchedAt;
         Logger.LogDebug($"Launched mission for {KerbalInfo?.Attributes.GetFullName()}");
@@ -300,7 +311,6 @@ public class KerbalProfile : IJsonSaved
         Logger.LogDebug($"Started EVA for {KerbalInfo?.Attributes.GetFullName()}");
     }
 
-    public bool IsInEVA => lastEvaEnteredAt.HasValue;
 
     /// <summary>
     /// Updates EVA times

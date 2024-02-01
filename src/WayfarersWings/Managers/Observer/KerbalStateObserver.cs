@@ -52,7 +52,7 @@ public class KerbalStateObserver
         RunAndDispatchForKerbalsInVessel(
             message,
             vesselComponent,
-            profile => profile.LaunchMission(vesselComponent!)
+            profile => profile.UpdateOnVesselLaunched(vesselComponent!)
         );
     }
 
