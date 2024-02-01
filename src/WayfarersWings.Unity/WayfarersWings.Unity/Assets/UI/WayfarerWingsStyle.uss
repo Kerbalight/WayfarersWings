@@ -432,6 +432,12 @@
     color: var(--red);
 }
 
+.kerbal-status.kerbal-status--assigned-active {
+    -unity-background-image-tint-color: var(--blue-3);
+    color: var(--blue-3);
+}
+
+
 .secondary-label {
     font-size: 12px;
     padding-top: 0;

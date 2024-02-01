@@ -16,6 +16,7 @@ public enum KerbalStatus
     Unknown,
     Available,
     Assigned,
+    AssignedActive,
     Dead
 }
 
@@ -144,6 +145,10 @@ public class KerbalProfile : IJsonSaved
 
         if (kerbalInfo.Location.SimObjectId.Equals(WingsSessionManager.Roster.KSCGuid))
             return KerbalStatus.Available;
+
+        if (Core.ActiveVessel != null && WingsSessionManager.Roster.GetAllKerbalsInVessel(Core.ActiveVessel.GlobalId)
+                .Any(k => k.Id == kerbalId))
+            return KerbalStatus.AssignedActive;
 
         return KerbalStatus.Assigned;
     }
