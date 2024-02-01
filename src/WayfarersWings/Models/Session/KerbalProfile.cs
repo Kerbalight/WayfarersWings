@@ -84,6 +84,11 @@ public class KerbalProfile : IJsonSaved
     /// </summary>
     public bool isStarred = false;
 
+    /// <summary>
+    /// We store the full name here to avoid having to access the KerbalInfo
+    /// </summary>
+    public string? fullName;
+
     [JsonIgnore]
     public double TotalEvaTime => totalEvaSpaceTime + totalEvaAtmosphereTime;
 
@@ -101,7 +106,7 @@ public class KerbalProfile : IJsonSaved
             if (WingsSessionManager.Roster.TryGetKerbalByID(kerbalId, out var kerbalInfo))
                 return kerbalInfo;
 
-            Logger.LogInfo("Failed to find KerbalInfo for " + kerbalId + ", setting as dead");
+            Logger.LogInfo($"Failed to find KerbalInfo for {fullName} (id={kerbalId}), setting as dead");
             return null;
         }
     }
@@ -359,12 +364,14 @@ public class KerbalProfile : IJsonSaved
     public void OnAfterGameLoad()
     {
         var kerbalInfo = KerbalInfo;
+        if (kerbalInfo != null)
+            fullName ??= kerbalInfo.Attributes.GetFullName();
         foreach (var entry in _entries)
         {
             if (!Core.Instance.WingsPool.TryGetWingByCode(entry.wingCode, out entry.Wing))
             {
                 Logger.LogWarning(
-                    $"[kerbal={kerbalInfo?.Attributes.GetFullName()}] Failed to find wing with code '{entry.wingCode}'");
+                    $"[kerbal={fullName}] Failed to find wing with code '{entry.wingCode}'");
                 _errored.Add(entry);
                 continue;
             }
@@ -383,11 +390,13 @@ public class KerbalProfile : IJsonSaved
         SortEntriesByPoints();
 
         Logger.LogInfo(
-            $"[kerbal={kerbalInfo?.Attributes.GetFullName()}] Loaded {Entries.Count()} wings for a total of {totalPoints} points");
+            $"[kerbal={fullName}] Loaded {Entries.Count()} wings for a total of {totalPoints} points");
     }
 
     public void OnBeforeGameSave()
     {
+        fullName ??= KerbalInfo?.Attributes.GetFullName();
+
         foreach (var entry in _entries)
         {
             entry.OnBeforeGameSave();

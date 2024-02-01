@@ -29,8 +29,6 @@ public class SaveManager
     private void LoadGameData(SaveData dataToLoad)
     {
         loadedSaveData = dataToLoad;
-        if (dataToLoad.KerbalWings.Count > 0)
-            dataToLoad.KerbalProfiles = dataToLoad.KerbalWings;
         _Logger.LogInfo("Loaded game data");
     }
 

@@ -12,8 +12,6 @@ public class SaveData
 {
     public string? SessionGuidString;
 
-    public List<KerbalProfile> KerbalWings = [];
-
     public List<KerbalProfile> KerbalProfiles = [];
 
     /// Doesn't seem to work.
