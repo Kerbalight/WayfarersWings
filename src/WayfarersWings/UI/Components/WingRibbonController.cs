@@ -68,12 +68,14 @@ public class WingRibbonController
 
         foreach (var imageLayer in wing.config.imageLayers)
         {
-            // Logger.LogDebug("Adding layer to ribbon " + imageLayer);
             var layer = new VisualElement();
             layer.AddToClassList("ribbon-layer");
-            // if (!Settings.ShowAlwaysBigRibbons.Value) layer.AddToClassList("ribbon-layer__small");
 
-            LoadImageLayer(imageLayer, sprite =>
+            // Determine the image layer to load, based on the HiDPI setting
+            var nativeImageLayer =
+                IsHiDPIRibbon || DisplayBig ? imageLayer : imageLayer.Replace("Layers/", "Layers/1x/");
+
+            LoadImageLayer(nativeImageLayer, sprite =>
             {
                 // Set the image layer, we cache it for performance
                 layer.style.backgroundImage = new StyleBackground(sprite);
@@ -81,6 +83,20 @@ public class WingRibbonController
 
             _layers.Add(layer);
             _ribbonContainer.Add(layer);
+        }
+    }
+
+    private static bool IsHiDPIRibbon
+    {
+        get
+        {
+            return Settings.RibbonHiDPIDisplayMode.Value switch
+            {
+                Settings.HiDPIDisplayMode.Normal => false,
+                Settings.HiDPIDisplayMode.Retina => true,
+                Settings.HiDPIDisplayMode.Auto => MainUIManager.Instance.TooltipWindow.IsHiDPI(),
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
     }
 
@@ -97,7 +113,7 @@ public class WingRibbonController
             var sprite = handle.Result;
             if (sprite == null)
             {
-                Logger.LogError("Could not load sprite " + imageLayer);
+                Logger.LogError($"Could not load sprite {imageLayer}");
                 return;
             }
 

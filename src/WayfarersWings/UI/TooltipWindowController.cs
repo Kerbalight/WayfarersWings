@@ -49,4 +49,9 @@ public class TooltipWindowController : MonoBehaviour
             _tooltip.style.opacity = 0;
         }
     }
+
+    public bool IsHiDPI()
+    {
+        return (Screen.width / _root.worldBound.width) > 1.5;
+    }
 }

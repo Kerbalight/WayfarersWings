@@ -407,6 +407,312 @@ MonoBehaviour:
     m_SerializedLabels:
     - wayfarer_wings_images
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0919990175d9acf469ec7f270e954fe3
+    m_Address: Assets/Wings/Layers/1x/docking.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dc497cb0ae43d8b40b22ef897f877278
+    m_Address: Assets/Wings/Layers/1x/mountain.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5a0693161cacfac4d90237a4515f1a97
+    m_Address: Assets/Wings/Layers/1x/missions_completed.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 90c4083c53f494a40b11672841953230
+    m_Address: Assets/Wings/Layers/1x/mun.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 64bf2ac0f8f396d4d8088d2aba540f14
+    m_Address: Assets/Wings/Layers/1x/eva_kerbal.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7398b64444ae7d146bb187a4f3e20cf2
+    m_Address: Assets/Wings/Layers/1x/eva_time.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5b4d7384599e3a84bb74fd90f4d4e450
+    m_Address: Assets/Wings/Layers/1x/gee_force.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a25bff0b3e992714783f6be9b8435143
+    m_Address: Assets/Wings/Layers/1x/moho.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fa5edfc3691d96b438aeeee0883a81f0
+    m_Address: Assets/Wings/Layers/1x/first.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8b135282593f6d34983d505ba50c764e
+    m_Address: Assets/Wings/Layers/1x/solid_fuel_booster.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e17f80b0926063949ba3144f05070539
+    m_Address: Assets/Wings/Layers/1x/kerbal_in_space_first.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bb6d84885e12f9e4cb63f6a223c34858
+    m_Address: Assets/Wings/Layers/1x/eva_total_time.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: df461b33729da3149b03ebeff8d70579
+    m_Address: Assets/Wings/Layers/1x/pol.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b897cffe7201e3c48aae8f3a4ca97b96
+    m_Address: Assets/Wings/Layers/1x/vessel.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5c0f3d7281c98c945ab9b2bd97ec1388
+    m_Address: Assets/Wings/Layers/1x/single_orange_bands.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b9b220e7fdb90d146881d259eb58cda1
+    m_Address: Assets/Wings/Layers/1x/splashdown.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3a90255068f20194780b9c0d526965a2
+    m_Address: Assets/Wings/Layers/1x/heavy_vehicle.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4a905f32b123d394fbaa63aef86ecbc4
+    m_Address: Assets/Wings/Layers/1x/eva.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f57907b4288518e45a1bee25388c75b9
+    m_Address: Assets/Wings/Layers/1x/atmosphere.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0e16768dbbae79f4d82be5262be18eab
+    m_Address: Assets/Wings/Layers/1x/rank2.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b5144021c5efcc741a1e8c1112bfd3fa
+    m_Address: Assets/Wings/Layers/1x/landed.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ca8a45e94b6cb6a40a7e5fda15110119
+    m_Address: Assets/Wings/Layers/1x/kerbol.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bcbba02de7e8da9469d4574cd9d64d99
+    m_Address: Assets/Wings/Layers/1x/ike.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 53c2bc5742272b94f8377f05a589fa16
+    m_Address: Assets/Wings/Layers/1x/rank5.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1a5df21ff9dcd2d43b722951051bb135
+    m_Address: Assets/Wings/Layers/1x/vall.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c797088140e2e0f4ba8a72e672da63ae
+    m_Address: Assets/Wings/Layers/1x/rank4.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5db08294dfbcd854ea0b92af43c30f7c
+    m_Address: Assets/Wings/Layers/1x/tylo.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 40ab0b9946b001446834842282b7a3bc
+    m_Address: Assets/Wings/Layers/1x/orbit.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 59a0e376cd57d84429cdd36822138711
+    m_Address: Assets/Wings/Layers/1x/bands_superior.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ad41fad4255d89445bf580b0386ca97f
+    m_Address: Assets/Wings/Layers/1x/eve.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 297a4e0841f177149a6b67fc49fcea14
+    m_Address: Assets/Wings/Layers/1x/bop.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eccc0b1e6189b344cbf427b1f875634f
+    m_Address: Assets/Wings/Layers/1x/double_orange_bands.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d35eceaf01a90c5478b86f4137a40313
+    m_Address: Assets/Wings/Layers/1x/kerbin.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9ff99ec2b94fc424da3126273d3ef539
+    m_Address: Assets/Wings/Layers/1x/rank6.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2a561076d6691e84bba96d0e462d936b
+    m_Address: Assets/Wings/Layers/1x/total_missions_time.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0e47b8c8482a2bf46a957c975a4624fa
+    m_Address: Assets/Wings/Layers/1x/laythe.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ab5ab788719503c43be3182363b42a9e
+    m_Address: Assets/Wings/Layers/1x/rank3.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3e54e56f584a3c241af2839bec10282e
+    m_Address: Assets/Wings/Layers/1x/rover.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a0f35a207b049534ca31d458a65610e6
+    m_Address: Assets/Wings/Layers/1x/single_mission_time.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8f10b567fab4f8144b36edffbf99c30f
+    m_Address: Assets/Wings/Layers/1x/duna.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2a8ecb611ce47cd4a9bdb17906a4a035
+    m_Address: Assets/Wings/Layers/1x/flag.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9efdd70e619fc3e4e805f7a34006f70e
+    m_Address: Assets/Wings/Layers/1x/rocket.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1895d4961f38cc740a9bb887f22e2b87
+    m_Address: Assets/Wings/Layers/1x/jool.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5fe7f6c5c1863fd49b0146042c129ed0
+    m_Address: Assets/Wings/Layers/1x/dres.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5110f3eca842afb4a93c3f6d1108832c
+    m_Address: Assets/Wings/Layers/1x/fast_orbit.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4f467c81fe970d741b689cecbdfc87f5
+    m_Address: Assets/Wings/Layers/1x/minmus.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7f14071c8ee1c554799ca12f32e6216f
+    m_Address: Assets/Wings/Layers/1x/gilly.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b4b4fe252de57bc4ba5fb19c95d3cf82
+    m_Address: Assets/Wings/Layers/1x/rank1.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 12d920faa33585942b8d9c070e2f329d
+    m_Address: Assets/Wings/Layers/1x/kerbal_eva_in_space_first.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d130d489e2d34b54fae21ca9a6a3dec5
+    m_Address: Assets/Wings/Layers/1x/deep_atmo.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2955501e0b603a74da02f65b0c5d0362
+    m_Address: Assets/Wings/Layers/1x/eeloo.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - wayfarer_wings_images
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 7acedfa7dee9c3b488422ff7becd6a57, type: 2}
   m_SchemaSet:
