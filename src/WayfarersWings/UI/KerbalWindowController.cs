@@ -15,6 +15,7 @@ using WayfarersWings.Models.Session;
 using WayfarersWings.Models.Wings;
 using WayfarersWings.UI.Components;
 using WayfarersWings.UI.Localization;
+using WayfarersWings.Utility;
 using WayfarersWings.Utility.Serialization;
 using Logger = UnityEngine.Logger;
 
@@ -181,6 +182,12 @@ public class KerbalWindowController : MonoBehaviour
     private void OnConfirmAward()
     {
         if (_selectedWing == null || _kerbalInfo == null) return;
+        if (!Settings.AllowWingCheats.Value)
+        {
+            Logger.LogInfo("Wing cheats are not allowed. Please enable them in the settings.");
+            return;
+        }
+
         WingsSessionManager.Instance.Award(_selectedWing, _kerbalInfo);
         _awardablesList.ClearSelection();
     }
@@ -242,11 +249,10 @@ public class KerbalWindowController : MonoBehaviour
         {
             _selectedWing = _awardablesList.selectedItem as Wing;
 
-            if (_selectedWing != null)
+            if (_selectedWing != null && Settings.AllowWingCheats.Value)
             {
                 Logger.LogDebug($"Selected wing {_selectedWing?.DisplayName}");
                 _awardConfirmButton.style.display = DisplayStyle.Flex;
-                _awardConfirmButton.text = LocalizedStrings.AwardToKerbal;
             }
             else
             {
@@ -255,6 +261,9 @@ public class KerbalWindowController : MonoBehaviour
         };
         _awardConfirmButton.style.display = DisplayStyle.None;
         _awardConfirmButton.clicked += OnConfirmAward;
+
+        // Localization
+        _window.EnableLocalization();
     }
 
     /// <summary>
@@ -287,12 +296,16 @@ public class KerbalWindowController : MonoBehaviour
     {
         Initialize();
 
-        // Localization
+        // Localization update
         SetStarText(_missionsLabel, LocalizedStrings.MissionsCompleted);
         SetStarText(_totalEvaTimeLabel, LocalizedStrings.TotalEvaTime);
         SetStarText(_totalMissionTimeLabel, LocalizedStrings.TotalMissionTime);
         SetStarText(_statusLabel, LocalizedStrings.Status);
-        _window.EnableLocalization();
+
+        if (_selectedWing != null)
+        {
+            _awardConfirmButton.style.display = Settings.AllowWingCheats.Value ? DisplayStyle.Flex : DisplayStyle.None;
+        }
 
         // Profile
         var kerbalId = KerbalId;

@@ -23,7 +23,10 @@ public static class Settings
     // UI
     public static ConfigEntry<bool> ShowAlwaysBigRibbons { get; private set; } = null!;
     public static ConfigEntry<HiDPIDisplayMode> RibbonHiDPIDisplayMode { get; private set; } = null!;
+
+    // Gameplay
     public static ConfigEntry<bool> ShowFlightReportSummary { get; private set; } = null!;
+    public static ConfigEntry<bool> AllowWingCheats { get; private set; } = null!;
 
     public static void SetupConfig()
     {
@@ -47,14 +50,25 @@ public static class Settings
             "HiDPI (2x): show ribbons at double size. \n" +
             "Detect automatically: show ribbons at double size if the screen is HiDPI."
         );
+        RibbonHiDPIDisplayMode.SettingChanged += OnSettingChanged;
 
         // Show flight report summary
         ShowFlightReportSummary = Plugin.Config.Bind(
-            "UI",
+            "Gameplay",
             "Show flight report summary",
             true,
             "If true, when a vessel is recovered a mission summary window with all achieved wings will be shown."
         );
+
+        // Allow wing cheats
+        AllowWingCheats = Plugin.Config.Bind(
+            "Gameplay",
+            "Allow wing cheats",
+            false,
+            "If true, the player will be able to assign single wings manually to the Kerbal. \n \n" +
+            "In order to award a wing, open the Kerbal detail Window and click on 'Search wing'. In the opened panel, type into the search field and select a Wing. A button will appear to Award the wing to the selected Kerbal."
+        );
+        AllowWingCheats.SettingChanged += OnSettingChanged;
     }
 
     /// <summary>
@@ -63,5 +77,6 @@ public static class Settings
     private static void OnSettingChanged(object sender, EventArgs e)
     {
         MainUIManager.Instance.AppWindow.Refresh();
+        MainUIManager.Instance.KerbalWindow.Refresh();
     }
 }
