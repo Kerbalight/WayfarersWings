@@ -6,12 +6,12 @@ using WayfarersWings.Managers.Observer.Properties.Types;
 
 namespace WayfarersWings.Managers.Observer.Properties;
 
-public class VesselObservedGeeForce : VesselObservedProperty<int>
+public class VesselObservedGeeForce : VesselObservedSustainedProperty
 {
     // Ignore the first 2G
     public override bool HasChanged => Value != PreviousValue && Value >= 3;
 
-    protected override int GetValue(VesselComponent vessel)
+    protected override int GetInstantValue(VesselComponent vessel)
     {
         return (int)vessel.geeForce;
     }
