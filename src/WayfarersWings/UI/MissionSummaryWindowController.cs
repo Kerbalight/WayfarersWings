@@ -103,12 +103,11 @@ public class MissionSummaryWindowController : MonoBehaviour
             return;
         }
 
-        // Display
-        BuildVesselSummary(vessel);
-        IsWindowOpen = true;
+        // Display if there are kerbals in the vessel
+        BuildAndShowVesselSummary(vessel);
     }
 
-    private void BuildVesselSummary(VesselComponent vessel)
+    private void BuildAndShowVesselSummary(VesselComponent vessel)
     {
         var kerbalInfos = WingsSessionManager.Roster.GetAllKerbalsInVessel(vessel.GlobalId);
 
@@ -121,5 +120,8 @@ public class MissionSummaryWindowController : MonoBehaviour
             row.ShowLastMissionOnly = true;
             row.Bind(profile);
         }
+
+        // If there are kerbals in the vessel, show the window
+        if (kerbalInfos.Count > 0) IsWindowOpen = true;
     }
 }
