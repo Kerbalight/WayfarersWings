@@ -24,7 +24,7 @@
     --hover-bg: var(--darkblue-3);
     --darkblue-4: rgb(13, 13, 22);
     --led-green: rgb(0, 255, 102);
-    --text-color: #c0c7d5;
+    --text-color: rgb(192, 199, 213);
 }
 
 #root {
@@ -326,10 +326,8 @@
 .text-field.unity-text-field.text-field--inline > .unity-text-field__input {
     margin-top: 0;
     padding-top: 7px;
-    padding-bottom: 7px
+    padding-bottom: 7px;
 }
-
-/** Dropdown field */
 
 .unity-popup-field.dropdown-field {
     height: 32px;
@@ -340,6 +338,7 @@
 .unity-popup-field.dropdown-field .unity-base-popup-field__input {
     border-radius: 6px;
     border-width: 1px;
+    margin-left: 0;
     border-color: var(--lightgray-3);
     color: var(--text-color);
     padding: 7px;
@@ -370,7 +369,18 @@
     background-image: url('project://database/Assets/Images/ArrowIcon.png?fileID=21300000&guid=4a506aed588797846a24861c8c87047c&type=3#ArrowIcon');
 }
 
-/** Ribbon details */
+.unity-popup-field.dropdown-field .unity-base-popup-field__input > .unity-text-element {
+    -unity-text-align: middle-left;
+    text-overflow: ellipsis;
+}
+
+.unity-base-dropdown__container-outer {
+    width: 260px;
+}
+
+.unity-base-dropdown__container-inner {
+    width: 260px;
+}
 
 .ribbon--title {
     color: rgb(179, 185, 245);
@@ -436,7 +446,6 @@
     -unity-background-image-tint-color: var(--blue-3);
     color: var(--blue-3);
 }
-
 
 .secondary-label {
     font-size: 12px;
@@ -544,7 +553,7 @@
     border-width: 1px;
     border-color: var(--lightgray-3);
     -unity-background-image-tint-color: var(--text-color);
-    rotate: 0deg;
+    rotate: 0;
     background-color: var(--input-bg);
     background-image: url('project://database/Assets/Images/ArrowIcon.png?fileID=21300000&guid=4a506aed588797846a24861c8c87047c&type=3#ArrowIcon');
 }

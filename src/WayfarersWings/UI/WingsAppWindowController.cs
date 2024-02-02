@@ -49,6 +49,7 @@ public class WingsAppWindowController : MonoBehaviour
     private readonly Dictionary<string, ScrollView> _tabs = new();
     private readonly Dictionary<string, Button> _tabButtons = new();
     private VisualElement _kerbalsTabMenu = null!;
+    private DropdownField _filterStatusDropdown = null!;
     private DropdownField _sortDropdown = null!;
     private Button _sortDirectionButton = null!;
     private TextField _nameSearchField = null!;
@@ -117,11 +118,17 @@ public class WingsAppWindowController : MonoBehaviour
 
         // Kerbals Menu
         _kerbalsTabMenu = _root.Q<VisualElement>("kerbals-tab-menu");
+
+        _filterStatusDropdown = _kerbalsTabMenu.Q<DropdownField>("filter-status-dropdown");
+        _filterStatusDropdown.choices = KerbalProfileQuery.FilterStatusOptions;
+        _filterStatusDropdown.value = _kerbalQuery.GetFilterStatusChoice();
+        _filterStatusDropdown.RegisterValueChangedCallback(OnKerbalsFilterStatusChanged);
+
         _sortDropdown = _kerbalsTabMenu.Q<DropdownField>("sort-by-dropdown");
-        _sortDropdown.choices = KerbalProfileQuery.SortOptions;
-        // Done even in `Localize()` because
+        _sortDropdown.choices = KerbalProfileQuery.SortOptions; // Done even in localization to refresh the dropdown
         _sortDropdown.value = _kerbalQuery.GetSortChoice();
         _sortDropdown.RegisterValueChangedCallback(OnKerbalsSortChanged);
+
         _sortDirectionButton = _kerbalsTabMenu.Q<Button>("sort-by-direction");
         _sortDirectionButton.clicked += OnKerbalsDirectionChanged;
         AlignButtonSortDirection();
@@ -165,6 +172,8 @@ public class WingsAppWindowController : MonoBehaviour
         _tabButtons["ribbons"].text = LocalizedStrings.AchievementsTabRibbons;
         _tabButtons["kerbals"].text = LocalizedStrings.AchievementsTabKerbals;
 
+        _filterStatusDropdown.choices = KerbalProfileQuery.FilterStatusOptions;
+        _filterStatusDropdown.value = _kerbalQuery.GetFilterStatusChoice();
         _sortDropdown.choices = KerbalProfileQuery.SortOptions;
         _sortDropdown.value = _kerbalQuery.GetSortChoice();
     }
@@ -223,6 +232,13 @@ public class WingsAppWindowController : MonoBehaviour
     }
 
     // Search & Sort
+    private void OnKerbalsFilterStatusChanged(ChangeEvent<string> filterStatusOption)
+    {
+        var index = _filterStatusDropdown.choices.IndexOf(filterStatusOption.newValue);
+        _kerbalQuery.SetFilterStatus(index);
+        Refresh();
+    }
+
     private void OnKerbalsSortChanged(ChangeEvent<string> sortOption)
     {
         var index = _sortDropdown.choices.IndexOf(sortOption.newValue);

@@ -12,7 +12,10 @@ public static class LocalizedStrings
     public static LocalizedString MissionsCompleted = "WayfarersWings/UI/MissionsCompleted";
     public static LocalizedString Status = "WayfarersWings/UI/Status";
     public static LocalizedString OnMission = "WayfarersWings/UI/OnMission";
+    public static LocalizedString ActiveVessel = "WayfarersWings/UI/ActiveVessel";
     public static LocalizedString Available = "WayfarersWings/UI/Available";
+    public static LocalizedString Starred = "WayfarersWings/UI/Starred";
+    public static LocalizedString All = "WayfarersWings/UI/All";
     public static LocalizedString Dead = "WayfarersWings/UI/Dead";
     public static LocalizedString AwardWingTitle = "WayfarersWings/UI/AwardWingTitle";
     public static LocalizedString AwardToKerbal = "WayfarersWings/UI/AwardToKerbal";

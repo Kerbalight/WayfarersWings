@@ -37,7 +37,7 @@ public static class KerbalStatusElement
         label.text = profile.GetStatus() switch
         {
             KerbalStatus.Assigned => $"<color=#ff685c>{LocalizedStrings.OnMission}</color>",
-            KerbalStatus.AssignedActive => $"<color=#696DFF>{LocalizedStrings.OnMission}</color>",
+            KerbalStatus.AssignedActive => $"<color=#696DFF>{LocalizedStrings.ActiveVessel}</color>",
             KerbalStatus.Available => $"<color=#00FF66>{LocalizedStrings.Available}</color>",
             _ => LocalizedStrings.Dead
         };
