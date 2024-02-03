@@ -32,7 +32,11 @@ jobs:
         run: |
           echo -e "Release v${version}\n" > ./content.md
           cat ./changelog.md >> ./content.md
-          echo "discord_message=$(cat ./content.md)" >> $GITHUB_ENV
+          {
+            echo 'discord_message<<EOF'
+            cat ./content.md
+            echo EOF
+          } >> "$GITHUB_ENV"
       
       - name: Update mod topic
         uses: tsickert/discord-webhook@v5.3.0
