@@ -131,14 +131,14 @@ public static class KerbalProfileQuery
     /// <summary>
     /// All the filters status options.
     /// </summary>
-    private static readonly List<(FilterStatus, string)> FilterStatusTuples =
+    private static readonly List<(FilterStatus, Func<string>)> FilterStatusTuples =
     [
-        (FilterStatus.All, LocalizedStrings.All),
-        (FilterStatus.Assigned, LocalizedStrings.OnMission),
-        (FilterStatus.AssignedActive, LocalizedStrings.ActiveVessel),
-        (FilterStatus.Available, LocalizedStrings.Available),
-        (FilterStatus.Starred, LocalizedStrings.Starred),
+        (FilterStatus.All, () => LocalizedStrings.All),
+        (FilterStatus.Assigned, () => LocalizedStrings.OnMission),
+        (FilterStatus.AssignedActive, () => LocalizedStrings.ActiveVessel),
+        (FilterStatus.Available, () => LocalizedStrings.Available),
+        (FilterStatus.Starred, () => LocalizedStrings.Starred),
     ];
 
-    public static List<string> FilterStatusOptions => FilterStatusTuples.Select(fn => fn.Item2).ToList();
+    public static List<string> FilterStatusOptions => FilterStatusTuples.Select(fn => fn.Item2()).ToList();
 }
