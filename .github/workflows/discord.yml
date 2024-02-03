@@ -1,7 +1,7 @@
 name: Update Discord Topic
 
 env:
-  MOD_THREAD_ID: "1203443740199354429" # It should be quoted to prevent YAML from interpreting it as an integer
+  MOD_DISCORD_THREAD_ID: "1203146131266207794" # It should be quoted to prevent YAML from interpreting it as an integer
 
 on:
   workflow_dispatch:
@@ -30,7 +30,7 @@ jobs:
       - name: Prepare content
         shell: bash
         run: |
-          echo -e "Release v${version}\n" > ./content.md
+          echo -e "## Release v${version}\n" > ./content.md
           cat ./changelog.md >> ./content.md
           {
             echo 'discord_message<<EOF'
@@ -41,9 +41,9 @@ jobs:
       - name: Update mod topic
         uses: tsickert/discord-webhook@v5.3.0
         with:
-          webhook-url: ${{ secrets.DISCORD_MODS_WEBHOOK }}
+          webhook-url: ${{ secrets.DISCORD_KMS_WEBHOOK_URL }}
           content: ${{ env.discord_message }}
-          thread-id: ${{ env.MOD_THREAD_ID }}
+          thread-id: ${{ env.MOD_DISCORD_THREAD_ID }}
           username: "Wayfarer's Wings"
           avatar-url: "https://avatars.githubusercontent.com/u/98559431?s=200&v=4"
           
