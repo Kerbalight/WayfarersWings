@@ -14,8 +14,8 @@
                 <ui:Button text="Ribbons" display-tooltip-when-elided="true" name="ribbons-button" class="tabs-menu__item tabs-menu__item--last" />
             </ui:VisualElement>
             <ui:VisualElement name="kerbals-tab-menu" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; align-items: center;">
-                <ui:DropdownField label="&#10;" name="filter-status-dropdown" choices="On Mission,Available,Active Vessel,Other" class="dropdown-field dropdown-field--inline" style="font-size: 12px; align-items: stretch; width: 132px;" />
-                <ui:DropdownField label="&#10;" name="sort-by-dropdown" class="dropdown-field dropdown-field--inline" style="font-size: 12px; align-items: stretch; width: 160px; margin-left: 0;" />
+                <ui:DropdownField label="&#10;" name="filter-status-dropdown" choices="On Mission,Available,Active Vessel,Other" class="dropdown-field dropdown-field--inline" style="font-size: 12px; align-items: stretch; width: 140px;" />
+                <ui:DropdownField label="&#10;" name="sort-by-dropdown" class="dropdown-field dropdown-field--inline" style="font-size: 12px; align-items: stretch; width: 165px; margin-left: 0;" />
                 <ui:Button text="&#10;" display-tooltip-when-elided="true" name="sort-by-direction" class="button--default button--menu button-sort-direction" />
                 <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
                     <ui:TextField picking-mode="Ignore" hide-mobile-input="false" name="search-name-field" class="text-field text-field--inline" style="padding-left: 4px; padding-right: 0; padding-top: 0; padding-bottom: 0; flex-grow: 1; font-size: 12px;" />
