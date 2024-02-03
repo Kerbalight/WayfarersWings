@@ -69,7 +69,7 @@ public static class KerbalProfileQuery
         public string GetFilterStatusChoice()
         {
             var selectedStatus = filterStatus;
-            return FilterStatusTuples.Find(fn => fn.Item1 == selectedStatus).Item2;
+            return FilterStatusTuples.Find(fn => fn.Item1 == selectedStatus).Item2();
         }
 
         /// <summary>
