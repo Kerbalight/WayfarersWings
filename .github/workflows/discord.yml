@@ -1,7 +1,7 @@
 name: Update Discord Topic
 
 env:
-  MOD_THREAD_ID: 1203443740199354429
+  MOD_THREAD_ID: "1203443740199354429" # It should be quoted to prevent YAML from interpreting it as an integer
 
 on:
   workflow_dispatch:
