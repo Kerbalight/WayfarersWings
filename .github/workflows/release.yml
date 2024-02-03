@@ -1,7 +1,7 @@
 name: Upload release
 
 env:
-  SPACEDOCK_MOD_ID: 3554
+  SPACEDOCK_MOD_ID: 3554 # WayfarersWings
 
 on:
   release:
@@ -70,4 +70,15 @@ jobs:
           mod_id: ${{ env.SPACEDOCK_MOD_ID }}
           version: ${{ env.version }}
           zipball: ${{ env.zip }}
+          changelog: ./changelog.md
+          
+      - name: Update mod topic
+        uses: Kerbalight/ksp2-forum-post-action@latest
+        with:
+          username: ${{ secrets.KSP_FORUM_USERNAME }}
+          password: ${{ secrets.KSP_FORUM_PASSWORD }}
+          forum_topic_url: https://forum.kerbalspaceprogram.com/topic/223457-wayfarers-wings-rank-ribbons-v030-for-ksp2-v021/
+          forum_topic_title: "Wayfarer's Wings (Rank Ribbons) [v{version} for KSP2 v0.2.1]"
+          spacedock_url: "https://spacedock.info/mod/3554/Wayfarer's%20Wings%20(Rank%20Ribbons)#changelog"
+          version: ${{ env.version }}
           changelog: ./changelog.md
