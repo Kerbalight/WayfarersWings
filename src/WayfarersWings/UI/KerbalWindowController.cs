@@ -15,6 +15,7 @@ using WayfarersWings.Models.Session;
 using WayfarersWings.Models.Wings;
 using WayfarersWings.UI.Components;
 using WayfarersWings.UI.Localization;
+using WayfarersWings.Unity.WayfarersWings.Unity.Assets.Runtime.Controls;
 using WayfarersWings.Utility;
 using WayfarersWings.Utility.Serialization;
 using Logger = UnityEngine.Logger;
@@ -47,8 +48,11 @@ public class KerbalWindowController : MonoBehaviour
     // The elements of the window that we need to access
     private VisualElement _root = null!;
 
-    // private ScrollView _content;
     private Label _nameLabel = null!;
+
+    // Tabs
+    private TabSelector _tabSelector = null!;
+    private ScrollView _statisticsView = null!;
     private ScrollView _ribbonsView = null!;
 
     // Summary
@@ -62,6 +66,13 @@ public class KerbalWindowController : MonoBehaviour
     private Label _statusValueLabel = null!;
 
     private VisualElement _statusIcon = null!;
+
+    // Statistics
+    private TableRow _discoverablesFoundRow = null!;
+    private TableRow _visitedBiomesRow = null!;
+    private TableRow _visitedBodiesRow = null!;
+    private TableRow _missionRegionsRow = null!;
+    private TableRow _missionBodiesRow = null!;
 
     // Award
     private Foldout _awardFoldout = null!;
@@ -106,7 +117,10 @@ public class KerbalWindowController : MonoBehaviour
         _root.StopMouseEventsPropagation();
 
         _nameLabel = _root.Q<Label>("name-label");
-        // _detailLabel = _root.Q<Label>("detail-label");
+
+        // Tabs
+        _tabSelector = _root.Q<TabSelector>("tab-selector");
+        _statisticsView = _root.Q<ScrollView>("statistics-view");
         _ribbonsView = _root.Q<ScrollView>("ribbons-view");
 
         // Summary
@@ -124,6 +138,13 @@ public class KerbalWindowController : MonoBehaviour
         _awardablesList = _root.Q<ListView>("awardables-list");
         _awardConfirmButton = _root.Q<Button>("award-confirm-button");
         _searchAwardablesField = _root.Q<TextField>("search-awardables-field");
+
+        // Stats
+        _visitedBiomesRow = _root.Q<TableRow>("visited-biomes-row");
+        _discoverablesFoundRow = _root.Q<TableRow>("discoverables-found-row");
+        _visitedBodiesRow = _root.Q<TableRow>("visited-bodies-row");
+        _missionRegionsRow = _root.Q<TableRow>("mission-regions-row");
+        _missionBodiesRow = _root.Q<TableRow>("mission-bodies-row");
 
         IsWindowOpen = false;
 
@@ -262,6 +283,14 @@ public class KerbalWindowController : MonoBehaviour
         _awardConfirmButton.style.display = DisplayStyle.None;
         _awardConfirmButton.clicked += OnConfirmAward;
 
+        // Stats
+        _statisticsView.style.display = DisplayStyle.None;
+        _tabSelector.OnTabSelected += (item, index) =>
+        {
+            _statisticsView.style.display = index == 1 ? DisplayStyle.Flex : DisplayStyle.None;
+            _ribbonsView.style.display = index == 0 ? DisplayStyle.Flex : DisplayStyle.None;
+        };
+
         // Localization
         _window.EnableLocalization();
     }
@@ -301,6 +330,7 @@ public class KerbalWindowController : MonoBehaviour
         SetStarText(_totalEvaTimeLabel, LocalizedStrings.TotalEvaTime);
         SetStarText(_totalMissionTimeLabel, LocalizedStrings.TotalMissionTime);
         SetStarText(_statusLabel, LocalizedStrings.Status);
+        _tabSelector.items = [LocalizedStrings.AchievementsTabRibbons, LocalizedStrings.AchievementsTabStatistics];
 
         if (_selectedWing != null)
         {
@@ -327,6 +357,13 @@ public class KerbalWindowController : MonoBehaviour
 
         KerbalStatusElement.SetText(_statusValueLabel, profile);
         KerbalStatusElement.SetStatus(_statusIcon, profile);
+
+        // Stats
+        _discoverablesFoundRow.value = profile.VisitedDiscoverablesWithoutKSC.ToString();
+        _visitedBiomesRow.value = profile.visitedBiomes.Count.ToString();
+        _visitedBodiesRow.value = profile.visitedBodies.Count.ToString();
+        _missionRegionsRow.value = profile.missionRegions.Count.ToString();
+        _missionBodiesRow.value = profile.missionBodies.Count.ToString();
 
         _ribbonsView.Clear();
         foreach (var wingEntry in profile.Entries)

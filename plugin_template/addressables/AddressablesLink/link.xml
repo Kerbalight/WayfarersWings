@@ -34,4 +34,9 @@
     <type fullname="UnityEngine.UIElements.VisualElement/UxmlFactory" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.UIElements.VisualElementAsset" preserve="nothing" serialized="true" />
   </assembly>
+  <assembly fullname="WayfarersWings.Unity.Runtime">
+    <type fullname="WayfarersWings.Unity.WayfarersWings.Unity.Assets.Runtime.Controls.TableRow/UxmlFactory" preserve="nothing" serialized="true" />
+    <type fullname="WayfarersWings.Unity.WayfarersWings.Unity.Assets.Runtime.Controls.TableSeparatorTitle/UxmlFactory" preserve="nothing" serialized="true" />
+    <type fullname="WayfarersWings.Unity.WayfarersWings.Unity.Assets.Runtime.Controls.TabSelector/UxmlFactory" preserve="nothing" serialized="true" />
+  </assembly>
 </linker>

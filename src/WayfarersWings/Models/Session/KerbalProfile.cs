@@ -106,6 +106,9 @@ public class KerbalProfile : IJsonSaved
     /// </summary>
     public HashSet<VisitedRegion> visitedDiscoverables = [];
 
+    [JsonIgnore]
+    public int VisitedDiscoverablesWithoutKSC => Math.Max(0, visitedDiscoverables.Count - 1);
+
     /// <summary>
     /// Check if this Kerbal is starred
     /// </summary>
