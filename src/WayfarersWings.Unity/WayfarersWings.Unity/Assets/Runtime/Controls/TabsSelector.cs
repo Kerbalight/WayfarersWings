@@ -40,6 +40,7 @@ namespace WayfarersWings.Unity.WayfarersWings.Unity.Assets.Runtime.Controls
 
         private List<string> _items = new() { };
 
+        public int SelectedIndex => _items.IndexOf(SelectedItem ?? string.Empty);
         public string? SelectedItem { get; private set; }
 
         public event Action<string, int>? OnTabSelected;
@@ -49,8 +50,13 @@ namespace WayfarersWings.Unity.WayfarersWings.Unity.Assets.Runtime.Controls
             get => _items;
             set
             {
+                var previousSelectedItem = SelectedItem;
+
                 _items = value;
-                SelectedItem = _items.FirstOrDefault();
+                SelectedItem = _items.Contains(previousSelectedItem ?? string.Empty)
+                    ? previousSelectedItem
+                    : _items.FirstOrDefault();
+
                 Clear();
                 for (var i = 0; i < _items.Count; i++)
                 {

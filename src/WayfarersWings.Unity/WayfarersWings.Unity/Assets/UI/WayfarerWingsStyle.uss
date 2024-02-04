@@ -459,6 +459,9 @@
     padding-left: 0;
     padding-right: 0;
     padding-bottom: 0;
+    flex-grow: 0;
+    text-overflow: ellipsis;
+    flex-shrink: 1;
 }
 
 .table-row {
@@ -472,7 +475,7 @@
     padding-top: 4px;
     flex-direction: row;
     align-items: center;
-    flex-shrink: 0;
+    flex-shrink: 1;
 }
 
 .table-value {
@@ -567,13 +570,10 @@
     background-position: center center;
 }
 
-/** ======== Common UI Controls ======== **/
-/** TabsSelector **/
 .tabs-selector {
     border-radius: 6px;
     padding: 4px;
     margin: 0;
-    /*flex-grow: 1;*/
     flex-grow: 0;
     flex-direction: row;
     justify-content: flex-start;
@@ -611,4 +611,30 @@
 
 .tabs-selector .tabs-selector__item--selected {
     background-color: var(--blue-5);
+}
+
+.table-title {
+    color: rgb(163, 169, 206);
+    background-color: rgb(24, 26, 31);
+    font-size: 16px;
+    margin-bottom: 8px;
+    margin-top: 22px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 8px;
+    padding-bottom: 5px;
+    border-radius: 6px;
+    -unity-font-definition: var(--font-title-big);
+}
+
+.table-title__container {
+    padding: 0;
+}
+
+.table-title--first {
+    margin-top: 1px;
+}
+
+#statistics-view .table-row {
+    border-bottom-color: var(--gray-7);
 }

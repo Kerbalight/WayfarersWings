@@ -22,6 +22,7 @@ public static class LocalizedStrings
     public static LocalizedString ConfirmRevokeButton = "WayfarersWings/UI/ConfirmRevokeButton";
     public static LocalizedString AchievementsTabRibbons = "WayfarersWings/UI/Ribbons";
     public static LocalizedString AchievementsTabKerbals = "WayfarersWings/UI/Kerbals";
+    public static LocalizedString AchievementsTabStatistics = "WayfarersWings/UI/Statistics";
 
 
     public const string KerbalMissionsCount = "WayfarersWings/UI/KerbalMissionsCount";
