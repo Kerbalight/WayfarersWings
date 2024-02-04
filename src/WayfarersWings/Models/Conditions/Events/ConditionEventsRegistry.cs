@@ -45,6 +45,7 @@ public class ConditionEventsRegistry
         Messages.PersistentSubscribe<FlagPlantedMessage>(OnFlagPlantedMessage);
 
         // Science
+        Messages.PersistentSubscribe<VesselScienceSituationChangedMessage>(OnVesselScienceSituationChanged);
         // TODO implement this
         // Messages.PersistentSubscribe<ResearchReportScoredMessage>(OnResearchReportScoredMessage);
     }
@@ -197,6 +198,16 @@ public class ConditionEventsRegistry
     #endregion
 
     #region Science
+
+    private static void OnVesselScienceSituationChanged(MessageCenterMessage message)
+    {
+        var scienceMessage = (VesselScienceSituationChangedMessage)message;
+        var transaction = new Transaction(scienceMessage, scienceMessage.Vessel);
+
+        KerbalStateObserver.OnVesselScienceSituationChanged(scienceMessage, transaction.Vessel);
+
+        AchievementsOrchestrator.DispatchTransaction(transaction);
+    }
 
     // private static void OnResearchReportScoredMessage(MessageCenterMessage message)
     // {

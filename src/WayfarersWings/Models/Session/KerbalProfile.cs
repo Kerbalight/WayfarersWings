@@ -1,5 +1,6 @@
 ﻿using BepInEx.Logging;
 using KSP.Game;
+using KSP.Game.Science;
 using KSP.Sim.impl;
 using KSP.Sim.ResourceSystem;
 using Newtonsoft.Json;
@@ -78,6 +79,32 @@ public class KerbalProfile : IJsonSaved
     public double lastEvaAtmosphereTime = 0;
     public double totalEvaSpaceTime = 0;
     public double totalEvaAtmosphereTime = 0;
+
+    // Tracks visited bodies and regions
+
+
+    public HashSet<string> missionBodies = [];
+
+    /// <summary>
+    /// Regions the Kerbal has visited in current mission
+    /// (Both discoverable and biomes)
+    /// </summary>
+    public HashSet<VisitedRegion> missionRegions = [];
+
+    /// <summary>
+    /// All the bodies the Kerbal has visited in its career
+    /// </summary>
+    public HashSet<string> visitedBodies = [];
+
+    /// <summary>
+    /// All the Biomes the Kerbal has visited in its career
+    /// </summary
+    public HashSet<VisitedRegion> visitedBiomes = [];
+
+    /// <summary>
+    /// All the Discoverables the Kerbal has visited in its career
+    /// </summary>
+    public HashSet<VisitedRegion> visitedDiscoverables = [];
 
     /// <summary>
     /// Check if this Kerbal is starred
@@ -279,6 +306,8 @@ public class KerbalProfile : IJsonSaved
         // Cleanup
         lastEvaEnteredAt = null;
         lastLaunchedAt = null;
+        missionBodies.Clear();
+        missionRegions.Clear();
         Logger.LogDebug($"Started mission for {KerbalInfo?.Attributes.GetFullName()}");
     }
 
@@ -311,6 +340,8 @@ public class KerbalProfile : IJsonSaved
         totalMissionTime += lastMissionTime;
 
         lastLaunchedAt = null;
+        missionBodies.Clear();
+        missionRegions.Clear();
 
         Logger.LogDebug($"Added {lastMissionTime}s mission time to {KerbalInfo?.Attributes.GetFullName()}");
     }
@@ -351,6 +382,34 @@ public class KerbalProfile : IJsonSaved
         lastEvaEnteredAt = null;
 
         Logger.LogDebug($"Added {evaTime}s EVA time to {KerbalInfo?.Attributes.GetFullName()}");
+    }
+
+    /// <summary>
+    /// We track visited bodies and regions to award wings based on these
+    /// criteria.
+    /// </summary>
+    /// <param name="regionSituation">The situation the Kerbal entered</param>
+    /// <param name="hasChanged">Set to true if this a situation not already tracked</param>
+    public void OnScienceSituationChange(ScienceLocationRegionSituation regionSituation, out bool hasChanged)
+    {
+        hasChanged = false;
+
+        var bodyName = regionSituation.ResearchLocation.BodyName;
+        hasChanged |= visitedBodies.Add(bodyName);
+        hasChanged |= missionBodies.Add(bodyName);
+
+        if (string.IsNullOrEmpty(regionSituation.ResearchLocation.ScienceRegion))
+            return;
+
+        var scienceDataProvider = GameManager.Instance.Game.ScienceManager.ScienceRegionsDataProvider;
+        var visitedRegion = VisitedRegion.FromLocation(regionSituation.ResearchLocation);
+
+        if (scienceDataProvider.IsRegionADiscoverable(visitedRegion.BodyName, visitedRegion.ScienceRegion))
+            hasChanged |= visitedDiscoverables.Add(visitedRegion);
+        else
+            hasChanged |= visitedBiomes.Add(visitedRegion);
+
+        hasChanged |= missionRegions.Add(visitedRegion);
     }
 
     #endregion

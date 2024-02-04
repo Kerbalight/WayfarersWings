@@ -24,7 +24,7 @@ public class AchievementsOrchestrator
         {
             if (!Core.Instance.WingsPool.TriggersMap.TryGetValue(transaction.Message.GetType(), out triggeredWings))
             {
-                Logger.LogDebug($"No wings triggered by {messageName}");
+                // Logger.LogDebug($"No wings triggered by {messageName}");
                 triggeredWings = Core.Instance.WingsPool.Wings;
             }
         }

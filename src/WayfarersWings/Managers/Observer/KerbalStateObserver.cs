@@ -23,14 +23,16 @@ public class KerbalStateObserver
     /// any wing that depends on the kerbal profile can be triggered.
     /// </summary>
     private static void RunAndDispatchForKerbalsInVessel(MessageCenterMessage message, VesselComponent? vesselComponent,
-        Action<KerbalProfile> runOnProfile)
+        Func<KerbalProfile, bool> runOnProfile)
     {
         if (vesselComponent == null) return;
         var kerbals = WingsSessionManager.Roster.GetAllKerbalsInVessel(vesselComponent.GlobalId);
         foreach (var kerbal in kerbals)
         {
             var profile = WingsSessionManager.Instance.GetKerbalProfile(kerbal.Id);
-            runOnProfile(profile);
+            var hasChanged = runOnProfile(profile);
+            if (!hasChanged) continue;
+
             Core.Messages.Publish(new WingKerbalProfileUpdatedMessage(profile));
 
             var transaction = new Transaction(message, kerbal);
@@ -43,8 +45,11 @@ public class KerbalStateObserver
         RunAndDispatchForKerbalsInVessel(
             message,
             vesselComponent,
-            profile => profile.StartMission(vesselComponent!)
-        );
+            profile =>
+            {
+                profile.StartMission(vesselComponent!);
+                return true;
+            });
     }
 
     public static void OnVesselLaunched(VesselLaunchedMessage message, VesselComponent? vesselComponent)
@@ -52,8 +57,11 @@ public class KerbalStateObserver
         RunAndDispatchForKerbalsInVessel(
             message,
             vesselComponent,
-            profile => profile.UpdateOnVesselLaunched(vesselComponent!)
-        );
+            profile =>
+            {
+                profile.UpdateOnVesselLaunched(vesselComponent!);
+                return true;
+            });
     }
 
     public static void OnVesselRecovered(VesselRecoveredMessage message, VesselComponent? vesselComponent)
@@ -65,6 +73,7 @@ public class KerbalStateObserver
             {
                 if (profile.IsInEVA) profile.CompleteEVA(vesselComponent!);
                 profile.CompleteMission(vesselComponent!);
+                return true;
             });
     }
 
@@ -98,6 +107,23 @@ public class KerbalStateObserver
 
         transaction.KerbalProfile.CompleteEVA(transaction.Vessel);
         Core.Messages.Publish(new WingKerbalProfileUpdatedMessage(transaction.KerbalProfile));
+    }
+
+    #endregion
+
+    #region Science
+
+    public static void OnVesselScienceSituationChanged(VesselScienceSituationChangedMessage message,
+        VesselComponent? vesselComponent)
+    {
+        RunAndDispatchForKerbalsInVessel(
+            message,
+            vesselComponent,
+            profile =>
+            {
+                profile.OnScienceSituationChange(message.NewSituation, out var hasChanged);
+                return hasChanged;
+            });
     }
 
     #endregion

@@ -75,3 +75,7 @@ WayfarersWings/Ribbons/RoverName,Text,,,{body} Rover,Rover su {body},,{body} Rov
 WayfarersWings/Ribbons/Rover,Text,,,Drove at least {distance} meters in a wheeled rover on the surface of {body},Guidato almeno {distance} metri su un rover con ruote sulla superfice di {body},,A conduit au moins {distance} mètres avec un rover sur la surface de {body},Manejó al menos {distance} metros en un vehículo explorador con ruedas en la superficie de {body},,,,,在{body}地表驾驶轮式漫游车行驶至少{distance}米,,
 WayfarersWings/Ribbons/DeepAtmosphereName,Text,,,{body} Deep Atmosphere,Atmosfera Profonda di {body},,Atmosphère profonde de {body},{body} Atmósfera Profunda,,,,,{body}深层大气,,
 WayfarersWings/Ribbons/DeepAtmosphere,Text,,,Entered the deeper atmosphere of {body},Entrato nell'atmosfera profonda di {body},,Est entré dans l'atmosphère profonde de {body},Entró a la atmósfera profunda de {body),,,,,进入{body}的深层大气,,
+WayfarersWings/Ribbons/DiscoverablesName,Text,,,Discoverer {rank},Scopritore {rank},,,,,,,,,,
+WayfarersWings/Ribbons/Discoverables,Text,,In-game discoverables like Mun Monument,Reached at least {amount} discoverable locations,Raggiunti almeno {amount} dei luoghi da scoprire,,,,,,,,,,
+WayfarersWings/Ribbons/ExplorerName,Text,,,Explorer {rank},Esploratore {rank},,,,,,,,,,
+WayfarersWings/Ribbons/Explorer,Text,,Biomes (discoverables not included),Visited at least {amount} different biomes,Visitati almeno {amount} biomi differenti,,,,,,,,,,

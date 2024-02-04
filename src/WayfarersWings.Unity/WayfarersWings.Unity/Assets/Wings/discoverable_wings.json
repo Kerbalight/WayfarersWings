@@ -1,0 +1,235 @@
+{
+  "templates": [
+    {
+      "name": "discoverables",
+      "template": {
+        "name": "discoverables",
+        "displayName": "WayfarersWings/Ribbons/DiscoverablesName",
+        "description": "WayfarersWings/Ribbons/Discoverables",
+        "localizationParams": {},
+        "chain": "discoverables",
+        "points": 800,
+        "imageLayers": [
+          "Assets/Wings/Layers/discoverables.png"
+        ],
+        "conditions": []
+      },
+      "ranked": {
+        "partials": [
+          {
+            "name": "discoverables_1",
+            "localizationParams": {
+              "amount": "1"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minDiscoverablesFound": 1
+              }
+            ]
+          },
+          {
+            "name": "discoverables_2",
+            "localizationParams": {
+              "amount": "2"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minDiscoverablesFound": 2
+              }
+            ]
+          },
+          {
+            "name": "discoverables_3",
+            "localizationParams": {
+              "amount": "3"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minDiscoverablesFound": 3
+              }
+            ]
+          },
+          {
+            "name": "discoverables_5",
+            "localizationParams": {
+              "amount": "5"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minDiscoverablesFound": 5
+              }
+            ]
+          },
+          {
+            "name": "discoverables_7",
+            "localizationParams": {
+              "amount": "7"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minDiscoverablesFound": 7
+              }
+            ]
+          },
+          {
+            "name": "discoverables_10",
+            "localizationParams": {
+              "amount": "10"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minDiscoverablesFound": 10
+              }
+            ]
+          },
+          {
+            "name": "discoverables_15",
+            "localizationParams": {
+              "amount": "15"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minDiscoverablesFound": 15
+              }
+            ]
+          },
+          {
+            "name": "discoverables_20",
+            "localizationParams": {
+              "amount": "20"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minDiscoverablesFound": 20
+              }
+            ]
+          },
+          {
+            "name": "discoverables_30",
+            "localizationParams": {
+              "amount": "30"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minDiscoverablesFound": 30
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "explorer",
+      "template": {
+        "name": "explorer",
+        "displayName": "WayfarersWings/Ribbons/ExplorerName",
+        "description": "WayfarersWings/Ribbons/Explorer",
+        "localizationParams": {},
+        "chain": "explorer",
+        "points": 810,
+        "imageLayers": [
+          "Assets/Wings/Layers/explorer.png"
+        ],
+        "conditions": []
+      },
+      "ranked": {
+        "partials": [
+          {
+            "name": "explorer_5",
+            "localizationParams": {
+              "amount": "5"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minBiomesVisited": 5
+              }
+            ]
+          },
+          {
+            "name": "explorer_10",
+            "localizationParams": {
+              "amount": "10"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minBiomesVisited": 10
+              }
+            ]
+          },
+          {
+            "name": "explorer_20",
+            "localizationParams": {
+              "amount": "20"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minBiomesVisited": 20
+              }
+            ]
+          },
+          {
+            "name": "explorer_30",
+            "localizationParams": {
+              "amount": "30"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minBiomesVisited": 30
+              }
+            ]
+          },
+          {
+            "name": "explorer_40",
+            "localizationParams": {
+              "amount": "40"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minBiomesVisited": 40
+              }
+            ]
+          },
+          {
+            "name": "explorer_50",
+            "localizationParams": {
+              "amount": "50"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minBiomesVisited": 50
+              }
+            ]
+          },
+          {
+            "name": "explorer_100",
+            "localizationParams": {
+              "amount": "100"
+            },
+            "conditions": [
+              {
+                "type": "KerbalProfile",
+                "minBiomesVisited": 100
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "wings": []
+}

@@ -513,7 +513,7 @@
       "displayName": "WayfarersWings/Ribbons/SplashdownName",
       "description": "WayfarersWings/Ribbons/Splashdown",
       "localizationParams": {},
-      "points": 80,
+      "points": 79,
       "imageLayers": [
         "Assets/Wings/Layers/splashdown.png"
       ],
