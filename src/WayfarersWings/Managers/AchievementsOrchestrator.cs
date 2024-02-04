@@ -12,6 +12,12 @@ public class AchievementsOrchestrator
 
     public static AchievementsOrchestrator Instance { get; } = new();
 
+    /// <summary>
+    /// We keep a list of wings that are not triggered by any message, to
+    /// avoid logging a warning each time (avoid log spam).
+    /// </summary>
+    private static readonly HashSet<string> WingsWithoutTriggers = [];
+
 
     public static void DispatchTransaction(Transaction transaction)
     {
@@ -20,12 +26,18 @@ public class AchievementsOrchestrator
         var messageName = transaction.Message?.GetType().Name ?? "null";
 
         var triggeredWings = Core.Instance.WingsPool.Wings;
+
+        // If the transaction has a message, we look for the wings that are triggered
+        // by that message. If no wings are found, we simply return.
         if (transaction.Message != null)
         {
             if (!Core.Instance.WingsPool.TriggersMap.TryGetValue(transaction.Message.GetType(), out triggeredWings))
             {
-                // Logger.LogDebug($"No wings triggered by {messageName}");
-                triggeredWings = Core.Instance.WingsPool.Wings;
+                if (WingsWithoutTriggers.Contains(messageName)) return;
+
+                Logger.LogInfo($"No wings triggered by {messageName}");
+                WingsWithoutTriggers.Add(messageName);
+                return;
             }
         }
 

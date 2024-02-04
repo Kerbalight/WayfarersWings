@@ -113,6 +113,11 @@ public class KerbalStateObserver
 
     #region Science
 
+    /// <summary>
+    /// Update the KerbalProfile for all kerbals in the vessel. Since this
+    /// message is triggered at high frequency, we want to use hasChanged to
+    /// prevent unnecessary Transaction dispatches.
+    /// </summary>
     public static void OnVesselScienceSituationChanged(VesselScienceSituationChangedMessage message,
         VesselComponent? vesselComponent)
     {
