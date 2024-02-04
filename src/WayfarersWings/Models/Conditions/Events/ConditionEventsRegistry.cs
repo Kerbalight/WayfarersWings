@@ -44,6 +44,9 @@ public class ConditionEventsRegistry
         Messages.PersistentSubscribe<EVALeftMessage>(OnEVALeftMessage);
         Messages.PersistentSubscribe<FlagPlantedMessage>(OnFlagPlantedMessage);
 
+        // Kerbal Profile
+        Messages.PersistentSubscribe<WingKerbalRegionsUpdatedMessage>(OnWingKerbalRegionsUpdatedMessage);
+
         // Science
         Messages.PersistentSubscribe<VesselScienceSituationChangedMessage>(OnVesselScienceSituationChanged);
         // TODO implement this
@@ -214,6 +217,19 @@ public class ConditionEventsRegistry
     //     var scoredMessage = (ResearchReportScoredMessage)message;
     //     scoredMessage.ResearchReportKey;
     // }
+
+    #endregion
+
+    #region Profile
+
+    public void OnWingKerbalRegionsUpdatedMessage(MessageCenterMessage message)
+    {
+        var regionsUpdatedMessage = (WingKerbalRegionsUpdatedMessage)message;
+        if (regionsUpdatedMessage.KerbalProfile.KerbalInfo == null) return;
+
+        var transaction = new Transaction(regionsUpdatedMessage, regionsUpdatedMessage.KerbalProfile.KerbalInfo);
+        AchievementsOrchestrator.DispatchTransaction(transaction);
+    }
 
     #endregion
 }

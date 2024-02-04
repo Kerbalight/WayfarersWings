@@ -127,6 +127,12 @@ public class KerbalStateObserver
             profile =>
             {
                 profile.OnScienceSituationChange(message.NewSituation, out var hasChanged);
+                if (hasChanged)
+                {
+                    // We need a specific event since we need to check KerbalProfileCondition
+                    Core.Messages.Publish(new WingKerbalRegionsUpdatedMessage(profile));
+                }
+
                 return hasChanged;
             });
     }

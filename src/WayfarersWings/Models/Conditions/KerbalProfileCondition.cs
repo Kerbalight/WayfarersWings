@@ -11,7 +11,7 @@ namespace WayfarersWings.Models.Conditions;
 [Serializable]
 [ConditionTriggerEvent(typeof(VesselRecoveredMessage))]
 [ConditionTriggerEvent(typeof(EVALeftMessage))]
-[ConditionTriggerEvent(typeof(WingKerbalProfileUpdatedMessage))]
+[ConditionTriggerEvent(typeof(WingKerbalRegionsUpdatedMessage))]
 public class KerbalProfileCondition : BaseCondition
 {
     /// <summary>
@@ -90,7 +90,7 @@ public class KerbalProfileCondition : BaseCondition
         if (minTotalEvaSpaceTime.HasValue && !(profile.totalEvaSpaceTime >= minTotalEvaSpaceTime.Value.Seconds))
             return false;
 
-        if (minDiscoverablesFound.HasValue && !(profile.visitedDiscoverables.Count >= minDiscoverablesFound))
+        if (minDiscoverablesFound.HasValue && !(profile.VisitedDiscoverablesWithoutKSC >= minDiscoverablesFound))
             return false;
         if (hasFoundDiscoverable is not null && !profile.visitedDiscoverables.Contains(hasFoundDiscoverable))
             return false;
