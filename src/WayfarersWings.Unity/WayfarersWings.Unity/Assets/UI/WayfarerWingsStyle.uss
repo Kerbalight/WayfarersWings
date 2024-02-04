@@ -566,3 +566,49 @@
     background-size: 16px 16px;
     background-position: center center;
 }
+
+/** ======== Common UI Controls ======== **/
+/** TabsSelector **/
+.tabs-selector {
+    border-radius: 6px;
+    padding: 4px;
+    margin: 0;
+    /*flex-grow: 1;*/
+    flex-grow: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    min-height: 34px;
+    background-color: var(--gray-4);
+    border-color: var(--gray-2);
+    border-width: 1px;
+}
+
+.tabs-selector.tabs-selector--no-border {
+    border-width: 0;
+}
+
+.tabs-selector .tabs-selector__item {
+    background-color: var(--gray-4);
+    border-width: 0;
+    height: 24px;
+    margin-right: 4px;
+    font-size: 12px;
+    transition-property: background-color;
+    transition-duration: 0.2s;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.tabs-selector .tabs-selector__item:hover {
+    background-color: var(--blue-3);
+}
+
+.tabs-selector .tabs-selector__item--last {
+    margin-right: 0;
+}
+
+.tabs-selector .tabs-selector__item--selected {
+    background-color: var(--blue-5);
+}
