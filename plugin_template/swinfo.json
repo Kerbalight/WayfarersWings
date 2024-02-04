@@ -5,7 +5,7 @@
   "name": "Wayfarer's Wings",
   "description": "Give each Kerbal the fame they deserves, know who was the first to plant a flag on Mun or whatever else",
   "source": "https://github.com/Kerbalight/WayfarersWings",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "version_check": "https://raw.githubusercontent.com/Kerbalight/WayfarersWings/main/plugin_template/swinfo.json",
   "ksp2_version": {
     "min": "0.2.1",
