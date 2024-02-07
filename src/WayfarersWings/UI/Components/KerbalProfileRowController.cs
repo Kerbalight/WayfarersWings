@@ -77,13 +77,18 @@ public class KerbalProfileRowController
     {
         _kerbalProfile = kerbalProfile;
 
-        if (!WingsSessionManager.Roster.TryGetKerbalByID(kerbalProfile.kerbalId, out var kerbalInfo))
+        if (!WingsSessionManager.Roster.TryGetKerbalByID(kerbalProfile.kerbalId, out var kerbalInfo) ||
+            kerbalInfo == null)
         {
             Logger.LogError("Kerbal not found in roster");
             return;
         }
 
-        _portrait.style.backgroundImage = new StyleBackground(kerbalInfo.Portrait.texture);
+        if (kerbalInfo.Portrait != null && kerbalInfo.Portrait.texture != null)
+        {
+            _portrait.style.backgroundImage = new StyleBackground(kerbalInfo.Portrait.texture);
+        }
+
         _name.text = kerbalInfo.Attributes.GetFullName();
         _missionsLabel.text = LocalizationManager.GetTranslation(LocalizedStrings.KerbalMissionsCount,
             new object[] { kerbalProfile.missionsCount });
